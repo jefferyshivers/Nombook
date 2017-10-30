@@ -1,24 +1,28 @@
-# README
+# Nombook: the open source, social recipe manager
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## About
 
-Things you may want to cover:
+description
 
-* Ruby version
+### Tools
 
-* System dependencies
+todo
 
-* Configuration
+### Features
 
-* Database creation
+todo
 
-* Database initialization
+## Setup
 
-* How to run the test suite
+todo (to run an instance of Nombook on your own)
 
-* Services (job queues, cache servers, search engines, etc.)
+The most important configuration to note (these are all specified automatically):
 
-* Deployment instructions
+- Ruby 2.3.3
+- React 16
+- React Router 4.2.2^
+- DraftJS 0.10.4
 
-* ...
+## Contribute
+
+todo
