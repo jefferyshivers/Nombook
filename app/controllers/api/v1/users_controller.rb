@@ -17,4 +17,16 @@ class Api::V1::UsersController < ApplicationController
 
   def destroy
   end
+
+  def whoami
+    if user_signed_in?
+      render json: { current_user: current_user }
+    else
+      render json: { current_user: false }
+    end
+  end
+
+  # def logout
+  #   sign_out current_user
+  # end
 end

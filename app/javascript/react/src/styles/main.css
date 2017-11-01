@@ -1,5 +1,9 @@
+@import './variables.css';
+
 .main {
   position: relative;
   float: left;
   width: 100%;
+  min-height: calc(100% - 60px);
+  background: var(--color-main-offwhite);
 }

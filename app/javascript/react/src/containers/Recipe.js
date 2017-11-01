@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 // import { connect } from 'react-redux';
 // import { navigateFeed } from '../actions/navigate'
 
-// import '../styles/containers/Recipes.css'
+// import '../styles/containers/Recipe.css'
 
-class Recipes extends Component {
+class Recipe extends Component {
   componentWillMount() {
     // this.props.navigate()
+
   }
 
   // renders recipe with "id"; if id is 'new', then initializes with either preset defaults
@@ -14,11 +15,11 @@ class Recipes extends Component {
 
   render() {
     return(
-      <div className='Recipes'>
-        recipes
+      <div className='Recipe'>
+        recipe with id = {this.props.match.params.id}
       </div>
     )
   }
 }
 
-export default Recipes;
+export default Recipe;

@@ -1,0 +1,198 @@
+@import '../variables.css';
+
+.RecipeForm {
+  position: relative;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 700px;
+}
+
+
+
+.RecipeForm > .meta,
+.RecipeForm > .ingredients,
+.RecipeForm > .method,
+.RecipeForm > .control-panel {
+  position: relative;
+  width: 100%;
+  /* min-height: 100px; */
+  background: white;
+  margin: 10px auto;
+  border-radius: 2px;
+  box-shadow: 0 0 6px rgba(0,0,0,.1);
+}
+.RecipeForm > .control-panel {
+  z-index: 20;
+  position: sticky;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  top: 60px;
+  box-shadow: 0 0 3px rgba(0,0,0,.3);
+  background: rgba(255,255,255,.95);
+}
+
+.RecipeForm > .control-panel > .style-button-group {
+  position: relative;
+  /* height: 100%; */
+  width: calc(100% - 100px);
+  /* height: 100px; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+.RecipeForm > .control-panel > .meta-button-group {
+  position: relative;
+  width: 100px;
+  /* height: 100%; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 5px;
+}
+.RecipeForm > .control-panel > .meta-button-group > .button {
+  position: relative;
+  width: 80px;
+  border-radius: 2px;
+  box-shadow: 0 0 3px rgba(0,0,0,.4);
+  margin: 5px;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-family: var(--font-sans-label);
+}
+.RecipeForm > .control-panel > .meta-button-group > .button:hover {
+  box-shadow: 0 0 6px rgba(0,0,0,.2);
+} 
+.RecipeForm > .control-panel > .meta-button-group > #save {
+  color: #3E8B3E;
+}
+.RecipeForm > .control-panel > .meta-button-group > #clear {
+  color: #9E5656;
+}
+
+
+.RecipeForm > .meta > div {
+  position: relative;
+  padding: 10px 20px;
+}
+.RecipeForm > .meta > .name {
+  font-size: 24pt;
+  text-align: center;
+}
+.RecipeForm > .meta > .author {
+  font-size: 14pt;
+  text-align: center;
+}
+.RecipeForm > .meta > .forked-from {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.RecipeForm > .meta > .forked-from > .forked-from-button {
+  padding: 3px 5px;
+  font-size: 12pt;
+  text-align: left;
+  border: 2px solid gray;
+  border-radius: 6px;
+}
+.RecipeForm > .meta > .description {
+  font-size: 14pt;
+  text-align: left;
+}
+
+.RecipeForm > .meta > .name > div,
+.RecipeForm > .meta > .description > div {
+  border-radius: 4px;
+  padding: 5px;
+}
+.RecipeForm > .meta > .name:hover > div,
+.RecipeForm > .meta > .description:hover > div,
+.RecipeForm > .ingredients > .ingredients-body:hover > div,
+.RecipeForm > .method > .step-container > .step:hover > div {
+  background: #EAFCF4;
+}
+
+.RecipeForm > div > .label {
+  position: relative;
+  margin: 0 auto;
+  width: calc(100% - 20px);
+  padding: 10px;
+  font-family: var(--font-sans-label);
+  color: var(--color-main-dark);
+}
+
+
+.RecipeForm > .ingredients > .ingredients-body {
+  position: relative;
+  padding: 10px 20px;
+  font-size: 14pt;
+}
+.RecipeForm > .ingredients > .ingredients-body > div {
+  border-radius: 4px;
+  padding: 5px;
+}
+
+.RecipeForm > .method {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.RecipeForm > .method > .step-container {
+  position: relative;
+  float: middle;
+  display: flex;
+  width: 100%;
+  padding: 4px 20px;
+  padding-right: 0;
+  font-size: 14pt;
+}
+
+.RecipeForm > .method > .step-container > .step-index {
+  position: relative;
+  float: left;
+  width: 28px;
+  height: auto;
+  font-size: 14pt;
+  font-family: var(--font-sans-label);
+  border-right: 2px solid var(--color-label-darkgray);
+  display: flex;
+  justify-content: center;
+  align-content: flex-start;
+  padding-top: 10px;
+}
+.RecipeForm > .method > .step-container > .step {
+  position: relative;
+  float: left;
+  width: calc(100% - 60px);
+  padding: 4px 20px;
+  font-size: 14pt;
+}
+.RecipeForm > .method > .step-container > .step > div {
+  border-radius: 4px;
+  padding: 5px;
+}
+.RecipeForm > .method > .add-a-step-button-container {
+  position: relative;
+  width: 100%;
+  float: left;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.RecipeForm > .method > .add-a-step-button-container > .add-a-step-button {
+  position: relative;
+  width: 100px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 6px rgba(0,0,0,.2);
+  border-radius: 8px;
+  cursor: pointer;
+}

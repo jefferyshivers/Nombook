@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { 
   BrowserRouter as Router,
   Route,
@@ -6,25 +7,31 @@ import {
   Switch
 } from 'react-router-dom';
 
-import NavBar from './containers/NavBar'
-import Feed from './containers/Feed'
-import Users from './containers/Users'
-import Recipes from './containers/Recipes'
-import BadPath from './containers/BadPath'
-import PublicHomePage from './containers/PublicHomePage'
+import NavBar from './containers/NavBar';
+import Feed from './containers/Feed';
+import Users from './containers/Users';
+import RecipeForm from './containers/RecipeForm';
+import Recipe from './containers/Recipe';
+import BadPath from './containers/BadPath';
+import PublicHomePage from './containers/PublicHomePage';
 
-import './styles/Nombook.css'
-import './styles/main.css'
+import { Nombook as NB } from './api';
+import { updateUser } from './actions/current_user';
+import './styles/Nombook.css';
+import './styles/main.css';
 
-export default class Nombook extends Component {
+class Nombook extends Component {
   componentWillMount() {
-    // get user authentication
-    // load into store
-    console.log('i will mount')
+    let that = this;
+    const nb = new NB();
+    
+    nb.request('GET', '/users/whoami', body => {
+      that.props.onUpdateUser(body.current_user)
+    })
   }
 
   render() {
-    const nombook = (this.props.is_logged_in === true) ? (
+    const nombook = (this.props.current_user) ? (
       <div className="Nombook">
         {/* nav bar */}
         <Route path="/" component={NavBar}/>
@@ -40,11 +47,11 @@ export default class Nombook extends Component {
               )} />
             <Route 
               exact path='/recipes/new' 
-              component={Recipes}/>
+              component={RecipeForm}/>
             <Route 
               exact path='/recipes/:id' 
               render={(props) => (
-                <Recipes {...props}/>
+                <Recipe {...props}/>
               )} />
             
             {/* catch all */}
@@ -66,3 +73,22 @@ export default class Nombook extends Component {
     )
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    current_user: state.current_user
+  }
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onUpdateUser: (user) => {
+      dispatch(updateUser(user))
+    }
+  }
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Nombook);

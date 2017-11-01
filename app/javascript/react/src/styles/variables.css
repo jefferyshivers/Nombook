@@ -1,0 +1,11 @@
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
+
+:root {
+  --color-main-white: rgb(255,255,255);
+  --color-main-offwhite: rgb(245,245,245);
+  --color-main-dark: #1A284E;
+  --color-label-darkgray: #727171;
+
+  --font-sans-label: 'Source Sans', sans-serif;
+  /* --font-sans-content: 'Montserrat Alternates', sans-serif; */
+}

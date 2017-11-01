@@ -1,13 +1,20 @@
 Rails.application.routes.draw do
+  root "static_pages#index"
+
   devise_for :users
 
-  root "static_pages#index"
+  devise_scope :user do
+     get 'logout' => "devise/sessions#destroy"
+  end
+
+  # devise_for :users, :controllers => {sessions: 'sessions', registrations: 'registrations'}
 
   namespace :api do
     namespace :v1 do
-
       resources :users do
         resources :recipes
+
+        get "whoami", on: :collection
       end
 
       resources :recipes do
