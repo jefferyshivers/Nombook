@@ -50,6 +50,13 @@ const editor = (state = init, action) => {
     case 'CLEAR_FORM':
       return init
 
+    case 'FORK':
+      return Object.assign({}, init, {
+        forked_from_recipe: action.id,
+        name: action.name,
+        ingredients_body: action.ingredients_body
+      })
+
     default:
       return state
   }

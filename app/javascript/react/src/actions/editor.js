@@ -25,3 +25,12 @@ export const clearForm = () => {
     type: 'CLEAR_FORM'
   }
 }
+
+export const fork = (params) => {
+  return {
+    type: 'FORK',
+    id: params.id,
+    name: params.name,
+    ingredients_body: params.ingredients_body
+  }
+}

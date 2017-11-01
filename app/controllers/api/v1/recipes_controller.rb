@@ -6,7 +6,9 @@ class Api::V1::RecipesController < ApplicationController
   end
 
   def show
-    render json: {'body': ['test']}
+    # render json: {'body': ['test']}
+    recipe = Recipe.find(params[:id])
+    render json: { recipe: recipe }
   end
 
   def create

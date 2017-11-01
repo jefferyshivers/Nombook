@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 
 import { changeMetaField, changeStep, addAStep, clearForm } from '../actions/editor';
 import { Nombook as NB } from '../api';
-import '../styles/containers/RecipeForm.css';
+import '../styles/containers/Recipe_RecipeForm.css';
 
 class RecipeForm extends Component {
   constructor(props) {
@@ -18,10 +18,6 @@ class RecipeForm extends Component {
     this.handleChangeStep = this.handleChangeStep.bind(this)
     this.handleSaveRecipe = this.handleSaveRecipe.bind(this)
     this.handleClearForm = this.handleClearForm.bind(this)
-  }
-
-  componentWillMount() {
-    console.log('loading new form!')
   }
 
   handleChangeMetaField(field, editorState) {
@@ -170,7 +166,7 @@ class RecipeForm extends Component {
     )
 
     return(
-      <div className='RecipeForm'>
+      <div className='Recipe'>
         {control_panel}
         {meta}
         {ingredients}
