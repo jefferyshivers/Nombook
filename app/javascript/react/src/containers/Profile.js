@@ -20,22 +20,26 @@ class Profile extends Component {
 
   render() {
     {/* control panel */}
-    const control_panel = (
+    const control_panel = (this.props.current_user.username !== this.props.match.params.username) ? (
       <div className="control-panel">
-        <div className="style-button-group"></div>
+        <div className="relationship-container">
+          Control panel (edit account, follow user, "You have 5 forks in common."). 
+          This will stick to the top of the page.
+        </div>
         <div className="meta-button-group">
           <div 
             className="button">
-            Save
+            follow
           </div>
 
         </div>
       </div>
-    )
+    ) : null
 
     {/* meta card */}
     const meta = (
       <div className="meta">
+        Profile stuff: picture, name, following, followers, 
 
         {/* name */}
         <div className="name">
@@ -61,4 +65,13 @@ class Profile extends Component {
   }
 }
 
-export default Profile;
+const mapStateToProps = state => {
+  return {
+    current_user: state.current_user
+  }
+};
+
+export default connect(
+  mapStateToProps,
+  null
+)(Profile);
