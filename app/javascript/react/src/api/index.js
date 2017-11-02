@@ -31,6 +31,7 @@ class Nombook {
       })
       .catch(error => {
         console.info('Error in request:', error.message)
+        callback(false)
       });
   }
 }

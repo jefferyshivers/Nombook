@@ -10,10 +10,13 @@ const init = {
   description: EditorState.createEmpty(),
   ingredients_body: EditorState.createEmpty(),
   steps: [new_step_blueprint],
-  forked_from_recipe: false
+  forked_from_recipe_id: false,
+  forked_from_recipe_name: false
 }
 
 const editor = (state = init, action) => {
+  let steps = state.steps
+
   switch(action.type) {
     case 'ADD_STEP':
       let new_step = Object.assign({}, new_step_blueprint, {
@@ -26,16 +29,25 @@ const editor = (state = init, action) => {
       })
 
     case 'DELETE_STEP':
+      if (steps[action.index].index_in_recipe === action.index) {
+        steps.splice(action.index, 1)
+        steps = steps.map((step, index) => {
+          return {
+            index_in_recipe: index,
+            body: step.body
+          }
+        })
+      } else {
+        console.log('Index to change does not match index in the list!')
+      }
       return Object.assign({}, state, {
-        steps: state.steps.filter(step => { return step.index_in_recipe !== action.index })
+        steps: steps
       })
 
     case 'UPDATE_STEP':
-      let steps = state.steps
       if (steps[action.index].index_in_recipe === action.index) {
         steps[action.index].body = action.body
       } else {
-        // this shouldn't happen, but leave here for the time being.
         console.log('Index to change does not match index in the list!')
       }
       return Object.assign({}, state, {
@@ -52,9 +64,11 @@ const editor = (state = init, action) => {
 
     case 'FORK':
       return Object.assign({}, init, {
-        forked_from_recipe: action.id,
+        forked_from_recipe_name: action.name,
+        forked_from_recipe_id: action.id,
         name: action.name,
-        ingredients_body: action.ingredients_body
+        ingredients_body: action.ingredients_body,
+        steps: action.steps
       })
 
     default:

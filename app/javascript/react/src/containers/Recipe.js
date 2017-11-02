@@ -15,22 +15,34 @@ import '../styles/containers/Recipe_RecipeForm.css';
 class Recipe extends Component {
   constructor(props) {
     super(props)
+    this.loadRecipe = this.loadRecipe.bind(this)
     this.handleChangeMetaField = this.handleChangeMetaField.bind(this)
     this.handleChangeStep = this.handleChangeStep.bind(this)
-    this.handleSaveRecipe = this.handleSaveRecipe.bind(this)
-    this.handleClearForm = this.handleClearForm.bind(this)
+    this.handleAddStep = this.handleAddStep.bind(this)
+    this.handleSaveUpdatedRecipe = this.handleSaveUpdatedRecipe.bind(this)
+    this.handleCancelEdits = this.handleCancelEdits.bind(this)
+    this.handleDeleteStep = this.handleDeleteStep.bind(this)
+    this.handleDeleteRecipe = this.handleDeleteRecipe.bind(this)
     this.handleFork = this.handleFork.bind(this)
     this.state = {
       editing: false,
       recipe: {
         name: EditorState.createEmpty(),
         description: EditorState.createEmpty(),
-        ingredients_body: EditorState.createEmpty()
-      }
+        ingredients_body: EditorState.createEmpty(),
+        id: null
+      },
+      steps: [],
+      forked_from: null,
+      owner: {}
     }
   }
 
   componentWillMount() {
+    this.loadRecipe()
+  }
+
+  loadRecipe() {
     const nb = new NB();
 
     nb.request('GET', `/recipes/${this.props.match.params.id}`, res => {
@@ -38,51 +50,145 @@ class Recipe extends Component {
         let recipe = Object.assign({}, res.recipe, {
           name: EditorState.createWithContent(convertFromRaw(JSON.parse(res.recipe.name))),
           description: EditorState.createWithContent(convertFromRaw(JSON.parse(res.recipe.description))),
-          ingredients_body: EditorState.createWithContent(convertFromRaw(JSON.parse(res.recipe.ingredients_body)))
+          ingredients_body: EditorState.createWithContent(convertFromRaw(JSON.parse(res.recipe.ingredients_body))),
+          id: res.recipe.id
         })
-        this.setState({recipe: recipe})
-      } else { 
-        console.log('Something went wrong while trying to load this recipe.') 
+        let steps = res.steps.map(step => {
+          return {
+            index_in_recipe: step.index_in_recipe,
+            body: EditorState.createWithContent(convertFromRaw(JSON.parse(step.body)))
+          }
+        })
+        let forked_from = (res.forked_from) ? Object.assign({}, res.forked_from, {
+          name: EditorState.createWithContent(convertFromRaw(JSON.parse(res.forked_from.name))),
+          description: EditorState.createWithContent(convertFromRaw(JSON.parse(res.forked_from.description))),
+          ingredients_body: EditorState.createWithContent(convertFromRaw(JSON.parse(res.forked_from.ingredients_body)))
+        }) : null
+
+        this.setState({
+          recipe: recipe, 
+          steps: steps, 
+          forked_from: forked_from, 
+          editing: false,
+          owner: res.owner
+        })
+      } else {
+        this.props.history.push("/");
+        console.log('Something went wrong while trying to load this recipe.');
       }
     })
   }
 
-  handleForkRecipe() {
-    // this.props.onChangeMetaField(field, editorState)
-  }
-
   handleChangeMetaField(field, editorState) {
-    // this.props.onChangeMetaField(field, editorState)
+    this.setState({
+      recipe: Object.assign({}, this.state.recipe, {
+        [field]: editorState
+      })
+    })
   }
 
   handleChangeStep(index_in_recipe, editorState) {
-    // this.props.onChangeStep(index_in_recipe, editorState)
+    let steps = this.state.steps
+    steps[index_in_recipe].body = editorState
+    this.setState({
+      steps: steps
+    })
   }
 
-  handleSaveRecipe() {
-    // const nb = new NB();
-
-    // let body = {
-    //   name: JSON.stringify(convertToRaw(this.state.editor.name.getCurrentContent())),
-    //   description: JSON.stringify(convertToRaw(this.state.editor.description.getCurrentContent())),
-    //   ingredients_body: JSON.stringify(convertToRaw(this.state.editor.ingredients_body.getCurrentContent()))
-    // }
-
-    // let params = {
-    //   method: 'POST',
-    //   body: JSON.stringify(body)
-    // }
-
-    // nb.request(params, `/users/${this.props.current_user.id}/recipes`, res => {
-    //   if (res.saved) {
-    //     this.props.history.push(res.location);
-    //     this.props.onClearForm();
-    //   }
-    // })
+  handleAddStep() {
+    let new_step_blueprint = {
+      index_in_recipe: this.state.steps.length,
+      body: EditorState.createEmpty()
+    }
+    this.setState({
+      steps: this.state.steps.concat(new_step_blueprint)
+    })
   }
 
-  handleClearForm() {
-    this.props.onClearForm();
+  handleDeleteStep(index) {
+    if (index === this.state.steps[index].index_in_recipe) {
+      let steps = this.state.steps;
+      steps.splice(index, 1);
+      steps = steps.map((step, index) => {
+        return {
+          index_in_recipe: index,
+          body: step.body
+        }
+      })
+
+      this.setState({
+        steps: steps
+      })
+    } else {
+      console.log('The indeces do not match!')
+    }
+  }
+
+  handleSaveUpdatedRecipe() {
+    const nb = new NB();
+
+    let steps = this.state.steps.map(step => {
+      return {
+        index_in_recipe: step.index_in_recipe,
+        body: JSON.stringify(convertToRaw(step.body.getCurrentContent()))
+      }
+    })
+    let body = {
+      name: JSON.stringify(convertToRaw(this.state.recipe.name.getCurrentContent())),
+      description: JSON.stringify(convertToRaw(this.state.recipe.description.getCurrentContent())),
+      ingredients_body: JSON.stringify(convertToRaw(this.state.recipe.ingredients_body.getCurrentContent())),
+      steps: steps
+    }
+    let params = {
+      method: 'PATCH',
+      body: JSON.stringify(body)
+    }
+
+    nb.request(params, `/users/${this.props.current_user.id}/recipes/${this.state.recipe.id}`, res => {
+      if (res.saved) {
+        let recipe = Object.assign({}, res.recipe, {
+          name: EditorState.createWithContent(convertFromRaw(JSON.parse(res.recipe.name))),
+          description: EditorState.createWithContent(convertFromRaw(JSON.parse(res.recipe.description))),
+          ingredients_body: EditorState.createWithContent(convertFromRaw(JSON.parse(res.recipe.ingredients_body))),
+        })
+        let steps = res.steps.map(step => {
+          return {
+            index_in_recipe: step.index_in_recipe,
+            body: EditorState.createWithContent(convertFromRaw(JSON.parse(step.body)))
+          }
+        })
+
+        this.setState({
+          editing: false,
+          recipe: recipe,
+          steps: steps
+        })
+      } else {
+        console.log('no good');
+      }
+    })
+  }
+
+  handleDeleteRecipe() {
+    let recipe = this.state.recipe
+    let id = recipe.id
+    // TODO add a confirmation alert here
+    let nb = new NB();
+
+    nb.request('DELETE', `/users/${this.props.current_user.id}/recipes/${this.state.recipe.id}`, res => {
+      if (res.deleted) {
+        this.props.history.push(`/users/${this.props.current_user.id}`);
+      } else {
+        console.log('Something went wrong.');
+      }
+    })
+  }
+
+  handleCancelEdits() {
+    this.setState({
+      editing: false
+    })
+    this.loadRecipe()
   }
 
   handleFork() {
@@ -90,29 +196,51 @@ class Recipe extends Component {
     let params = {
       id: this.state.recipe.id,
       name: this.state.recipe.name,
-      ingredients_body: this.state.recipe.ingredients_body
+      ingredients_body: this.state.recipe.ingredients_body,
+      steps: this.state.steps
     }
 
     this.props.onFork(params);
   }
 
   render() {
-    const forked_from_id = this.props.editor.forked_from_recipe
-    let forked_from_message = (forked_from_id) ? (
+    // this is a quick hack to rerender the component, since react-router blocks it from normally reloading
+    // for more details on this issue, see: https://github.com/ReactTraining/react-router/issues/5037
+    if (this.state.recipe.id && this.props.match.params.id !== this.state.recipe.id.toString()) {
+      this.loadRecipe()
+    }
+
+    const forked_from_message = (this.state.forked_from) ? (
       <div className="forked-from">
-        <div className="forked-from-button">
-          Forked from {forked_from_id}
+        <div 
+          className="forked-from-button"
+          onClick={() => {
+            this.props.history.push(`/recipes/${this.state.forked_from.id}`);
+          }}>
+          <div className="label">Forked from</div>
+          <Editor 
+            readOnly={true}
+            editorState={this.state.forked_from.name} 
+            onChange={() => {}} />
         </div>
       </div>
     ) : null
 
 
     {/* edit or fork button */}
-    const edit_or_fork_button = (this.state.recipe.user_id !== this.props.current_user.id) ? (
+    const edit_or_fork_button = (this.state.recipe.user_id === this.props.current_user.id) ? (
       <div className="edit-or-fork-button-container">
         <div className="button" id="edit" onClick={() => {this.setState({editing: true})}}>
           edit
         </div>
+        <div className="button" id="like">
+          <i className="material-icons">favorite_border</i>
+          {" like"}
+        </div>
+        <div className="button" id="fork" onClick={this.handleFork}>
+          <i className="material-icons">call_split</i>
+          {" fork"}
+        </div>        
       </div>
     ) : (
       <div className="edit-or-fork-button-container">
@@ -135,14 +263,14 @@ class Recipe extends Component {
           <div 
             className="button" 
             id="save"
-            onClick={this.handleSaveRecipe}
+            onClick={this.handleSaveUpdatedRecipe}
             title="save form">
             Save
           </div>
           <div 
             className="button" 
             id="cancel"
-            onClick={() => this.setState({editing: false})}
+            onClick={this.handleCancelEdits}
             title="cancel edits">
             Cancel
           </div>
@@ -168,8 +296,8 @@ class Recipe extends Component {
         {/* author */}
         <div className="author">
           {"by "}
-          <Link to={`/users/${this.props.current_user.username}`}>
-            {this.props.current_user.username}
+          <Link to={`/users/${this.state.owner.username}`}>
+            {this.state.owner.username}
           </Link>
         </div>
 
@@ -203,12 +331,23 @@ class Recipe extends Component {
     )
 
     {/* steps card */}
-    const steps = this.props.editor.steps.map(step => {
+    const steps = this.state.steps.map(step => {
       return(
         <div className="step-container" key={step.index_in_recipe}>
-          
-          <div className="step-index">{step.index_in_recipe + 1}</div>
-          
+          <div className="step-index-container">
+            <div className="step-index-number">
+              {step.index_in_recipe + 1}
+            </div>
+            {(this.state.editing) ? (
+              <div className="step-index-delete">
+                <i 
+                  className="material-icons" 
+                  onClick={() => {this.handleDeleteStep(step.index_in_recipe)}}>
+                  delete
+                </i>
+              </div>
+            ) : null}
+          </div>
           <div className="step">
             <Editor 
               spellCheck={true}
@@ -221,7 +360,7 @@ class Recipe extends Component {
     })
     const add_a_step_button = (this.state.editing) ? (
       <div className="add-a-step-button-container">
-        <div className="add-a-step-button" onClick={() => {this.props.onAddAStep()}}>
+        <div className="add-a-step-button" onClick={this.handleAddStep}>
           Add a step
         </div>
       </div>
@@ -236,12 +375,22 @@ class Recipe extends Component {
       </div>
     )
 
+    {/* delete recipe button */}
+    const delete_recipe_button = (this.state.editing) ? (
+      <div className="delete-recipe-button-container">
+        <div className="delete-recipe-button" onClick={this.handleDeleteRecipe}>
+          Delete recipe
+        </div>
+      </div>
+    ) : null
+
     return(
       <div className='Recipe'>
         {edit_fork_button_or_control_panel}
         {meta}
         {ingredients}
         {method}
+        {delete_recipe_button}        
       </div>
     )
   }

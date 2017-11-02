@@ -1,0 +1,144 @@
+@import '../variables.css';
+@import '../components/RecipeTile.css';
+
+.Profile {
+  position: relative;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 700px;
+}
+
+.Profile > .meta,
+.Profile > .control-panel {
+  position: relative;
+  width: 100%;
+  background: white;
+  margin: 10px auto;
+  border-radius: 2px;
+  box-shadow: 0 0 6px rgba(0,0,0,.1);
+}
+.Profile > .control-panel,
+.Profile > .edit-or-fork-button-container {
+  z-index: 20;
+  position: sticky;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 60px;
+  box-shadow: 0 0 3px rgba(0,0,0,.3);
+  background: rgba(255,255,255,.95);
+}
+.Profile > .edit-or-fork-button-container > .button {
+  position: relative;
+  border: 2px solid gray;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+  padding: 4px;
+  cursor: pointer;
+}
+.Profile > .edit-or-fork-button-container > #edit.button {
+  position: absolute;
+  right: 0;
+  margin: auto 10px;
+}
+.Profile > .edit-or-fork-button-container > .button > i {
+  margin-right: 8px;
+}
+
+.Profile > .control-panel > .style-button-group {
+  position: relative;
+  width: calc(100% - 100px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+.Profile > .control-panel > .meta-button-group {
+  position: relative;
+  width: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  padding: 5px;
+}
+.Profile > .control-panel > .meta-button-group > .button {
+  position: relative;
+  width: 80px;
+  border-radius: 2px;
+  box-shadow: 0 0 3px rgba(0,0,0,.4);
+  margin: 5px;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-family: var(--font-sans-label);
+}
+.Profile > .control-panel > .meta-button-group > .button:hover {
+  box-shadow: 0 0 6px rgba(0,0,0,.2);
+} 
+.Profile > .control-panel > .meta-button-group > #save {
+  color: #3E8B3E;
+}
+.Profile > .control-panel > .meta-button-group > #clear {
+  color: #9E5656;
+}
+
+.Profile > .meta {
+  min-height: 200px;
+}
+.Profile > .meta > div {
+  position: relative;
+  padding: 10px 20px;
+}
+.Profile > .meta > .name {
+  font-size: 24pt;
+  text-align: center;
+}
+.Profile > .meta > .author {
+  font-size: 14pt;
+  text-align: center;
+}
+.Profile > .meta > .forked-from {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.Profile > .meta > .forked-from > .forked-from-button {
+  padding: 3px 5px;
+  font-size: 12pt;
+  text-align: left;
+  border: 2px solid gray;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.Profile > .meta > .forked-from > .forked-from-button > div {
+  text-align: center;
+}
+.Profile > .meta > .forked-from > .forked-from-button > .label {
+  position: relative;
+  font-family: var(--font-sans-label);
+  color: var(--color-main-dark);
+  font-size: 11pt;
+}
+
+.Profile > .meta > .description {
+  font-size: 14pt;
+  text-align: left;
+}
+
+.Profile > .meta > .name > div,
+.Profile > .meta > .description > div {
+  border-radius: 4px;
+  padding: 5px;
+}
+.Profile > .meta > .name:hover > div,
+.Profile > .meta > .description:hover > div,
+.Profile > .ingredients > .ingredients-body:hover > div,
+.Profile > .method > .step-container > .step:hover > div {
+  background: #EAFCF4;
+}

@@ -7,7 +7,7 @@ import {
   convertToRaw } from 'draft-js';
 import { Link } from 'react-router-dom';
 
-import { changeMetaField, changeStep, addAStep, clearForm } from '../actions/editor';
+import { changeMetaField, changeStep, addAStep, deleteStep, clearForm } from '../actions/editor';
 import { Nombook as NB } from '../api';
 import '../styles/containers/Recipe_RecipeForm.css';
 
@@ -31,10 +31,22 @@ class RecipeForm extends Component {
   handleSaveRecipe() {
     const nb = new NB();
 
+    let steps = this.props.editor.steps.map(step => {
+      return {
+        index_in_recipe: step.index_in_recipe,
+        body: JSON.stringify(convertToRaw(step.body.getCurrentContent()))
+      }
+    })
     let body = {
       name: JSON.stringify(convertToRaw(this.props.editor.name.getCurrentContent())),
       description: JSON.stringify(convertToRaw(this.props.editor.description.getCurrentContent())),
-      ingredients_body: JSON.stringify(convertToRaw(this.props.editor.ingredients_body.getCurrentContent()))
+      ingredients_body: JSON.stringify(convertToRaw(this.props.editor.ingredients_body.getCurrentContent())),
+      steps: steps
+    }
+
+    let forked_from_id = this.props.editor.forked_from_recipe_id
+    if (forked_from_id) {
+      body.forked_from_id = forked_from_id
     }
 
     let params = {
@@ -55,11 +67,21 @@ class RecipeForm extends Component {
   }
 
   render() {
-    const forked_from_id = this.props.editor.forked_from_recipe
-    let forked_from_message = (forked_from_id) ? (
+
+    {/* forked from message */}
+    const forked_from_name = this.props.editor.forked_from_recipe_name
+    let forked_from_message = (forked_from_name) ? (
       <div className="forked-from">
-        <div className="forked-from-button">
-          Forked from {forked_from_id}
+        <div 
+          className="forked-from-button"
+          onClick={() => {
+            this.props.history.push(`/recipes/${this.props.editor.forked_from_recipe_id}`);
+          }}>
+          <div className="label">Forked from</div>
+          <Editor 
+            readOnly={true}
+            editorState={forked_from_name} 
+            onChange={() => {}} />
         </div>
       </div>
     ) : null
@@ -137,7 +159,18 @@ class RecipeForm extends Component {
       return(
         <div className="step-container" key={step.index_in_recipe}>
           
-          <div className="step-index">{step.index_in_recipe + 1}</div>
+          <div className="step-index-container">
+            <div className="step-index-number">
+              {step.index_in_recipe + 1}
+            </div>
+            <div className="step-index-delete">
+              <i 
+                className="material-icons" 
+                onClick={() => {this.props.onDeleteStep(step.index_in_recipe)}}>
+                delete
+              </i>
+            </div>
+          </div>
           
           <div className="step">
             <Editor 
@@ -193,6 +226,9 @@ const mapDispatchToProps = dispatch => {
     },
     onAddAStep: () => {
       dispatch(addAStep())
+    },
+    onDeleteStep: (index_in_recipe) => {
+      dispatch(deleteStep(index_in_recipe))
     },
     onClearForm: () => {
       dispatch(clearForm())

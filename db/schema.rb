@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171031024515) do
+ActiveRecord::Schema.define(version: 20171101202645) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "forks", force: :cascade do |t|
+    t.bigint "forked_from_id", null: false
+    t.bigint "forker_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["forked_from_id", "forker_id"], name: "index_forks_on_forked_from_id_and_forker_id"
+    t.index ["forked_from_id"], name: "index_forks_on_forked_from_id"
+    t.index ["forker_id"], name: "index_forks_on_forker_id"
+  end
 
   create_table "recipes", force: :cascade do |t|
     t.bigint "user_id", null: false

@@ -6,6 +6,9 @@ html, body, #app {
   margin: 0;
   padding: 0;
   background: var(--color-main-white);
+  -webkit-tap-hightlight-color: rgba(0,0,0,0);
+  -webkit-overflow-scrolling: touch;
+  overflow: hidden;
 }
 
 .Nombook {
@@ -13,5 +16,10 @@ html, body, #app {
   float: left;
   width: 100%;
   height: 100%;
-  overflow: scroll;
+  overflow: auto;
+}
+
+a {
+  text-decoration: none;
+  color: var(--color-main-dark);
 }

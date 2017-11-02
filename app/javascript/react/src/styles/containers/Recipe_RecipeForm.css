@@ -13,7 +13,8 @@
 .Recipe > .ingredients,
 .Recipe > .method,
 .Recipe > .control-panel,
-.Recipe > .edit-or-fork-button-container {
+.Recipe > .edit-or-fork-button-container,
+.Recipe > .delete-recipe-button-container {
   position: relative;
   width: 100%;
   background: white;
@@ -42,6 +43,11 @@
   margin: 10px;
   padding: 4px;
   cursor: pointer;
+}
+.Recipe > .edit-or-fork-button-container > #edit.button {
+  position: absolute;
+  right: 0;
+  margin: auto 10px;
 }
 .Recipe > .edit-or-fork-button-container > .button > i {
   margin-right: 8px;
@@ -111,7 +117,18 @@
   text-align: left;
   border: 2px solid gray;
   border-radius: 6px;
+  cursor: pointer;
 }
+.Recipe > .meta > .forked-from > .forked-from-button > div {
+  text-align: center;
+}
+.Recipe > .meta > .forked-from > .forked-from-button > .label {
+  position: relative;
+  font-family: var(--font-sans-label);
+  color: var(--color-main-dark);
+  font-size: 11pt;
+}
+
 .Recipe > .meta > .description {
   font-size: 14pt;
   text-align: left;
@@ -164,7 +181,7 @@
   font-size: 14pt;
 }
 
-.Recipe > .method > .step-container > .step-index {
+.Recipe > .method > .step-container > .step-index-container {
   position: relative;
   float: left;
   width: 28px;
@@ -175,7 +192,41 @@
   display: flex;
   justify-content: center;
   align-content: flex-start;
+  padding-top: 0;
+}
+
+.Recipe > .method > .step-container > .step-index-container > .step-index-number,
+.Recipe > .method > .step-container > .step-index-container > .step-index-delete {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: calc(100% - 10px);
   padding-top: 10px;
+  display: flex;
+  align-items: flex-start;
+  background: white;
+}
+.Recipe > .method > .step-container > .step-index-container > .step-index-number {
+  font-size: 12pt;
+  z-index: 1;
+  justify-content: flex-end;
+  padding-right: 6px;
+  width: calc(100% - 6px);
+}
+
+.Recipe > .method > .step-container > .step-index-container > .step-index-delete {
+  z-index: -10;
+  width: 100%;  
+  font-size: 14pt;  
+  justify-content: center;  
+  color: var(--color-main-dark);
+}
+.Recipe > .method > .step-container > .step-index-container > .step-index-delete > i:hover {
+  cursor: pointer;
+  text-shadow: 0 0 6px rgba(0,0,0,.2);
+}
+.Recipe > .method > .step-container > .step-index-container:hover > .step-index-delete {
+  z-index: 20;
 }
 .Recipe > .method > .step-container > .step {
   position: relative;
@@ -204,7 +255,37 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 0 6px rgba(0,0,0,.2);
+  box-shadow: 0 0 4px rgba(0,0,0,.4);
   border-radius: 8px;
   cursor: pointer;
+}
+
+
+
+
+.Recipe > .delete-recipe-button-container {
+  background: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: none;
+}
+
+.Recipe > .delete-recipe-button-container > .delete-recipe-button {
+  background: white;
+  position: relative;
+  width: 100px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  box-shadow: 0 0 4px rgba(0,0,0,.4);
+  border-radius: 8px;
+  border: 2px solid var(--color-main-red);
+  cursor: pointer;
+}
+.Recipe > .delete-recipe-button-container > .delete-recipe-button:hover,
+.Recipe > .method > .add-a-step-button-container > .add-a-step-button:hover {
+  box-shadow: 0 0 10px rgba(0,0,0,.2);
 }

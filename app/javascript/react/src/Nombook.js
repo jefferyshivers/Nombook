@@ -9,7 +9,7 @@ import {
 
 import NavBar from './containers/NavBar';
 import Feed from './containers/Feed';
-import Users from './containers/Users';
+import Profile from './containers/Profile';
 import RecipeForm from './containers/RecipeForm';
 import Recipe from './containers/Recipe';
 import BadPath from './containers/BadPath';
@@ -33,6 +33,7 @@ class Nombook extends Component {
   render() {
     const nombook = (this.props.current_user) ? (
       <div className="Nombook">
+
         {/* nav bar */}
         <Route path="/" component={NavBar}/>
 
@@ -41,9 +42,9 @@ class Nombook extends Component {
           <Switch>
             <Route exact path='/' component={Feed}/>
             <Route 
-              exact path='/users/:id' 
+              exact path='/users/:username' 
               render={(props) => (
-                <Users {...props}/>
+                <Profile {...props}/>
               )} />
             <Route 
               exact path='/recipes/new' 
@@ -51,7 +52,7 @@ class Nombook extends Component {
             <Route 
               exact path='/recipes/:id' 
               render={(props) => (
-                <Recipe {...props}/>
+                <Recipe location={location} {...props}/>
               )} />
             
             {/* catch all */}

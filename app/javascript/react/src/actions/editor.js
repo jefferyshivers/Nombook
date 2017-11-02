@@ -20,6 +20,13 @@ export const addAStep = () => {
   }
 }
 
+export const deleteStep = (index_in_recipe) => {
+  return {
+    type: 'DELETE_STEP',
+    index: index_in_recipe
+  }
+}
+
 export const clearForm = () => {
   return {
     type: 'CLEAR_FORM'
@@ -31,6 +38,7 @@ export const fork = (params) => {
     type: 'FORK',
     id: params.id,
     name: params.name,
-    ingredients_body: params.ingredients_body
+    ingredients_body: params.ingredients_body,
+    steps: params.steps
   }
 }
