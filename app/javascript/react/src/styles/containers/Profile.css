@@ -144,6 +144,22 @@
   justify-content: center;
   align-items: flex-start;
 }
+.Profile > .meta > .picture-and-name > .edit-profile-or-save-button {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  font-size: 12pt;
+
+  border: 2px solid gray;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+  padding: 4px;
+  cursor: pointer;
+}
+
 .Profile > .meta > .description-and-statistics {
   font-size: 24pt;
   text-align: center;

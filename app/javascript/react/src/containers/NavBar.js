@@ -23,50 +23,60 @@ class NavBar extends Component {
   }
 
   render() {
-    const user_style = (this.state.user_icon_focused) ? ({
+    const user_style = (this.state.user_icon_focused) ? {
       background: "gray"
-    }) : null
+    } : null
 
+    {/* home */}
+    const home = (
+      <div className="home">
+        <Link to="/">
+          nombook
+        </Link>
+      </div>
+    )
 
+    {/* search */}
+    const search = (
+      <div className="search">
+        <div className="inner">
+          search
+        </div>
+      </div>
+    )
+
+    {/* user */}
+    const user = (
+      <div className="user" style={user_style}>
+        <Link to={`/users/${this.props.current_user.username}`} className="icon">
+          u
+        </Link>
+      </div>
+    )
+
+    // <button
+    //   className="icon"
+    //   onClick={() => {this.toggleFocusUserIcon()}}
+    //   onBlur={() => {if (this.state.user_icon_focused) {this.toggleFocusUserIcon()}}}>
+    //   {(this.props.current_user.avatar) ? <i className="material-icons">account_circle</i> : <i className="material-icons">account_circle</i> }            
+    // </button>
+
+    {/* add a recipe */}
+    const add_a_recipe = (
+      <div className="add">
+        <Link to="/recipes/new" className="icon">
+          +
+        </Link>
+      </div>
+    )
 
     return(
       <div className='NavBar'>
         <div className="inner">
-
-          {/* home */}
-          <div className="home">
-            <Link to="/">
-              Home
-            </Link>
-          </div>
-
-          {/* search */}
-          <div className="search">
-            <div className="inner">
-              search
-            </div>
-          </div>
-
-
-          {/* user */}
-          <div className="user" style={user_style}>
-
-            <button
-              className="icon"
-              onClick={() => {this.toggleFocusUserIcon()}}
-              onBlur={() => {if (this.state.user_icon_focused) {this.toggleFocusUserIcon()}}}>
-              {(this.props.current_user.avatar) ? <i className="material-icons">account_circle</i> : <i className="material-icons">account_circle</i> }            
-            </button>
-
-          </div>
-
-          {/* add a recipe */}
-          <div className="add">
-            <Link to="/recipes/new">
-              +
-            </Link>
-          </div>
-          
+          {home}
+          {search}
+          {add_a_recipe}
+          {user}
         </div>
       </div>
     )

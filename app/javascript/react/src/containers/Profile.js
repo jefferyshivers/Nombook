@@ -66,6 +66,23 @@ class Profile extends Component {
       </div>
     ) : null
 
+
+    const edit_profile_or_save_button = (this.state.editing) ? (
+      <div 
+        className="edit-profile-or-save-button"
+        onClick={() => {}}>
+        save
+      </div>
+    ) : (
+      <div 
+        className="edit-profile-or-save-button"
+        onClick={() => {}}>
+        edit
+      </div>
+    )
+
+    const edit_or_save_if_me = (this.props.current_user.username === this.props.match.params.username) ? edit_profile_or_save_button : null
+
     {/* meta card 
         Profile stuff: picture, name, following, followers, 
     */}
@@ -83,6 +100,8 @@ class Profile extends Component {
           <div className="name-container">
               username
           </div>
+
+          {edit_or_save_if_me}
         </div>
         
         <div className="description-and-statistics">

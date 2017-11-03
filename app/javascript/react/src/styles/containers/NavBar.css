@@ -17,33 +17,45 @@
   width: 100%;
   max-width: 1000px;
   height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .NavBar > .inner > .user,
 .NavBar > .inner > .add {
   position: relative;
-  float: right;
-  width: 100px;
+  float: left;
+  width: 25%;
+  max-width: 100px;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
+.NavBar > .inner > .add > .icon {
+  background: orange;
+}
+
+.NavBar > .inner > .add > .icon,
 .NavBar > .inner > .user > .icon {
   position: relative;
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   border: none;
   outline: none;
-  background: none;
+  background: white;
+  box-shadow: 0 0 6px rgba(0,0,0,.2);
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .NavBar > .inner > .user > .icon > .material-icons {
-  font-size: 40pt;
-  transform: translate(-7px, -3.5px);
+  font-size: 32pt;
+  transform: translateY(-1.5px);
   color: white;
-  text-shadow: 0 0 8px #0D3E9B;
 }
 
 
@@ -57,22 +69,27 @@
   align-items: center;
 }
 .NavBar > .inner > .home {
-  width: 100px;
+  width: 25%;
+  max-width: 100px;
 }
 .NavBar > .inner > .search {
-  width: calc(50% - 100px);
-  max-width: 400px;
+  flex: 1;
+  max-width: calc(100% - 300px);
   min-width: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .NavBar > .inner > .search > .inner {
   position: relative;
   float: left;
-  width: calc(100% - 20px);
+  width: calc(100% - 40px);
+  max-width: 400px;
   height: 30px;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 6px 6px 6px 6px;
-  border: 2px solid var(--color-main-dark);
+  border: 2px solid var(--color-label-darkgray);
 }
