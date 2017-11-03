@@ -6,7 +6,9 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def show
-    render json: {'body': ['test']}
+    user = User.where(username: params[:id]).first
+
+    render json: { user: user, recipes: user.recipes }
   end
 
   def create

@@ -1,3 +1,29 @@
 .RecipeTile {
-  color: green;
+  position: relative;
+  width: 100%;
+  background: white;
+  margin: 10px auto;
+  border-radius: 2px;
+  box-shadow: 0 0 6px rgba(0,0,0,.1);
+}
+
+.RecipeTile > div {
+  position: relative;
+  width: 100%;
+}
+
+.RecipeTile > .author-and-title {
+  position: relative;
+  height: 75px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.RecipeTile > .image-container {
+  min-height: 20px;
+}
+
+.RecipeTile > .statistics {
+  height: 60px;
 }
