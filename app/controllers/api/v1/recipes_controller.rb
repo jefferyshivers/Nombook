@@ -86,10 +86,10 @@ class Api::V1::RecipesController < ApplicationController
   private
 
   def recipe_params
-    params.require(:recipe).permit(:name, :description, :ingredients_body, :user_id, :forked_from_id)
+    params.require(:recipe).permit(:name, :description, :ingredients_body, :user_id, :forked_from_id, :photo)
   end
 
   def recipe_update_params
-    params.require(:recipe).permit(:name, :description, :ingredients_body, :user_id)
+    params.require(:recipe).permit(:name, :description, :ingredients_body, :user_id, :photo)
   end
 end
