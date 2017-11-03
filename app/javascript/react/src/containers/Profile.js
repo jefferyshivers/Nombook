@@ -23,9 +23,6 @@ class Profile extends Component {
     this.loadUser = this.loadUser.bind(this)
   }
   componentWillMount() {
-    // this.props.navigate()
-    // fetch(user...)
-    // setState(user...)
     this.loadUser()
   }
 
@@ -75,12 +72,11 @@ class Profile extends Component {
     const meta = (
       <div className="meta">
         
-
         <div className="picture-and-name">
           {/* picture */}
           <div className="picture-container">
             <div className="picture">
-              picture
+              profile picture
             </div>
           </div>
           {/* name */}
@@ -92,22 +88,29 @@ class Profile extends Component {
         <div className="description-and-statistics">
           {/* description */}
           <div className="description">
+            description goes here
           </div>
 
           {/* statistics */}
           <div className="statistics">
+            <div className="button">3 recipes</div>
+            <div className="button">14 followers</div>
+            <div className="button">0 following</div>
           </div>
 
         </div>
       </div>
     )
 
-
-
     {/* recipe tiles */}
     const recipes = this.state.recipes.map(recipe => {
       return(
-        <RecipeTile key={recipe.id}/>
+        <RecipeTile 
+          key={recipe.id}
+          id={recipe.id}
+          photo_url={recipe.photo.url}
+          username={this.state.user.username}
+          name={recipe.name}/>
       )
     })
 

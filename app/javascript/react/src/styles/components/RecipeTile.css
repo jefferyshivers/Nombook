@@ -1,3 +1,5 @@
+@import '../variables.css';
+
 .RecipeTile {
   position: relative;
   width: 100%;
@@ -5,6 +7,7 @@
   margin: 10px auto;
   border-radius: 2px;
   box-shadow: 0 0 6px rgba(0,0,0,.1);
+  /* cursor: pointer; */
 }
 
 .RecipeTile > div {
@@ -12,18 +15,100 @@
   width: 100%;
 }
 
-.RecipeTile > .author-and-title {
+.RecipeTile > .author-and-title-container {
   position: relative;
-  height: 75px;
+  width: 100%;
+  padding-top: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+.RecipeTile > .author-and-title-container > .author-and-title {
+  position: relative;
+  width: calc(100% - 10px);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+.RecipeTile > .author-and-title-container > .author-and-title > .author {
+  position: relative;
+  width: 100%;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: default;  
+}
+.RecipeTile > .author-and-title-container > .author-and-title > .author > div {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  float: left;
+}
+.RecipeTile > .author-and-title-container > .author-and-title > .author > .profile-photo-container {
+  width: 50px;
+  justify-content: center;
+}
+.RecipeTile > .author-and-title-container > .author-and-title > .author > .profile-photo-container > .photo {
+  position: relative;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: gray;
+}
+.RecipeTile > .author-and-title-container > .author-and-title > .author > .username {
+  width: calc(100% - 50px);
+  padding-left: 10px;
+  justify-content: flex-start;
+}
+.RecipeTile > .author-and-title-container > .author-and-title > .title {
+  position: relative;
+  height: 40px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16pt;
+}
+
+.RecipeTile > .image-container {
+  min-height: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.RecipeTile > .image-container {
-  min-height: 20px;
+.RecipeTile > .image-container > .photo {
+  position: relative;
+  width: calc(100% - 14px);
+  height: 320px;
+  border: 2px solid var(--color-label-darkgray);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-size: cover;
 }
 
 .RecipeTile > .statistics {
   height: 60px;
+  display: flex;
+  justify-content: flex-start;
+  align-content: center;
+}
+.RecipeTile > .statistics > .button {
+  position: relative;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+  padding: 4px;
+  font-size: 12pt;
+}
+.RecipeTile > .statistics > .button > i {
+  margin-right: 8px;
 }

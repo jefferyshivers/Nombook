@@ -7,6 +7,7 @@ import {
   convertToRaw } from 'draft-js';
 import { Link } from 'react-router-dom';
 
+import ReactFileReader from 'react-file-reader';
 import { changeMetaField, changeStep, addAStep, deleteStep, clearForm } from '../actions/editor';
 import { Nombook as NB } from '../api';
 import '../styles/containers/Recipe_RecipeForm.css';
@@ -18,7 +19,12 @@ class RecipeForm extends Component {
     this.handleChangeStep = this.handleChangeStep.bind(this)
     this.handleSaveRecipe = this.handleSaveRecipe.bind(this)
     this.handleClearForm = this.handleClearForm.bind(this)
+    this.mountPhoto = this.mountPhoto.bind(this)
+    this.state = {
+      photo_64: null
+    }
   }
+
 
   handleChangeMetaField(field, editorState) {
     this.props.onChangeMetaField(field, editorState)
@@ -49,6 +55,11 @@ class RecipeForm extends Component {
       body.forked_from_id = forked_from_id
     }
 
+    let photo = this.state.photo_64
+    if (photo) {
+      body.photo = photo
+    }
+
     let params = {
       method: 'POST',
       body: JSON.stringify(body)
@@ -64,6 +75,13 @@ class RecipeForm extends Component {
 
   handleClearForm() {
     this.props.onClearForm();
+  }
+
+  mountPhoto(file) {
+    this.setState({
+      photo_64: file.base64
+    })
+    // console.log(file.base64)
   }
 
   render() {
@@ -107,6 +125,26 @@ class RecipeForm extends Component {
       </div>
     )
 
+    const background = (this.state.photo_64) ? {
+      backgroundImage: `url(${this.state.photo_64})`,
+      backgroundSize: 'cover'
+    } : null
+    const preview_image =  (
+      <div className="photo-container">
+        <div className="photo" style={background}></div>
+
+        <ReactFileReader 
+          fileTypes={[".png",".jpg",".jpeg"]} 
+          base64={true} multipleFiles={false} 
+          handleFiles={this.mountPhoto}>
+          <button className='upload-photo-button'>
+            {(this.state.photo_64) ? "Change Photo" : "Upload Photo"}
+          </button>
+        </ReactFileReader>
+
+      </div>
+    )
+
     {/* meta card */}
     const meta = (
       <div className="meta">
@@ -128,6 +166,8 @@ class RecipeForm extends Component {
         </div>
 
         {forked_from_message}
+
+        {preview_image}
         
         {/* description */}
         <div className="description">

@@ -42,7 +42,6 @@
   align-items: center;
   margin: 10px;
   padding: 4px;
-  cursor: pointer;
 }
 .Recipe > .edit-or-fork-button-container > #edit.button {
   position: absolute;
@@ -127,6 +126,32 @@
   font-family: var(--font-sans-label);
   color: var(--color-main-dark);
   font-size: 11pt;
+}
+
+.Recipe > .meta > .photo-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.Recipe > .meta > .photo-container > .photo {
+  position: relative;
+  width: calc(100% - 14px);
+  height: 280px;
+  border: 2px solid var(--color-label-darkgray);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-size: cover;
+}
+.Recipe > .meta > .photo-container .upload-photo-button {
+  position: relative;
+  background: white;
+  border: 2px solid var(--color-main-dark);
+  border-radius: 4px;
+  padding: 4px;
+  margin: 5px;
+  cursor: pointer;
 }
 
 .Recipe > .meta > .description {

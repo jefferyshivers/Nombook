@@ -92,7 +92,6 @@
 
 
 .Profile > .meta {
-  /* min-height: 100px; */
   display: flex;
   justify-content: center;
   align-content: flex-start;
@@ -103,7 +102,6 @@
   float: left;
   width: 100%;
   min-height: 20px;
-  /* padding: 10px 20px; */
 }
 .Profile > .meta > .picture-and-name {
   font-size: 24pt;
@@ -130,6 +128,11 @@
   background: gray;
   box-shadow: 0 0 6px rgba(0,0,0,.2);
   background-size: cover;
+  /* temporary for the words "profile picture" */
+  font-size: 10pt;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .Profile > .meta > .picture-and-name > .name-container {
   position: relative;
@@ -139,12 +142,47 @@
   font-size: 12pt;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 }
 .Profile > .meta > .description-and-statistics {
   font-size: 24pt;
   text-align: center;
   flex: 2;
   min-width: 240px;
-  /* background: orange; */
+  font-size: 14pt;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.Profile > .meta > .description-and-statistics > .description {
+  position: relative;
+  width: 100%;
+  min-height: calc(100% - 80px);
+  font-size: 24pt;
+  text-align: center;
+  font-size: 14pt;
+  padding: 10px;
+}
+.Profile > .meta > .description-and-statistics > .statistics {
+  position: relative;
+  width: 100%;  
+  font-size: 24pt;
+  text-align: center;
+  font-size: 14pt;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+.Profile > .meta > .description-and-statistics > .statistics > .button {
+  position: relative;
+  border: 2px solid gray;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+  padding: 4px;
+  font-size: 12pt;
+  cursor: pointer;
 }

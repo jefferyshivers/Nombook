@@ -34,7 +34,8 @@ class Recipe extends Component {
       },
       steps: [],
       forked_from: null,
-      owner: {}
+      owner: {},
+      photo_url: ""
     }
   }
 
@@ -70,7 +71,8 @@ class Recipe extends Component {
           steps: steps, 
           forked_from: forked_from, 
           editing: false,
-          owner: res.owner
+          owner: res.owner,
+          photo_url: res.photo_url
         })
       } else {
         this.props.history.push("/");
@@ -158,6 +160,7 @@ class Recipe extends Component {
           }
         })
 
+
         this.setState({
           editing: false,
           recipe: recipe,
@@ -212,19 +215,19 @@ class Recipe extends Component {
 
     const forked_from_message = (this.state.forked_from) ? (
       <div className="forked-from">
-        <div 
-          className="forked-from-button"
-          onClick={() => {
-            this.props.history.push(`/recipes/${this.state.forked_from.id}`);
-          }}>
+        <Link to={`/recipes/${this.state.forked_from.id}`} className="forked-from-button">
           <div className="label">Forked from</div>
           <Editor 
             readOnly={true}
             editorState={this.state.forked_from.name} 
             onChange={() => {}} />
-        </div>
+        </Link>
       </div>
     ) : null
+
+    // onClick={() => {
+    //   this.props.history.push(`/recipes/${this.state.forked_from.id}`);
+    // }}
 
 
     {/* edit or fork button */}
@@ -280,6 +283,17 @@ class Recipe extends Component {
     {/* edit/fork button or control panel */}
     const edit_fork_button_or_control_panel = (this.state.editing) ? control_panel : edit_or_fork_button
 
+
+    const background = (this.state.photo_url) ? {
+      backgroundImage: `url(${this.state.photo_url})`,
+      backgroundSize: 'cover'
+    } : null
+    const recipe_photo = (this.state.photo_url) ? (
+      <div className="photo-container">
+        <div className="photo" style={background}></div>
+      </div>
+    ) : null
+
     {/* meta card */}
     const meta = (
       <div className="meta">
@@ -302,6 +316,8 @@ class Recipe extends Component {
         </div>
 
         {forked_from_message}
+
+        {recipe_photo}
         
         {/* description */}
         <div className="description">

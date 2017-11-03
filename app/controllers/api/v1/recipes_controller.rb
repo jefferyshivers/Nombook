@@ -12,7 +12,8 @@ class Api::V1::RecipesController < ApplicationController
       recipe: recipe, 
       steps: recipe.steps.order(:index_in_recipe), 
       forked_from: recipe.forked_from,
-      owner: recipe.user
+      owner: recipe.user,
+      photo_url: recipe.photo.url
     }
   end
 
