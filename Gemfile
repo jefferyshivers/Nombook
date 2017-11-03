@@ -8,6 +8,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'webpacker'
 gem 'devise'
 gem 'carrierwave', '~> 1.2.0'
+gem 'carrierwave-base64'
 gem 'fog-aws'
 
 group :development do

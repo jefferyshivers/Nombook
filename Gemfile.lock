@@ -54,6 +54,9 @@ GEM
       activemodel (>= 4.0.0)
       activesupport (>= 4.0.0)
       mime-types (>= 1.16)
+    carrierwave-base64 (2.6.1)
+      carrierwave (>= 0.8.0)
+      mime-types (~> 3.0)
     coderay (1.1.2)
     concurrent-ruby (1.0.5)
     crass (1.0.2)
@@ -240,6 +243,7 @@ PLATFORMS
 DEPENDENCIES
   capybara
   carrierwave (~> 1.2.0)
+  carrierwave-base64
   devise
   dotenv-rails
   factory_bot_rails

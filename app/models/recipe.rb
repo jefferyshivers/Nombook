@@ -12,5 +12,5 @@ class Recipe < ApplicationRecord
   validates :name, presence: true
   validates :ingredients_body, presence: true
 
-  mount_uploader :photo, RecipePhotoUploader
+  mount_base64_uploader :photo, RecipePhotoUploader
 end
