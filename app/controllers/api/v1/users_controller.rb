@@ -8,7 +8,7 @@ class Api::V1::UsersController < ApplicationController
   def show
     user = User.where(username: params[:id]).first
 
-    render json: { user: user, recipes: user.recipes.order(created_at: :desc) }
+    render json: { user: user, profile_photo: user.profile_photo.url, recipes: user.recipes.order(created_at: :desc) }
   end
 
   def create
@@ -46,6 +46,6 @@ class Api::V1::UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:description)
+    params.require(:user).permit(:description, :profile_photo)
   end
 end

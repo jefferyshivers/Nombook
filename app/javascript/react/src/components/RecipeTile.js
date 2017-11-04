@@ -42,7 +42,6 @@ const author_and_title = (profile_photo_url, username, name) => {
   )
 }
 
-
 const photo = (photo_url, id) => {
   const background = (photo_url) ? {
     backgroundImage: `url(${photo_url})`,

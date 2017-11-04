@@ -7,6 +7,7 @@ import {
   convertToRaw } from 'draft-js';
 import { Link } from 'react-router-dom';
 
+import ReactFileReader from 'react-file-reader';
 import RecipeTile from '../components/RecipeTile'
 import { Nombook as NB } from '../api';
 import '../styles/containers/Profile.css'
@@ -17,13 +18,15 @@ class Profile extends Component {
     this.state = {
       user: {
         username: null,
-        description: EditorState.createEmpty()
+        description: EditorState.createEmpty(),
+        profile_photo: null
       },
       recipes: [],
     }
     this.loadUser = this.loadUser.bind(this)
     this.saveUpdatedProfile = this.saveUpdatedProfile.bind(this)
     this.handleChangeDescription = this.handleChangeDescription.bind(this)
+    this.mountPhoto = this.mountPhoto.bind(this)
   }
   componentWillMount() {
     this.loadUser()
@@ -41,12 +44,15 @@ class Profile extends Component {
           })
         })
 
-        if (!res.user.description) {
-          res.user.description = EditorState.createEmpty()
-        }
+        let description = (res.user.description) ? EditorState.createWithContent(convertFromRaw(JSON.parse(res.user.description))) : EditorState.createEmpty()
+
+        let user = Object.assign({}, res.user, {
+          description: description,
+          profile_photo: res.profile_photo
+        })
 
         this.setState({
-          user: res.user, 
+          user: user, 
           recipes: recipes
         })
       } else {
@@ -60,7 +66,8 @@ class Profile extends Component {
     const nb = new NB();
 
     let body = {
-      description: JSON.stringify(convertToRaw(this.state.user.description.getCurrentContent()))
+      description: JSON.stringify(convertToRaw(this.state.user.description.getCurrentContent())),
+      profile_photo: this.state.user.profile_photo
     }
     let params = {
       method: 'PATCH',
@@ -83,6 +90,14 @@ class Profile extends Component {
     this.setState({
       user: Object.assign({}, this.state.user, {
         description: editorState
+      })
+    })
+  }
+
+  mountPhoto(file) {
+    this.setState({
+      user: Object.assign({}, this.state.user, {
+        profile_photo: file.base64        
       })
     })
   }
@@ -135,16 +150,30 @@ class Profile extends Component {
     {/* meta card 
         Profile stuff: picture, name, following, followers, 
     */}
+    const background = (this.state.user.profile_photo) ? {
+      backgroundImage: `url(${this.state.user.profile_photo})`,
+      backgroundSize: 'cover'
+    } : null
+
     const meta = (
       <div className="meta">
         
         <div className="picture-and-name">
           {/* picture */}
           <div className="picture-container">
-            <div className="picture">
+            <div className="picture" style={background}>
               {(this.state.editing) ? (
                 <div className="upload-new-photo">
-                  upload new photo
+
+                  <ReactFileReader 
+                    fileTypes={[".png",".jpg",".jpeg"]} 
+                    base64={true} multipleFiles={false} 
+                    handleFiles={this.mountPhoto}>
+                    <button className='upload-photo-button'>
+                      {(this.state.profile_photo) ? "Change Photo" : "Upload Photo"}
+                    </button>
+                  </ReactFileReader>
+
                 </div>
               ) : null}
             </div>
@@ -186,6 +215,7 @@ class Profile extends Component {
         <RecipeTile 
           key={recipe.id}
           id={recipe.id}
+          profile_photo_url={this.state.user.profile_photo}
           photo_url={recipe.photo.url}
           username={this.state.user.username}
           name={recipe.name}/>
