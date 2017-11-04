@@ -47,6 +47,7 @@
   position: absolute;
   right: 0;
   margin: auto 10px;
+  cursor: pointer;  
 }
 .Recipe > .edit-or-fork-button-container > .button > i {
   margin-right: 8px;
@@ -170,7 +171,7 @@
 .Recipe > .meta > .description:hover > div,
 .Recipe > .ingredients > .ingredients-body:hover > div,
 .Recipe > .method > .step-container > .step:hover > div {
-  background: #EAFCF4;
+  background: var(--color-hover-field);
 }
 
 .Recipe > div > .label {

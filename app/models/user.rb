@@ -5,4 +5,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :recipes
+
+  mount_base64_uploader :profile_photo, ProfilePhotoUploader  
 end

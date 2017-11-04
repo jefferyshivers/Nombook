@@ -30,13 +30,13 @@ const author_and_title = (profile_photo_url, username, name) => {
             </Link>
           </div>
         </div>
-        <div className="title">
+        <Link to={`/users/${username}`} className="title">
           <Editor 
             spellCheck={false}
             readOnly={true}
             editorState={name} 
             onChange={() => {}} />
-        </div>
+        </Link>
       </div>
     </div>
   )

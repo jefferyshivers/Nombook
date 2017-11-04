@@ -16,11 +16,14 @@ class Profile extends Component {
     super(props)
     this.state = {
       user: {
-        username: null
+        username: null,
+        description: EditorState.createEmpty()
       },
-      recipes: []
+      recipes: [],
     }
     this.loadUser = this.loadUser.bind(this)
+    this.saveUpdatedProfile = this.saveUpdatedProfile.bind(this)
+    this.handleChangeDescription = this.handleChangeDescription.bind(this)
   }
   componentWillMount() {
     this.loadUser()
@@ -38,6 +41,10 @@ class Profile extends Component {
           })
         })
 
+        if (!res.user.description) {
+          res.user.description = EditorState.createEmpty()
+        }
+
         this.setState({
           user: res.user, 
           recipes: recipes
@@ -46,6 +53,37 @@ class Profile extends Component {
         this.props.history.push("/");
         console.log('Something went wrong while trying to load this profile.');
       }
+    })
+  }
+
+  saveUpdatedProfile() {
+    const nb = new NB();
+
+    let body = {
+      description: JSON.stringify(convertToRaw(this.state.user.description.getCurrentContent()))
+    }
+    let params = {
+      method: 'PATCH',
+      body: JSON.stringify(body)
+    }
+
+    nb.request(params, `/users/${this.state.user.id}`, res => {
+      if (res.saved) {
+        let user = Object.assign({}, res.user, {
+          description: EditorState.createWithContent(convertFromRaw(JSON.parse(res.user.description))),
+        })
+        this.setState({user: user, editing: false})
+      } else {
+        console.log('Something went wrong here.')
+      }
+    })
+  }
+
+  handleChangeDescription(editorState) {
+    this.setState({
+      user: Object.assign({}, this.state.user, {
+        description: editorState
+      })
     })
   }
 
@@ -66,22 +104,33 @@ class Profile extends Component {
       </div>
     ) : null
 
-
     const edit_profile_or_save_button = (this.state.editing) ? (
       <div 
+        title="Edit profile"
         className="edit-profile-or-save-button"
-        onClick={() => {}}>
+        onClick={this.saveUpdatedProfile}>
         save
       </div>
     ) : (
       <div 
+        title="Save changes"
         className="edit-profile-or-save-button"
-        onClick={() => {}}>
+        onClick={() => {this.setState({editing: true})}}>
         edit
       </div>
     )
 
     const edit_or_save_if_me = (this.props.current_user.username === this.props.match.params.username) ? edit_profile_or_save_button : null
+    const account_settings_button = (this.props.current_user.username === this.props.match.params.username) ? (
+      <a 
+        href="/users/edit"
+        title="Edit your account"
+        className="account-settings-button"
+        onClick={this.saveUpdatedProfile}>
+        <i className="material-icons">settings</i>
+      </a>
+    ) : null
+
 
     {/* meta card 
         Profile stuff: picture, name, following, followers, 
@@ -93,12 +142,17 @@ class Profile extends Component {
           {/* picture */}
           <div className="picture-container">
             <div className="picture">
-              profile picture
+              {(this.state.editing) ? (
+                <div className="upload-new-photo">
+                  upload new photo
+                </div>
+              ) : null}
             </div>
           </div>
+
           {/* name */}
           <div className="name-container">
-              username
+            {this.state.user.username}
           </div>
 
           {edit_or_save_if_me}
@@ -107,7 +161,11 @@ class Profile extends Component {
         <div className="description-and-statistics">
           {/* description */}
           <div className="description">
-            description goes here
+            <Editor 
+              spellCheck={true}
+              readOnly={!this.state.editing}
+              editorState={this.state.user.description} 
+              onChange={(e) => {this.handleChangeDescription(e)}} />
           </div>
 
           {/* statistics */}
@@ -116,8 +174,9 @@ class Profile extends Component {
             <div className="button">14 followers</div>
             <div className="button">0 following</div>
           </div>
-
         </div>
+
+        {account_settings_button}
       </div>
     )
 

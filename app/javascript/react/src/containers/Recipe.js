@@ -225,10 +225,6 @@ class Recipe extends Component {
       </div>
     ) : null
 
-    // onClick={() => {
-    //   this.props.history.push(`/recipes/${this.state.forked_from.id}`);
-    // }}
-
 
     {/* edit or fork button */}
     const edit_or_fork_button = (this.state.recipe.user_id === this.props.current_user.id) ? (

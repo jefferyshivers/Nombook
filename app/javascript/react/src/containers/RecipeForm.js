@@ -129,10 +129,12 @@ class RecipeForm extends Component {
       backgroundImage: `url(${this.state.photo_64})`,
       backgroundSize: 'cover'
     } : null
-    const preview_image =  (
+    const photo = (this.state.photo_64) ? (
+      <div className="photo" style={background}></div>
+    ) : null
+    const preview_image = (
       <div className="photo-container">
-        <div className="photo" style={background}></div>
-
+        {photo}
         <ReactFileReader 
           fileTypes={[".png",".jpg",".jpeg"]} 
           base64={true} multipleFiles={false} 
@@ -141,7 +143,6 @@ class RecipeForm extends Component {
             {(this.state.photo_64) ? "Change Photo" : "Upload Photo"}
           </button>
         </ReactFileReader>
-
       </div>
     )
 
