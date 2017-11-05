@@ -151,7 +151,7 @@ class RecipeForm extends Component {
       <div className="meta">
 
         {/* name */}
-        <div className="name">
+        <div className="name editing">
           <Editor 
             spellCheck={true}
             editorState={this.props.editor.name} 
@@ -171,7 +171,7 @@ class RecipeForm extends Component {
         {preview_image}
         
         {/* description */}
-        <div className="description">
+        <div className="description editing">
           <Editor 
             spellCheck={true}
             editorState={this.props.editor.description} 
@@ -186,7 +186,7 @@ class RecipeForm extends Component {
         <div className='label'>
           Ingredients
         </div>
-        <div className="ingredients-body">
+        <div className="ingredients-body editing">
           <Editor 
             spellCheck={true}
             editorState={this.props.editor.ingredients_body} 
@@ -213,7 +213,7 @@ class RecipeForm extends Component {
             </div>
           </div>
           
-          <div className="step">
+          <div className="step editing">
             <Editor 
               spellCheck={true}
               editorState={step.body} 

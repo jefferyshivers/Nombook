@@ -170,7 +170,7 @@ class Profile extends Component {
                     base64={true} multipleFiles={false} 
                     handleFiles={this.mountPhoto}>
                     <button className='upload-photo-button'>
-                      {(this.state.profile_photo) ? "Change Photo" : "Upload Photo"}
+                      <i className="material-icons">photo_camera</i>
                     </button>
                   </ReactFileReader>
 
@@ -189,7 +189,7 @@ class Profile extends Component {
         
         <div className="description-and-statistics">
           {/* description */}
-          <div className="description">
+          <div className={(this.state.editing) ? "description editing" : "description"}>
             <Editor 
               spellCheck={true}
               readOnly={!this.state.editing}

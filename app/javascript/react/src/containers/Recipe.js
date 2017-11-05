@@ -295,7 +295,7 @@ class Recipe extends Component {
       <div className="meta">
 
         {/* name */}
-        <div className="name">
+        <div className={(this.state.editing) ? "name editing" : "name"}>
           <Editor 
             spellCheck={true}
             readOnly={!this.state.editing}
@@ -316,7 +316,7 @@ class Recipe extends Component {
         {recipe_photo}
         
         {/* description */}
-        <div className="description">
+        <div className={(this.state.editing) ? "description editing" : "description"}>
           <Editor 
             spellCheck={true}
             readOnly={!this.state.editing}
@@ -332,7 +332,7 @@ class Recipe extends Component {
         <div className='label'>
           Ingredients
         </div>
-        <div className="ingredients-body">
+        <div className={(this.state.editing) ? "ingredients-body editing" : "ingredients-body"}>
           <Editor 
             spellCheck={true}
             readOnly={!this.state.editing}
@@ -360,7 +360,7 @@ class Recipe extends Component {
               </div>
             ) : null}
           </div>
-          <div className="step">
+          <div className={(this.state.editing) ? "step editing" : "step"}>
             <Editor 
               spellCheck={true}
               readOnly={!this.state.editing}

@@ -167,12 +167,12 @@
   border-radius: 4px;
   padding: 5px;
 }
-.Recipe > .meta > .name:hover > div,
+/* .Recipe > .meta > .name:hover > div,
 .Recipe > .meta > .description:hover > div,
 .Recipe > .ingredients > .ingredients-body:hover > div,
 .Recipe > .method > .step-container > .step:hover > div {
   background: var(--color-hover-field);
-}
+} */
 
 .Recipe > div > .label {
   position: relative;
