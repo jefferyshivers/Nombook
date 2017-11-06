@@ -84,10 +84,15 @@ class Profile extends Component {
 
     nb.request(params, `/users/${this.state.user.id}`, res => {
       if (res.saved) {
-        let user = Object.assign({}, res.user, {
-          description: EditorState.createWithContent(convertFromRaw(JSON.parse(res.user.description))),
+        let description = EditorState.createWithContent(convertFromRaw(JSON.parse(res.user.description)))
+
+        this.setState({
+          user: Object.assign({}, this.state.user, {
+            description: description,
+            profile_photo: res.profile_photo
+          }),
+          editing: false
         })
-        this.setState({user: user, editing: false})
       } else {
         console.log('Something went wrong here.')
       }

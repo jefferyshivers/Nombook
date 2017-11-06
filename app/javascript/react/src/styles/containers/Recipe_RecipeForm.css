@@ -42,6 +42,7 @@
   align-items: center;
   margin: 10px;
   padding: 4px;
+  cursor: pointer;
 }
 .Recipe > .edit-or-fork-button-container > #edit.button {
   position: absolute;

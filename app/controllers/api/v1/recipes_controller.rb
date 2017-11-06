@@ -4,12 +4,22 @@ class Api::V1::RecipesController < ApplicationController
   def show
     recipe = Recipe.find(params[:id])
 
+    def current_user_liked
+      if Like.find_by(user_id: current_user.id, recipe_id: params[:id])
+        return true
+      else
+        return false
+      end
+    end
+
     render json: { 
       recipe: recipe, 
       steps: recipe.steps.order(:index_in_recipe), 
       forked_from: recipe.forked_from,
       owner: recipe.user,
-      photo_url: recipe.photo.url
+      photo_url: recipe.photo.url,
+      current_user_liked: current_user_liked,
+      likes: recipe.likes
     }
   end
 

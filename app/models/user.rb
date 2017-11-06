@@ -4,6 +4,9 @@ class User < ApplicationRecord
 
   has_many :recipes
 
+  # has_many :likes
+  # has_many :likeds, through: :likes
+
   has_many :follower_follows, class_name: "Follow", foreign_key: "followed_id"
   has_many :followers, through: :follower_follows, source: :follower
 

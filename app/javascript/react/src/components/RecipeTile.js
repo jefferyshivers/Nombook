@@ -10,7 +10,7 @@ import { Nombook as NB } from '../api';
 import '../styles/components/RecipeTile.css'
 
 
-const author_and_title = (profile_photo_url, username, name) => {
+const author_and_title = (profile_photo_url, username, name, id) => {
   const profile_avatar = (profile_photo_url) ? {
     backgroundImage: `url(${profile_photo_url})`,
     backgroundSize: 'cover'
@@ -30,7 +30,7 @@ const author_and_title = (profile_photo_url, username, name) => {
             </Link>
           </div>
         </div>
-        <Link to={`/users/${username}`} className="title">
+        <Link to={`/recipes/${id}`} className="title">
           <Editor 
             spellCheck={false}
             readOnly={true}
@@ -75,7 +75,7 @@ const statistics = () => {
 const RecipeTile = props => {
   return(
     <div className="RecipeTile">
-      {author_and_title(props.profile_photo_url, props.username, props.name)}
+      {author_and_title(props.profile_photo_url, props.username, props.name, props.id)}
       {photo(props.photo_url, props.id)}
       {statistics()}
     </div>

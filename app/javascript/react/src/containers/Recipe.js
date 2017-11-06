@@ -24,6 +24,8 @@ class Recipe extends Component {
     this.handleDeleteStep = this.handleDeleteStep.bind(this)
     this.handleDeleteRecipe = this.handleDeleteRecipe.bind(this)
     this.handleFork = this.handleFork.bind(this)
+    this.handleLike = this.handleLike.bind(this)
+    this.handleUnlike = this.handleUnlike.bind(this)
     this.state = {
       editing: false,
       recipe: {
@@ -35,7 +37,9 @@ class Recipe extends Component {
       steps: [],
       forked_from: null,
       owner: {},
-      photo_url: ""
+      photo_url: "",
+      current_user_liked: null,
+      likes: []
     }
   }
 
@@ -72,7 +76,9 @@ class Recipe extends Component {
           forked_from: forked_from, 
           editing: false,
           owner: res.owner,
-          photo_url: res.photo_url
+          photo_url: res.photo_url,
+          current_user_liked: res.current_user_liked,
+          likes: res.likes
         })
       } else {
         this.props.history.push("/");
@@ -160,7 +166,6 @@ class Recipe extends Component {
           }
         })
 
-
         this.setState({
           editing: false,
           recipe: recipe,
@@ -206,6 +211,53 @@ class Recipe extends Component {
     this.props.onFork(params);
   }
 
+  handleLike() {
+    const nb = new NB();
+    
+    let body = {
+      recipe_id: this.state.recipe.id
+    }
+
+    let params = {
+      method: 'PATCH',
+      body: JSON.stringify(body)
+    }
+
+    nb.request(params, `/likes/${this.props.current_user.id}`, res => {
+      if (res.saved) {
+        this.setState({
+          current_user_liked: res.current_user_liked,
+          likes: res.likes
+        })
+      } else {
+        console.log('Something went wrong here.')
+      }
+    })
+  }
+
+  handleUnlike() {
+    const nb = new NB();
+    
+    let body = {
+      recipe_id: this.state.recipe.id
+    }
+
+    let params = {
+      method: 'DELETE',
+      body: JSON.stringify(body)
+    }
+
+    nb.request(params, `/likes/${this.props.current_user.id}`, res => {
+      if (res.saved) {
+        this.setState({
+          current_user_liked: res.current_user_liked,
+          likes: res.likes
+        })
+      } else {
+        console.log('Something went wrong here.')
+      }
+    })  }
+
   render() {
     // this is a quick hack to rerender the component, since react-router blocks it from normally reloading
     // for more details on this issue, see: https://github.com/ReactTraining/react-router/issues/5037
@@ -227,26 +279,26 @@ class Recipe extends Component {
 
 
     {/* edit or fork button */}
-    const edit_or_fork_button = (this.state.recipe.user_id === this.props.current_user.id) ? (
-      <div className="edit-or-fork-button-container">
-        <div className="button" id="edit" onClick={() => {this.setState({editing: true})}}>
-          edit
-        </div>
-        <div className="button" id="like">
-          <i className="material-icons">favorite_border</i>
-          {" like"}
-        </div>
-        <div className="button" id="fork" onClick={this.handleFork}>
-          <i className="material-icons">call_split</i>
-          {" fork"}
-        </div>        
+    const edit_button = (this.state.recipe.user_id === this.props.current_user.id) ? (
+      <div className="button" id="edit" onClick={() => {this.setState({editing: true})}}>
+        edit
+      </div>
+    ) : null
+    const like_button = (this.state.current_user_liked) ? (
+      <div className="button" id="like" onClick={this.handleUnlike}>
+        <i className="material-icons">favorite</i>
+        liked
       </div>
     ) : (
+      <div className="button" id="like" onClick={this.handleLike}>
+        <i className="material-icons">favorite_border</i>
+        like
+      </div>
+    )
+    const edit_or_fork_button = (
       <div className="edit-or-fork-button-container">
-        <div className="button" id="like">
-          <i className="material-icons">favorite_border</i>
-          {" like"}
-        </div>
+        {edit_button}
+        {like_button}
         <div className="button" id="fork" onClick={this.handleFork}>
           <i className="material-icons">call_split</i>
           {" fork"}
