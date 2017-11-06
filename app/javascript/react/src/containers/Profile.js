@@ -19,14 +19,19 @@ class Profile extends Component {
       user: {
         username: null,
         description: EditorState.createEmpty(),
-        profile_photo: null
+        profile_photo: null,
+        followers: [],
+        following: [],
+        current_user_following: null
       },
-      recipes: [],
+      recipes: []
     }
     this.loadUser = this.loadUser.bind(this)
     this.saveUpdatedProfile = this.saveUpdatedProfile.bind(this)
     this.handleChangeDescription = this.handleChangeDescription.bind(this)
     this.mountPhoto = this.mountPhoto.bind(this)
+    this.handleFollow = this.handleFollow.bind(this)
+    this.handleUnfollow = this.handleUnfollow.bind(this)
   }
   componentWillMount() {
     this.loadUser()
@@ -48,7 +53,10 @@ class Profile extends Component {
 
         let user = Object.assign({}, res.user, {
           description: description,
-          profile_photo: res.profile_photo
+          profile_photo: res.profile_photo,
+          followers: res.followers,
+          following: res.following,
+          current_user_following: res.current_user_following
         })
 
         this.setState({
@@ -94,6 +102,58 @@ class Profile extends Component {
     })
   }
 
+  handleFollow() {
+    const nb = new NB();
+
+    let body = {
+      followed_id: this.state.user.id,
+    }
+
+    let params = {
+      method: 'PATCH',
+      body: JSON.stringify(body)
+    }
+
+    nb.request(params, `/follows/${this.props.current_user.id}`, res => {
+      if (res.saved) {
+        this.setState({
+          user: Object.assign({}, this.state.user, {
+            current_user_following: res.current_user_following,
+            followers: res.followers
+          })
+        })
+      } else {
+        console.log('Something went wrong here.')
+      }
+    })
+  }
+
+  handleUnfollow() {
+    const nb = new NB();
+
+    let body = {
+      followed_id: this.state.user.id,
+    }
+
+    let params = {
+      method: 'DELETE',
+      body: JSON.stringify(body)
+    }
+
+    nb.request(params, `/follows/${this.props.current_user.id}`, res => {
+      if (res.saved) {
+        this.setState({
+          user: Object.assign({}, this.state.user, {
+            current_user_following: res.current_user_following,
+            followers: res.followers
+          })
+        })
+      } else {
+        console.log('Something went wrong here.')
+      }
+    })
+  }
+
   mountPhoto(file) {
     this.setState({
       user: Object.assign({}, this.state.user, {
@@ -104,6 +164,19 @@ class Profile extends Component {
 
   render() {
     {/* control panel */}
+    const follow_or_unfollow_button = (this.state.user.current_user_following) ? (
+      <div 
+        className="button"
+        onClick={this.handleUnfollow}>
+        following
+      </div>
+    ) : (
+      <div 
+        className="button"
+        onClick={this.handleFollow}>
+        follow
+      </div>
+    )
     const control_panel = (this.props.current_user.username !== this.props.match.params.username) ? (
       <div className="control-panel">
         <div className="relationship-container">
@@ -111,10 +184,7 @@ class Profile extends Component {
           This will stick to the top of the page.
         </div>
         <div className="meta-button-group">
-          <div 
-            className="button">
-            follow
-          </div>
+          {follow_or_unfollow_button}
         </div>
       </div>
     ) : null
@@ -199,9 +269,9 @@ class Profile extends Component {
 
           {/* statistics */}
           <div className="statistics">
-            <div className="button">3 recipes</div>
-            <div className="button">14 followers</div>
-            <div className="button">0 following</div>
+            <div className="button">{`${this.state.recipes.length} recipes`}</div>
+            <div className="button">{`${this.state.user.followers.length} followers`}</div>
+            <div className="button">{`${this.state.user.following.length} following`}</div>
           </div>
         </div>
 

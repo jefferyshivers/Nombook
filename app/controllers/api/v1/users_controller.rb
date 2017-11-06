@@ -1,17 +1,25 @@
 class Api::V1::UsersController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:create, :update, :destroy]
 
-  def index
-    render json: {'body': ['test']}
-  end
-
   def show
-    user = User.where(username: params[:id]).first
+    user = User.find_by(username: params[:id])
 
-    render json: { user: user, profile_photo: user.profile_photo.url, recipes: user.recipes.order(created_at: :desc) }
-  end
+    def current_user_following
+      if Follow.find_by(follower: current_user, followed: User.find_by(username: params[:id]))
+        return true
+      else
+        return false
+      end
+    end
 
-  def create
+    render json: { 
+      user: user, 
+      profile_photo: user.profile_photo.url, 
+      following: user.followeds,
+      followers: user.followers,
+      current_user_following: current_user_following,
+      recipes: user.recipes.order(created_at: :desc)
+    }
   end
 
   def update
@@ -28,9 +36,6 @@ class Api::V1::UsersController < ApplicationController
     end
   end
 
-  def destroy
-  end
-
   def whoami
     if user_signed_in?
       render json: { current_user: current_user }
@@ -38,10 +43,6 @@ class Api::V1::UsersController < ApplicationController
       render json: { current_user: false }
     end
   end
-
-  # def logout
-  #   sign_out current_user
-  # end
 
   private
 

@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   devise_for :users
 
   devise_scope :user do
-     get 'logout' => "devise/sessions#destroy"
+     get "logout" => "devise/sessions#destroy"
   end
 
   namespace :api do
@@ -18,6 +18,8 @@ Rails.application.routes.draw do
       resources :recipes do
         resources :steps
       end
+
+      resources :follows
     end
   end
 

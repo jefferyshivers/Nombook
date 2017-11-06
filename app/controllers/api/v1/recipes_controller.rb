@@ -1,10 +1,6 @@
 class Api::V1::RecipesController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:create, :update, :destroy]
 
-  def index
-    render json: {'body': ['test']}
-  end
-
   def show
     recipe = Recipe.find(params[:id])
 
@@ -21,22 +17,25 @@ class Api::V1::RecipesController < ApplicationController
     recipe = Recipe.new(recipe_params)
     recipe.user = User.find(params[:user_id])
     
-    # change to if recipe.user == current_user && recipe.save
-    if recipe.save
-      Step.where(recipe_id: recipe.id).destroy_all
-      steps = params[:steps]
-      steps.each do |step, index|
-        Step.create(recipe: recipe, index_in_recipe: step["index_in_recipe"], body: step["body"])
-      end
+    if recipe.user == current_user
+      if recipe.save
+        Step.where(recipe_id: recipe.id).destroy_all
+        steps = params[:steps]
+        steps.each do |step, index|
+          Step.create(recipe: recipe, index_in_recipe: step["index_in_recipe"], body: step["body"])
+        end
 
-      forked_from = params[:forked_from_id]
-      if forked_from
-        Fork.create(forked_from_id: forked_from, forker: recipe)
-      end
+        forked_from = params[:forked_from_id]
+        if forked_from
+          Fork.create(forked_from_id: forked_from, forker: recipe)
+        end
 
-      render json: { saved: true, location: "/recipes/#{recipe.id}" }
+        render json: { saved: true, location: "/recipes/#{recipe.id}" }
+      else
+        render json: { error: recipe.errors.full_messages }, status: :unprocessable_entity
+      end
     else
-      render json: { error: recipe.errors.full_messages }, status: :unprocessable_entity
+      render json: { error: "You don't have permission to edit this recipe." }
     end
   end
 
