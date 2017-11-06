@@ -169,7 +169,8 @@
   justify-content: center;
   align-items: flex-start;
 }
-.Profile > .meta > .picture-and-name > .edit-profile-or-save-button {
+.Profile > .meta > .picture-and-name > .edit-profile-or-save-button,
+.Profile > .meta > .picture-and-name > .cancel-profile-edits {
   position: absolute;
   top: 0px;
   left: 0px;
@@ -183,6 +184,13 @@
   margin: 10px;
   padding: 4px;
   cursor: pointer;
+}
+.Profile > .meta > .picture-and-name > .cancel-profile-edits {
+  top: 30px;
+  left: 0;
+  border: none;
+  color: red;
+  padding: 4px 0;
 }
 .Profile > .meta > .account-settings-button {
   position: absolute;

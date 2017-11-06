@@ -46,10 +46,16 @@ class NavBar extends Component {
     )
 
     {/* user */}
+    const icon = (this.props.current_user.profile_photo) ? {
+      backgroundImage: `url(${this.props.current_user.profile_photo.url})`,
+      backgroundSize: 'cover'
+    } : {
+      background: 'red'
+    }
     const user = (
-      <div className="user" style={user_style}>
-        <Link to={`/users/${this.props.current_user.username}`} className="icon">
-          u
+      <div className="user">
+        <Link to={`/users/${this.props.current_user.username}`} className="icon" style={icon}>
+          {(this.props.current_user.profile_photo) ? null : "u"}
         </Link>
       </div>
     )

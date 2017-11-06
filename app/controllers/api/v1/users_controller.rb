@@ -12,13 +12,28 @@ class Api::V1::UsersController < ApplicationController
       end
     end
 
+    recipes = user.recipes.order(created_at: :desc)
+
+    forks_likes = []
+    recipes.each do |recipe, index|
+      likes = recipe.likes.length
+      forks = recipe.forkers.length
+
+      forks_likes << {
+        id: recipe.id,
+        likes: likes,
+        forks: forks
+      }
+    end
+
     render json: { 
       user: user, 
       profile_photo: user.profile_photo.url, 
       following: user.followeds,
       followers: user.followers,
       current_user_following: current_user_following,
-      recipes: user.recipes.order(created_at: :desc)
+      recipes: user.recipes.order(created_at: :desc),
+      forks_likes: forks_likes
     }
   end
 

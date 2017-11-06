@@ -57,18 +57,18 @@ const photo = (photo_url, id) => {
   )
 }
 
-const statistics = () => {
+const statistics = (forks, likes, id) => {
   return(
-    <div className="statistics">
+    <Link to={`/recipes/${id}`} className="statistics">
       <div className="button">
         <i className="material-icons">call_split</i>
-        14
+        {forks}
       </div>
       <div className="button">
         <i className="material-icons">favorite_border</i>
-        129
+        {likes}
       </div>
-    </div>
+    </Link>
   )
 }
 
@@ -77,7 +77,7 @@ const RecipeTile = props => {
     <div className="RecipeTile">
       {author_and_title(props.profile_photo_url, props.username, props.name, props.id)}
       {photo(props.photo_url, props.id)}
-      {statistics()}
+      {statistics(props.forks, props.likes, props.id)}
     </div>
   )
 }

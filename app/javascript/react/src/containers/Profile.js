@@ -20,6 +20,7 @@ class Profile extends Component {
         username: null,
         description: EditorState.createEmpty(),
         profile_photo: null,
+        original_profile_photo: null,
         followers: [],
         following: [],
         current_user_following: null
@@ -28,6 +29,7 @@ class Profile extends Component {
     }
     this.loadUser = this.loadUser.bind(this)
     this.saveUpdatedProfile = this.saveUpdatedProfile.bind(this)
+    this.cancelUpdateProfile = this.cancelUpdateProfile.bind(this)
     this.handleChangeDescription = this.handleChangeDescription.bind(this)
     this.mountPhoto = this.mountPhoto.bind(this)
     this.handleFollow = this.handleFollow.bind(this)
@@ -42,10 +44,12 @@ class Profile extends Component {
     
     nb.request('GET', `/users/${this.props.match.params.username}`, res => {
       if (res.user) {
-        let recipes = res.recipes.map(recipe => {
+        let recipes = res.recipes.map((recipe, index) => {
           return Object.assign({}, recipe, {
             name: EditorState.createWithContent(convertFromRaw(JSON.parse(recipe.name))),
-            description: EditorState.createWithContent(convertFromRaw(JSON.parse(recipe.description)))
+            description: EditorState.createWithContent(convertFromRaw(JSON.parse(recipe.description))),
+            forks: res.forks_likes[index].forks,
+            likes: res.forks_likes[index].likes
           })
         })
 
@@ -54,6 +58,7 @@ class Profile extends Component {
         let user = Object.assign({}, res.user, {
           description: description,
           profile_photo: res.profile_photo,
+          original_profile_photo: res.profile_photo,
           followers: res.followers,
           following: res.following,
           current_user_following: res.current_user_following
@@ -75,7 +80,9 @@ class Profile extends Component {
 
     let body = {
       description: JSON.stringify(convertToRaw(this.state.user.description.getCurrentContent())),
-      profile_photo: this.state.user.profile_photo
+    }
+    if (this.state.user.profile_photo) {
+      body.profile_photo = this.state.user.profile_photo
     }
     let params = {
       method: 'PATCH',
@@ -89,13 +96,23 @@ class Profile extends Component {
         this.setState({
           user: Object.assign({}, this.state.user, {
             description: description,
-            profile_photo: res.profile_photo
+            profile_photo: res.profile_photo,
+            original_profile_photo: res.profile_photo
           }),
           editing: false
         })
       } else {
         console.log('Something went wrong here.')
       }
+    })
+  }
+
+  cancelUpdateProfile() {
+    this.setState({
+      editing: false, 
+      user: Object.assign({}, this.state.user, {
+        profile_photo: this.state.user.original_profile_photo        
+      })
     })
   }
 
@@ -209,6 +226,14 @@ class Profile extends Component {
         edit
       </div>
     )
+    const cancel_edits = (this.state.editing) ? (
+      <div 
+        title="Cancel edits"
+        className="cancel-profile-edits"
+        onClick={this.cancelUpdateProfile}>
+        cancel
+      </div>
+    ) : null
 
     const edit_or_save_if_me = (this.props.current_user.username === this.props.match.params.username) ? edit_profile_or_save_button : null
     const account_settings_button = (this.props.current_user.username === this.props.match.params.username) ? (
@@ -260,6 +285,7 @@ class Profile extends Component {
           </div>
 
           {edit_or_save_if_me}
+          {cancel_edits}
         </div>
         
         <div className="description-and-statistics">
@@ -293,7 +319,9 @@ class Profile extends Component {
           profile_photo_url={this.state.user.profile_photo}
           photo_url={recipe.photo.url}
           username={this.state.user.username}
-          name={recipe.name}/>
+          name={recipe.name}
+          forks={recipe.forks}
+          likes={recipe.likes}/>
       )
     })
 
