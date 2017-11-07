@@ -1,25 +1,53 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { changeQuery, updateResults, clearSearch } from '../actions/search'
 
-// import { navigateFeed } from '../actions/navigate'
-
+import { Nombook as NB } from '../api';
 import '../styles/containers/NavBar.css'
 
 class NavBar extends Component {
   constructor(props) {
     super(props)
-    this.toggleFocusUserIcon = this.toggleFocusUserIcon.bind(this)
     this.state = {
-      user_icon_focused: false
+      user_icon_focused: false,
+      search_focused: false
     }
+    this.handleChangeQuery = this.handleChangeQuery.bind(this)
+    this.toggleFocusUserIcon = this.toggleFocusUserIcon.bind(this)
+    this.toggleSearchBar = this.toggleSearchBar.bind(this)
   }
 
   toggleFocusUserIcon() {
     this.setState({
       user_icon_focused: !this.state.user_icon_focused
     })
-    console.log('hi')
+  }
+
+  toggleSearchBar() {
+    this.setState({
+      search_focused: !this.state.search_focused
+    })
+  }
+
+  handleChangeQuery(e) {
+    let query = e.target.value
+    this.props.onChangeQuery(query)
+    // set true again as a fallback, in case it isn't focused for some reason (this is a QA thing)
+    this.setState({search_focused: true})
+
+    if (query !== "") {
+      let nb = new NB();
+
+      nb.request('GET', `/search/${query}`, res => {
+        this.props.onUpdateResults(res.results)
+      })
+    } else {
+      this.props.onUpdateResults({
+        users: [],
+        recipes: []
+      })
+    }
   }
 
   render() {
@@ -37,11 +65,46 @@ class NavBar extends Component {
     )
 
     {/* search */}
-    const search = (
-      <div className="search">
-        <div className="inner">
-          search
+    const search_results_list = (this.props.search.results.users.length > 0) ? 
+      this.props.search.results.users.map(user => {
+        const background = (user.profile_photo) ? {
+          backgroundImage: `url(${user.profile_photo.url})`,
+          backgroundSize: 'cover'
+        } : null
+        return (
+          <Link 
+            to={`/users/${user.username}`} 
+            onClick={this.props.onClearSearch}
+            key={user.id} 
+            className="user-container">
+            <div className="icon-container">
+              <div className="icon" style={{}}></div>
+            </div>
+            <div className="username-container">
+              {user.username}
+            </div>
+          </Link>
+        )
+      }) : (
+      <div className="user-container">No results</div>
+    )
+    const search_results = (this.props.search.query !== "") ? (
+      <div className="search-results">
+        <div className="inner" onClick={this.toggleSearchBar}>
+          {search_results_list}
         </div>
+      </div>
+    ) : null
+    const search = (
+      <div 
+        className="search">
+        <input 
+          placeholder="Search"
+          className="inner" 
+          value={this.props.search.query}
+          onClick={() => {this.setState({search_focused: true})}}
+          onChange={this.handleChangeQuery}/>
+        {search_results}
       </div>
     )
 
@@ -59,13 +122,6 @@ class NavBar extends Component {
         </Link>
       </div>
     )
-
-    // <button
-    //   className="icon"
-    //   onClick={() => {this.toggleFocusUserIcon()}}
-    //   onBlur={() => {if (this.state.user_icon_focused) {this.toggleFocusUserIcon()}}}>
-    //   {(this.props.current_user.avatar) ? <i className="material-icons">account_circle</i> : <i className="material-icons">account_circle</i> }            
-    // </button>
 
     {/* add a recipe */}
     const add_a_recipe = (
@@ -91,22 +147,26 @@ class NavBar extends Component {
 
 const mapStateToProps = state => {
   return {
-    current_user: state.current_user
+    current_user: state.current_user,
+    search: state.search
+  }
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onChangeQuery: (query) => {
+      dispatch(changeQuery(query))
+    },
+    onUpdateResults: (results) => {
+      dispatch(updateResults(results))
+    },
+    onClearSearch: () => {
+      dispatch(clearSearch())
+    }
   }
 };
 
 export default connect(
   mapStateToProps,
-  null
+  mapDispatchToProps
 )(NavBar);
-
-
-
-// <Link to="/users/1">user</Link>
-// ...
-// <Link to="/recipes/1">recipe</Link>
-// ...
-// <Link to="/">feed</Link>
-// ...
-// <a href="/logout">sign out</a>
-// ...

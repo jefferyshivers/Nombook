@@ -4,6 +4,14 @@ class ProfilePhotoUploader < CarrierWave::Uploader::Base
   # include CarrierWave::RMagick
   # include CarrierWave::MiniMagick
 
+  # version :medium do
+  #   process :quality => 75
+  # end
+
+  # version :thumb do
+  #   process :quality => 25
+  # end
+
   # Choose what kind of storage to use for this uploader:
   if Rails.env.test?
     storage :file

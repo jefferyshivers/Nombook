@@ -21,6 +21,7 @@ Rails.application.routes.draw do
 
       resources :follows
       resources :likes
+      resources :search, only: [:show]
     end
   end
 
