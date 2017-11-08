@@ -13,3 +13,125 @@
  *= require_tree .
  *= require_self
  */
+
+ @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
+ @import url('https://fonts.googleapis.com/css?family=Montserrat+Alternates');
+ @import url('https://fonts.googleapis.com/css?family=Crimson+Text');
+
+
+.unauthenticated {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgb(245,245,245);
+  font-size: 12pt;
+  font-family: 'Crimson Text', serif;
+}
+
+.unauthenticated > .form > .nombook {
+  position: relative;
+  width: 100%;
+  height: 50px;
+  display: flex;
+  font-size: 24pt;
+  justify-content: center;
+  align-items: flex-end;
+  font-family: 'Montserrat Alternates', sans-serif;
+}
+
+.unauthenticated > .form {
+  position: relative;
+  width: 100%;
+  max-width: 300px;
+  max-height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  background: white;
+  overflow: scroll;
+}
+
+.logo {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  background-image: url('logo_with_white_bg.png');
+  background-size: 100%;
+}
+
+.unauthenticated .title, 
+.unauthenticated .field, 
+.unauthenticated .actions, 
+.unauthenticated .links {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 10px auto;
+}
+
+.field label {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.field.text input {
+  position: relative;
+  width: 100%;
+  max-width: 180px;  
+  padding: 5px;
+  border-radius: 6px;
+  outline: none;
+  border: 1px solid gray;
+  box-shadow: none;
+}
+.field.text input:focus {
+  outline: none;
+  background: none;
+}
+
+.unauthenticated .form .title {
+  height: 30px;
+  justify-content: center;
+  align-items: center;
+  font-size: 16pt;
+  border-top: 1px solid rgb(235,235,235);
+}
+.unauthenticated .form .links,
+.unauthenticated .form .actions {
+  height: 50px;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+}
+
+.unauthenticated .form .links a {
+  border-radius: 4px;
+  padding: 5px;
+  margin: 5px;
+  /* box-shadow: 0 0 6px rgba(0,0,0,.2); */
+  color: rgba(0,100,155);
+}
+
+.unauthenticated .form .actions input {
+  position: relative;
+  /* width: 100%; */
+  /* max-width: 200px; */
+  padding: 10px;
+  background: white;
+  border-radius: 6px;
+  box-shadow: 0 0 6px rgba(0,0,0,.2);  
+  outline: none;
+  border: none;
+  cursor: pointer;
+  font-size: 12pt;
+  font-family: 'Crimson Text', serif;
+}

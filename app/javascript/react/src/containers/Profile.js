@@ -38,9 +38,12 @@ class Profile extends Component {
     this.handleFollow = this.handleFollow.bind(this)
     this.handleUnfollow = this.handleUnfollow.bind(this)
   }
+
   componentWillMount() {
     this.loadUser()
   }
+
+  
 
   loadUser() {
     const nb = new NB();

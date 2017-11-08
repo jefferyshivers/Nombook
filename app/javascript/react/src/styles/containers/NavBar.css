@@ -25,6 +25,14 @@
   background: white;
 }
 
+.NavBar .user .icon:active,
+.NavBar .search .icon:active,
+.NavBar .add .icon:active,
+.NavBar .home .icon .inner:active {
+  box-shadow: 0 0 6px var(--color-label-darkgray);
+}
+
+
 .NavBar > .inner > .user,
 .NavBar > .inner > .add {
   position: relative;
