@@ -1,5 +1,5 @@
 @import '../variables.css';
-@import '../components/RecipeTile.css';
+/* @import '../components/RecipeTile.css'; */
 
 .Profile {
   position: relative;
@@ -68,9 +68,12 @@
 }
 .Profile > .control-panel > .relationship-container > .inner > .math-box {
   position: relative;
-  max-width: 300px;
+  max-width: 320px;
+  /* min-width: 240px; */
+
   height: 50px;
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
 }
@@ -79,7 +82,7 @@
   position: relative;
   max-width: 300px;
   width: 50px;
-  height: 100%;
+  height: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -88,8 +91,8 @@
 .Profile > .control-panel > .relationship-container > .inner > .math-box > #you > .icon {
   position: relative;
   max-width: 300px;
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -99,17 +102,59 @@
 .Profile > .control-panel > .relationship-container > .inner > .math-box > .symbol {
   position: relative;
   max-width: 300px;
-  width: 35px;
+  width: 30px;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   color: var(--color-main-dark);
 }
+.Profile > .control-panel > .relationship-container > .inner > .math-box i {
+  font-size: 14pt;
+}
 .Profile > .control-panel > .relationship-container > .inner > .math-box > #equals.symbol {
-  font-size: 24pt;
+  font-size: 18pt;
   transform: translateY(-4px);
 }
+.Profile > .control-panel > .relationship-container > .inner > #in-common.math-box {
+  min-width: 100px;
+}
+.Profile > .control-panel > .relationship-container > .inner > .math-box > .in-common-stats {
+  position: relative;
+  width: 100%;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.Profile > .control-panel > .relationship-container > .inner > .math-box > .in-common-label {
+  position: relative;
+  width: 100%;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-style: italic;
+}
+.Profile > .control-panel > .relationship-container > .inner > .math-box > .in-common-stats > .button {
+  position: relative;
+  border: none;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+  padding: 4px;
+  font-size: 12pt;
+}
+.Profile > .control-panel > .relationship-container > .inner > .math-box > .in-common-stats > .button > i {
+  margin-right: 8px;
+}
+
+
+
+
+
 
 .Profile > .control-panel > .meta-button-group {
   position: relative;
@@ -124,15 +169,17 @@
   position: relative;
   width: 80px;
   cursor: pointer;
-  font-family: var(--font-sans-label);
-
-  border: 2px solid gray;
+  /* font-family: var(--font-sans-label); */
+  border: 2px solid var(--color-label-darkgray);
   border-radius: 4px;
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 10px;
   padding: 4px;
+}
+.Profile > .control-panel > .meta-button-group > .button.selected {
+  border: 2px solid var(--color-main-dark);
 }
 .Profile > .control-panel > .meta-button-group > .button:hover {
   box-shadow: 0 0 6px rgba(0,0,0,.2);
@@ -250,8 +297,8 @@
 }
 .Profile > .meta > .account-settings-button {
   position: absolute;
-  bottom: 0px;
-  left: 0px;
+  top: 0px;
+  right: 0;
   width: 15px;
   height: 15px;
   font-size: 12pt;
@@ -262,6 +309,7 @@
   padding: 4px;
   z-index: 10;
   cursor: pointer;
+  color: var(--color-label-darkgray);
 }
 
 
@@ -281,7 +329,7 @@
   min-height: calc(100% - 90px);
   font-size: 24pt;
   font-size: 14pt;
-  padding: 15px 10px;
+  padding: 15px 40px;
 }
 .Profile > .meta > .description-and-statistics > .description > div {
   position: relative;
@@ -289,14 +337,6 @@
   padding: 5px;
   text-align: left;
 }
-/* .Profile > .meta > .description-and-statistics > .description.editing > div:hover {
-  background: var(--color-hover-field);
-} */
-
-/* .editing > div:hover {
-  background: var(--color-hover-field);
-} */
-
 
 .Profile > .meta > .description-and-statistics > .statistics {
   position: relative;
@@ -311,7 +351,7 @@
 }
 .Profile > .meta > .description-and-statistics > .statistics > .button {
   position: relative;
-  border: 2px solid gray;
+  border: 2px solid var(--color-label-darkgray);
   border-radius: 4px;
   display: flex;
   justify-content: center;
@@ -320,4 +360,7 @@
   padding: 0 4px;
   font-size: 11pt;
   cursor: pointer;
+}
+.Profile > .meta > .description-and-statistics > .statistics > .button.selected {
+  border: 2px solid var(--color-main-dark);
 }

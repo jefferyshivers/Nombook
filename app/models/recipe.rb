@@ -4,6 +4,8 @@ class Recipe < ApplicationRecord
   has_many :steps
 
   has_many :likes
+
+  has_many :forks
   # has_many :liker_likes, class_name: "Like", foreign_key: "liker_id"
   # has_many :likers, through: :liker_likes, source: :liker
 

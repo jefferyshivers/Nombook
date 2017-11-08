@@ -21,13 +21,14 @@ class NavBar extends Component {
     let query = e.target.value
     this.props.onChangeQuery(query)
     // set true again as a fallback, in case it isn't focused for some reason (this is a QA thing)
-    this.setState({search_focused: true})
+    this.setState({search_focused: true, results_loaded: false})
 
     if (query !== "") {
       let nb = new NB();
 
       nb.request('GET', `/search/${query}`, res => {
         this.props.onUpdateResults(res.results)
+        this.setState({results_loaded: true})
       })
     } else {
       this.props.onUpdateResults({
@@ -83,7 +84,7 @@ class NavBar extends Component {
       }) : (
       <div className="user-container">No results</div>
     )
-    const search_results = (this.props.search.query !== "") ? (
+    const search_results = (this.state.results_loaded && this.props.search.query !== "") ? (
       <div className="search-results">
         <div className="inner" onClick={this.toggleSearchBar}>
           {search_results_list}

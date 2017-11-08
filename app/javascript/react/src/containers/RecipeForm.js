@@ -29,6 +29,7 @@ class RecipeForm extends Component {
     this._onItalicClick = this._onItalicClick.bind(this)
     this._onUnderlineClick = this._onUnderlineClick.bind(this)
     this.focusMetaField = this.focusMetaField.bind(this)
+    this.focusStep = this.focusStep.bind(this)
   }
 
   _onBoldClick() {
@@ -37,7 +38,7 @@ class RecipeForm extends Component {
       if (this.state.selected_field.type === 'META_FIELD') {
         this.props.onChangeMetaField(arg, RichUtils.toggleInlineStyle(this.props.editor[arg], 'BOLD'))
       } else {
-        this.props.onChangeStep(arg, RichUtils.toggleInlineStyle(this.props.editor.steps[arg], 'BOLD'))
+        this.props.onChangeStep(arg, RichUtils.toggleInlineStyle(this.props.editor.steps[arg].body, 'BOLD'))
       }
     }
   }
@@ -47,7 +48,7 @@ class RecipeForm extends Component {
       if (this.state.selected_field.type === 'META_FIELD') {
         this.props.onChangeMetaField(arg, RichUtils.toggleInlineStyle(this.props.editor[arg], 'ITALIC'))
       } else {
-        this.props.onChangeStep(arg, RichUtils.toggleInlineStyle(this.props.editor.steps[arg], 'ITALIC'))
+        this.props.onChangeStep(arg, RichUtils.toggleInlineStyle(this.props.editor.steps[arg].body, 'ITALIC'))
       }
     }
   }
@@ -57,7 +58,7 @@ class RecipeForm extends Component {
       if (this.state.selected_field.type === 'META_FIELD') {
         this.props.onChangeMetaField(arg, RichUtils.toggleInlineStyle(this.props.editor[arg], 'UNDERLINE'))
       } else {
-        this.props.onChangeStep(arg, RichUtils.toggleInlineStyle(this.props.editor.steps[arg], 'UNDERLINE'))
+        this.props.onChangeStep(arg, RichUtils.toggleInlineStyle(this.props.editor.steps[arg].body, 'UNDERLINE'))
       }
     }
   }
@@ -68,13 +69,17 @@ class RecipeForm extends Component {
       if (this.state.selected_field.type === 'META_FIELD') {
         this.props.onChangeMetaField(arg, RichUtils.toggleBlockType(this.props.editor[arg], blockType))
       } else {
-        this.props.onChangeStep(arg, RichUtils.toggleBlockType(this.props.editor.steps[arg], blockType))
+        this.props.onChangeStep(arg, RichUtils.toggleBlockType(this.props.editor.steps[arg].body, blockType))
       }
     }
   }
 
   focusMetaField(field) {
     this.setState({selected_field: {type: 'META_FIELD', arg: field}})
+  }
+
+  focusStep(index) {
+    this.setState({selected_field: {type: 'STEP', arg: index}})
   }
 
   handleChangeMetaField(field, editorState) {
@@ -159,11 +164,11 @@ class RecipeForm extends Component {
     const control_panel = (
       <div className="control-panel">
         <div className="style-button-group">
-          <div className="button" onClick={this._onBoldClick}> B </div>
-          <div className="button" onClick={this._onItalicClick}> I </div>
-          <div className="button" onClick={this._onUnderlineClick}> U </div>
-          <div className="button" onClick={() => {this._toggleBlockType('unordered-list-item')}}> UL </div>
-          <div className="button" onClick={() => {this._toggleBlockType('ordered-list-item')}}> OL </div>
+          <div className="button" onClick={this._onBoldClick}> <i className="material-icons">format_bold</i> </div>
+          <div className="button" onClick={this._onItalicClick}> <i className="material-icons">format_italic</i> </div>
+          <div className="button" onClick={this._onUnderlineClick}> <i className="material-icons">format_underline</i> </div>
+          <div className="button" onClick={() => {this._toggleBlockType('unordered-list-item')}}> <i className="material-icons">format_list_bulleted</i> </div>
+          <div className="button" onClick={() => {this._toggleBlockType('ordered-list-item')}}> <i className="material-icons">format_list_numbered</i> </div>
           <div className="button" onClick={() => {this._toggleBlockType('code-block')}}> <i className="material-icons">code</i> </div>
           <div className="button" onClick={() => {this._toggleBlockType('blockquote')}}> <i className="material-icons">format_quote</i> </div>
         </div>
@@ -278,6 +283,7 @@ class RecipeForm extends Component {
           <div className="step editing">
             <Editor 
               spellCheck={true}
+              onFocus={() => {this.focusStep(step.index_in_recipe)}}
               editorState={step.body} 
               onChange={(e) => {this.handleChangeStep(step.index_in_recipe, e)}} />
           </div>

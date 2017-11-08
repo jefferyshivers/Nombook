@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 
 import ReactFileReader from 'react-file-reader';
 import RecipeTile from '../components/RecipeTile'
+import ProfileTile from '../components/ProfileTile'
 import { Nombook as NB } from '../api';
 import '../styles/containers/Profile.css'
 
@@ -25,7 +26,8 @@ class Profile extends Component {
         following: [],
         current_user_following: null
       },
-      recipes: []
+      recipes: [],
+      viewing: 'recipes'
     }
     this.loadUser = this.loadUser.bind(this)
     this.saveUpdatedProfile = this.saveUpdatedProfile.bind(this)
@@ -61,12 +63,14 @@ class Profile extends Component {
           original_profile_photo: res.profile_photo,
           followers: res.followers,
           following: res.following,
-          current_user_following: res.current_user_following
+          current_user_following: res.current_user_following,
         })
 
         this.setState({
           user: user, 
-          recipes: recipes
+          recipes: recipes,
+          viewing: 'recipes',
+          forks_in_common: res.forks_in_common
         })
       } else {
         this.props.history.push("/");
@@ -91,16 +95,11 @@ class Profile extends Component {
 
     nb.request(params, `/users/${this.state.user.id}`, res => {
       if (res.saved) {
-        let description = EditorState.createWithContent(convertFromRaw(JSON.parse(res.user.description)))
-
         this.setState({
-          user: Object.assign({}, this.state.user, {
-            description: description,
-            profile_photo: res.profile_photo,
-            original_profile_photo: res.profile_photo
-          }),
           editing: false
         })
+        // do this asynchronously like so, otherwise the profile_photo url is still null:
+        this.loadUser()
       } else {
         console.log('Something went wrong here.')
       }
@@ -205,25 +204,41 @@ class Profile extends Component {
         follow
       </div>
     )
+
+    const my_photo = (this.props.current_user.profile_photo) ? {
+      backgroundImage: `url(${this.props.current_user.profile_photo.medium.url})`,
+      backgroundSize: 'cover'
+    } : null
+    const their_photo = (this.state.user.profile_photo) ? {
+      backgroundImage: `url(${this.state.user.profile_photo})`,
+      backgroundSize: 'cover'
+    } : null
     const control_panel = (this.props.current_user.username !== this.props.match.params.username) ? (
       <div className="control-panel">
         <div className="relationship-container">
           <div className="inner">
             <div className="math-box">
               <div id="them">
-                <div className="icon"></div>
+                <div className="icon" style={my_photo}></div>
               </div>
                 <div className="symbol">
                   <i className="material-icons">add</i>
                 </div>
               <div id="you">
-                <div className="icon"></div>
+                <div className="icon" style={their_photo}></div>
               </div>
-                <div className="symbol" id="equals">
-                  =
-                </div>
             </div>
-            <div className="math-box"></div>
+            <div id="in-common" className="math-box">
+             <div className="in-common-stats">
+              <div className="button">
+                <i className="material-icons">call_split</i>
+                {this.state.forks_in_common}
+              </div>
+             </div>
+             <div className="in-common-label">
+              in common
+             </div>
+            </div>
           </div>
         </div>
         <div className="meta-button-group">
@@ -317,13 +332,26 @@ class Profile extends Component {
               readOnly={!this.state.editing}
               editorState={this.state.user.description} 
               onChange={(e) => {this.handleChangeDescription(e)}} />
+              
           </div>
 
           {/* statistics */}
           <div className="statistics">
-            <div className="button">{`${this.state.recipes.length} recipes`}</div>
-            <div className="button">{`${this.state.user.followers.length} followers`}</div>
-            <div className="button">{`${this.state.user.following.length} following`}</div>
+            <div 
+              className={(this.state.viewing === 'recipes') ? "button selected" : "button"}
+              onClick={() => {this.setState({viewing: 'recipes'})}}>
+              {`${this.state.recipes.length} recipes`}
+            </div>
+            <div 
+            className={(this.state.viewing === 'followers') ? "button selected" : "button"}
+              onClick={() => {this.setState({viewing: 'followers'})}}>
+              {`${this.state.user.followers.length} followers`}
+            </div>
+            <div 
+            className={(this.state.viewing === 'following') ? "button selected" : "button"}
+              onClick={() => {this.setState({viewing: 'following'})}}>
+              {`${this.state.user.following.length} following`}
+            </div>
           </div>
         </div>
 
@@ -346,11 +374,40 @@ class Profile extends Component {
       )
     })
 
+    {/* followers */}
+    const followers = this.state.user.followers.map(follower => {
+      return(
+        <ProfileTile 
+          key={follower.id}
+          user={follower}/>
+      )
+    })
+
+    {/* following */}
+    const following = this.state.user.following.map(followed => {
+      return(
+        <ProfileTile 
+          key={followed.id}
+          user={followed}/>
+      )
+    })
+
+    const list = () => {
+      switch(this.state.viewing) {
+        case 'recipes':
+          return recipes
+        case 'followers':
+          return followers
+        case 'following':
+          return following
+      }
+    }
+
     return(
       <div className='Profile'>
         {control_panel}
         {meta}
-        {recipes}
+        {list()}
       </div>
     )
   }

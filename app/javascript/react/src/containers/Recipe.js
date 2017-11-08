@@ -31,6 +31,7 @@ class Recipe extends Component {
     this._onItalicClick = this._onItalicClick.bind(this)
     this._onUnderlineClick = this._onUnderlineClick.bind(this)
     this.focusMetaField = this.focusMetaField.bind(this)
+    this.focusStep = this.focusStep.bind(this)    
     this.state = {
       editing: false,
       recipe: {
@@ -56,7 +57,7 @@ class Recipe extends Component {
         console.log('meta field')
         this.handleChangeMetaField(arg, RichUtils.toggleInlineStyle(this.state.recipe[arg], 'BOLD'))
       } else {
-        this.handleChangeStep(arg, RichUtils.toggleInlineStyle(this.state.steps[arg], 'BOLD'))
+        this.handleChangeStep(arg, RichUtils.toggleInlineStyle(this.state.steps[arg].body, 'BOLD'))
       }
     }
   }
@@ -66,7 +67,7 @@ class Recipe extends Component {
       if (this.state.selected_field.type === 'META_FIELD') {
         this.handleChangeMetaField(arg, RichUtils.toggleInlineStyle(this.state.recipe[arg], 'ITALIC'))
       } else {
-        this.handleChangeStep(arg, RichUtils.toggleInlineStyle(this.state.steps[arg], 'ITALIC'))
+        this.handleChangeStep(arg, RichUtils.toggleInlineStyle(this.state.steps[arg].body, 'ITALIC'))
       }
     }
   }
@@ -76,7 +77,7 @@ class Recipe extends Component {
       if (this.state.selected_field.type === 'META_FIELD') {
         this.handleChangeMetaField(arg, RichUtils.toggleInlineStyle(this.state.recipe[arg], 'UNDERLINE'))
       } else {
-        this.handleChangeStep(arg, RichUtils.toggleInlineStyle(this.state.steps[arg], 'UNDERLINE'))
+        this.handleChangeStep(arg, RichUtils.toggleInlineStyle(this.state.steps[arg].body, 'UNDERLINE'))
       }
     }
   }
@@ -87,13 +88,17 @@ class Recipe extends Component {
       if (this.state.selected_field.type === 'META_FIELD') {
         this.handleChangeMetaField(arg, RichUtils.toggleBlockType(this.state.recipe[arg], blockType))
       } else {
-        this.handleChangeStep(arg, RichUtils.toggleBlockType(this.state.steps[arg], blockType))
+        this.handleChangeStep(arg, RichUtils.toggleBlockType(this.state.steps[arg].body, blockType))
       }
     }
   }
 
   focusMetaField(field) {
     this.setState({selected_field: {type: 'META_FIELD', arg: field}})
+  }
+
+  focusStep(index) {
+    this.setState({selected_field: {type: 'STEP', arg: index}})
   }
 
   componentWillMount() {
@@ -364,13 +369,13 @@ class Recipe extends Component {
       <div className="control-panel">
 
         <div className="style-button-group">
-          <div className="button" onClick={this._onBoldClick}> B </div>
-          <div className="button" onClick={this._onItalicClick}> I </div>
-          <div className="button" onClick={this._onUnderlineClick}> U </div>
-          <div className="button" onClick={() => {this._toggleBlockType('unordered-list-item')}}> UL </div>
-          <div className="button" onClick={() => {this._toggleBlockType('ordered-list-item')}}> OL </div>
-          <div className="button" onClick={() => {this._toggleBlockType('code-block')}}> {"</>"} </div>
-          <div className="button" onClick={() => {this._toggleBlockType('blockquote')}}> "" </div>
+          <div className="button" onClick={this._onBoldClick}> <i className="material-icons">format_bold</i> </div>
+          <div className="button" onClick={this._onItalicClick}> <i className="material-icons">format_italic</i> </div>
+          <div className="button" onClick={this._onUnderlineClick}> <i className="material-icons">format_underline</i> </div>
+          <div className="button" onClick={() => {this._toggleBlockType('unordered-list-item')}}> <i className="material-icons">format_list_bulleted</i> </div>
+          <div className="button" onClick={() => {this._toggleBlockType('ordered-list-item')}}> <i className="material-icons">format_list_numbered</i> </div>
+          <div className="button" onClick={() => {this._toggleBlockType('code-block')}}> <i className="material-icons">code</i> </div>
+          <div className="button" onClick={() => {this._toggleBlockType('blockquote')}}> <i className="material-icons">format_quote</i> </div>
         </div>
 
         <div className="meta-button-group">
@@ -481,6 +486,7 @@ class Recipe extends Component {
           <div className={(this.state.editing) ? "step editing" : "step"}>
             <Editor 
               spellCheck={true}
+              onFocus={() => {this.focusStep(step.index_in_recipe)}}
               readOnly={!this.state.editing}
               editorState={step.body} 
               onChange={(e) => {this.handleChangeStep(step.index_in_recipe, e)}} />

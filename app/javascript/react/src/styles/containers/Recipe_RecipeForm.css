@@ -47,9 +47,15 @@
 .Recipe > .edit-or-fork-button-container > #edit.button {
   position: absolute;
   right: 0;
+  width: 70px;
   margin: auto 10px;
   cursor: pointer;  
+  padding: 4px;  
 }
+.Recipe > .edit-or-fork-button-container > #edit.button:hover {
+  box-shadow: 0 0 6px rgba(0,0,0,.2);  
+}
+
 .Recipe > .edit-or-fork-button-container > .button > i {
   margin-right: 8px;
 }
@@ -70,6 +76,7 @@
   border-radius: 2px;
   box-shadow: 0 0 3px rgba(0,0,0,.2);
   border: 1px solid var(--color-label-darkgray);
+  background: white;
   margin: 5px;
   padding: 5px;
   display: flex;
@@ -89,16 +96,16 @@
 }
 .Recipe > .control-panel > .meta-button-group > .button {
   position: relative;
-  width: 80px;
-  border-radius: 2px;
-  box-shadow: 0 0 3px rgba(0,0,0,.4);
-  margin: 5px;
-  padding: 5px;
+  width: 70px;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  font-family: var(--font-sans-label);
+  /* font-family: var(--font-sans-label); */
+  border: 2px solid gray;
+  border-radius: 4px;
+  margin: 4px;
+  padding: 4px;
 }
 .Recipe > .control-panel > .meta-button-group > .button:hover {
   box-shadow: 0 0 6px rgba(0,0,0,.2);
@@ -142,7 +149,7 @@
 .Recipe > .meta > .forked-from > .forked-from-button > .label {
   position: relative;
   font-family: var(--font-sans-label);
-  color: var(--color-main-dark);
+  color: var(--color-label-darkgray);
   font-size: 11pt;
 }
 
