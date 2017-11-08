@@ -100,7 +100,7 @@
   width: 35px;
   height: 35px;
   border-radius: 50%;
-  background-image: url('logo.png');
+  background-image: url('logo_with_white_bg.png');
   background-size: cover;
 }
 .NavBar > .inner > .home > .link > .title {

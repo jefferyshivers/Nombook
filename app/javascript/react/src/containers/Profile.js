@@ -27,7 +27,8 @@ class Profile extends Component {
         current_user_following: null
       },
       recipes: [],
-      viewing: 'recipes'
+      viewing: 'recipes',
+      account_settings_popup: false
     }
     this.loadUser = this.loadUser.bind(this)
     this.saveUpdatedProfile = this.saveUpdatedProfile.bind(this)

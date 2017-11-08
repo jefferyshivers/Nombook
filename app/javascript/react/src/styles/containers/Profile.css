@@ -266,11 +266,11 @@
   float: left;
   height: 30px;
   width: 100%;
-  font-size: 12pt;
+  font-size: 14pt;
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  font-family: var(--font-sans-label);
+  /* font-family: var(--font-sans-label); */
 }
 .Profile > .meta > .picture-and-name > .edit-profile-or-save-button,
 .Profile > .meta > .picture-and-name > .cancel-profile-edits {
