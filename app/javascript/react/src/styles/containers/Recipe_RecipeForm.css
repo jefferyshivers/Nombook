@@ -58,9 +58,24 @@
   position: relative;
   width: calc(100% - 100px);
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   padding: 10px;
+}
+.Recipe > .control-panel > .style-button-group > .button {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  border-radius: 2px;
+  box-shadow: 0 0 3px rgba(0,0,0,.4);
+  margin: 5px;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-family: var(--font-sans-label);
 }
 .Recipe > .control-panel > .meta-button-group {
   position: relative;

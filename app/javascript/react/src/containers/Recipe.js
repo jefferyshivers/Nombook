@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from "react-router-dom";
 import { 
   Editor, 
+  RichUtils,
   EditorState,
   convertFromRaw,
   convertToRaw } from 'draft-js';
@@ -26,6 +27,10 @@ class Recipe extends Component {
     this.handleFork = this.handleFork.bind(this)
     this.handleLike = this.handleLike.bind(this)
     this.handleUnlike = this.handleUnlike.bind(this)
+    this._onBoldClick = this._onBoldClick.bind(this)
+    this._onItalicClick = this._onItalicClick.bind(this)
+    this._onUnderlineClick = this._onUnderlineClick.bind(this)
+    this.focusMetaField = this.focusMetaField.bind(this)
     this.state = {
       editing: false,
       recipe: {
@@ -39,8 +44,56 @@ class Recipe extends Component {
       owner: {},
       photo_url: "",
       current_user_liked: null,
-      likes: []
+      likes: [],
+      selected_field: null      
     }
+  }
+
+  _onBoldClick() {
+    if (this.state.selected_field) {
+      let arg = this.state.selected_field.arg
+      if (this.state.selected_field.type === 'META_FIELD') {
+        console.log('meta field')
+        this.handleChangeMetaField(arg, RichUtils.toggleInlineStyle(this.state.recipe[arg], 'BOLD'))
+      } else {
+        this.handleChangeStep(arg, RichUtils.toggleInlineStyle(this.state.steps[arg], 'BOLD'))
+      }
+    }
+  }
+  _onItalicClick() {
+    if (this.state.selected_field) {
+      let arg = this.state.selected_field.arg
+      if (this.state.selected_field.type === 'META_FIELD') {
+        this.handleChangeMetaField(arg, RichUtils.toggleInlineStyle(this.state.recipe[arg], 'ITALIC'))
+      } else {
+        this.handleChangeStep(arg, RichUtils.toggleInlineStyle(this.state.steps[arg], 'ITALIC'))
+      }
+    }
+  }
+  _onUnderlineClick() {
+    if (this.state.selected_field) {
+      let arg = this.state.selected_field.arg
+      if (this.state.selected_field.type === 'META_FIELD') {
+        this.handleChangeMetaField(arg, RichUtils.toggleInlineStyle(this.state.recipe[arg], 'UNDERLINE'))
+      } else {
+        this.handleChangeStep(arg, RichUtils.toggleInlineStyle(this.state.steps[arg], 'UNDERLINE'))
+      }
+    }
+  }
+
+  _toggleBlockType(blockType) {
+    if (this.state.selected_field) {
+      let arg = this.state.selected_field.arg
+      if (this.state.selected_field.type === 'META_FIELD') {
+        this.handleChangeMetaField(arg, RichUtils.toggleBlockType(this.state.recipe[arg], blockType))
+      } else {
+        this.handleChangeStep(arg, RichUtils.toggleBlockType(this.state.steps[arg], blockType))
+      }
+    }
+  }
+
+  focusMetaField(field) {
+    this.setState({selected_field: {type: 'META_FIELD', arg: field}})
   }
 
   componentWillMount() {
@@ -185,7 +238,7 @@ class Recipe extends Component {
 
     nb.request('DELETE', `/users/${this.props.current_user.id}/recipes/${this.state.recipe.id}`, res => {
       if (res.deleted) {
-        this.props.history.push(`/users/${this.props.current_user.id}`);
+        this.props.history.push(`/users/${this.props.current_user.username}`);
       } else {
         console.log('Something went wrong.');
       }
@@ -309,7 +362,17 @@ class Recipe extends Component {
     {/* control panel */}
     const control_panel = (
       <div className="control-panel">
-        <div className="style-button-group"></div>
+
+        <div className="style-button-group">
+          <div className="button" onClick={this._onBoldClick}> B </div>
+          <div className="button" onClick={this._onItalicClick}> I </div>
+          <div className="button" onClick={this._onUnderlineClick}> U </div>
+          <div className="button" onClick={() => {this._toggleBlockType('unordered-list-item')}}> UL </div>
+          <div className="button" onClick={() => {this._toggleBlockType('ordered-list-item')}}> OL </div>
+          <div className="button" onClick={() => {this._toggleBlockType('code-block')}}> {"</>"} </div>
+          <div className="button" onClick={() => {this._toggleBlockType('blockquote')}}> "" </div>
+        </div>
+
         <div className="meta-button-group">
           <div 
             className="button" 
@@ -350,6 +413,7 @@ class Recipe extends Component {
         <div className={(this.state.editing) ? "name editing" : "name"}>
           <Editor 
             spellCheck={true}
+            onFocus={() => {this.focusMetaField("name")}}
             readOnly={!this.state.editing}
             editorState={this.state.recipe.name} 
             onChange={(e) => {this.handleChangeMetaField("name", e)}} />
@@ -371,6 +435,7 @@ class Recipe extends Component {
         <div className={(this.state.editing) ? "description editing" : "description"}>
           <Editor 
             spellCheck={true}
+            onFocus={() => {this.focusMetaField("description")}}
             readOnly={!this.state.editing}
             editorState={this.state.recipe.description} 
             onChange={(e) => {this.handleChangeMetaField("description", e)}} />
@@ -387,6 +452,7 @@ class Recipe extends Component {
         <div className={(this.state.editing) ? "ingredients-body editing" : "ingredients-body"}>
           <Editor 
             spellCheck={true}
+            onFocus={() => {this.focusMetaField("ingredients_body")}}
             readOnly={!this.state.editing}
             editorState={this.state.recipe.ingredients_body} 
             onChange={(e) => {this.handleChangeMetaField("ingredients_body", e)}} />

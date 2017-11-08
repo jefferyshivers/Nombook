@@ -14,20 +14,7 @@ class NavBar extends Component {
       search_focused: false
     }
     this.handleChangeQuery = this.handleChangeQuery.bind(this)
-    this.toggleFocusUserIcon = this.toggleFocusUserIcon.bind(this)
-    this.toggleSearchBar = this.toggleSearchBar.bind(this)
-  }
-
-  toggleFocusUserIcon() {
-    this.setState({
-      user_icon_focused: !this.state.user_icon_focused
-    })
-  }
-
-  toggleSearchBar() {
-    this.setState({
-      search_focused: !this.state.search_focused
-    })
+    this.handleClickSearchIcon = this.handleClickSearchIcon.bind(this)
   }
 
   handleChangeQuery(e) {
@@ -50,6 +37,10 @@ class NavBar extends Component {
     }
   }
 
+  handleClickSearchIcon(){
+    this.searchInput.focus();
+  }
+
   render() {
     const user_style = (this.state.user_icon_focused) ? {
       background: "gray"
@@ -58,8 +49,13 @@ class NavBar extends Component {
     {/* home */}
     const home = (
       <div className="home">
-        <Link to="/">
-          nombook
+        <Link to="/" className="link">
+          <div className="icon">
+            <div className="inner"></div>
+          </div>
+          <div className="title">
+            nombook          
+          </div>
         </Link>
       </div>
     )
@@ -68,22 +64,21 @@ class NavBar extends Component {
     const search_results_list = (this.props.search.results.users.length > 0) ? 
       this.props.search.results.users.map(user => {
         const background = (user.profile_photo) ? {
-          backgroundImage: `url(${user.profile_photo.url})`,
+          backgroundImage: `url(${user.profile_photo.thumb.url})`,
           backgroundSize: 'cover'
         } : null
         return (
-          <Link 
-            to={`/users/${user.username}`} 
+          <div 
             onClick={this.props.onClearSearch}
             key={user.id} 
             className="user-container">
-            <div className="icon-container">
-              <div className="icon" style={{}}></div>
-            </div>
-            <div className="username-container">
+            <Link to={`/users/${user.username}`}  className="icon-container">
+              <div className="icon" style={background}></div>
+            </Link>
+            <Link to={`/users/${user.username}`}  className="username-container">
               {user.username}
-            </div>
-          </Link>
+            </Link>
+          </div>
         )
       }) : (
       <div className="user-container">No results</div>
@@ -96,13 +91,20 @@ class NavBar extends Component {
       </div>
     ) : null
     const search = (
-      <div 
-        className="search">
+      <div className={(this.state.search_focused) ? "search full-small-screen-width" : "search"}>
+        <div className="icon-container">
+          <div className={(this.state.search_focused) ? "icon hide-on-input-focused" : "icon"} onClick={this.handleClickSearchIcon}>
+            <i className="material-icons">search</i>
+          </div>
+        </div>
         <input 
           placeholder="Search"
           className="inner" 
+          type="text"
+          ref={(input) => { this.searchInput = input; }} 
           value={this.props.search.query}
-          onClick={() => {this.setState({search_focused: true})}}
+          onFocus={() => {this.setState({search_focused: true})}}
+          onBlur={() => {this.setState({search_focused: false})}}
           onChange={this.handleChangeQuery}/>
         {search_results}
       </div>
@@ -110,7 +112,7 @@ class NavBar extends Component {
 
     {/* user */}
     const icon = (this.props.current_user.profile_photo) ? {
-      backgroundImage: `url(${this.props.current_user.profile_photo.url})`,
+      backgroundImage: `url(${this.props.current_user.profile_photo.medium.url})`,
       backgroundSize: 'cover'
     } : {
       background: 'red'
@@ -127,7 +129,7 @@ class NavBar extends Component {
     const add_a_recipe = (
       <div className="add">
         <Link to="/recipes/new" className="icon">
-          +
+          <i className="material-icons">add</i>
         </Link>
       </div>
     )

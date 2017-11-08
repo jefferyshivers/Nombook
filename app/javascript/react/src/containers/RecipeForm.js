@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from "react-router-dom";
 import { 
   Editor, 
+  RichUtils,
   EditorState,
   convertToRaw } from 'draft-js';
 import { Link } from 'react-router-dom';
@@ -21,10 +22,60 @@ class RecipeForm extends Component {
     this.handleClearForm = this.handleClearForm.bind(this)
     this.mountPhoto = this.mountPhoto.bind(this)
     this.state = {
-      photo_64: null
+      photo_64: null,
+      selected_field: null
+    }
+    this._onBoldClick = this._onBoldClick.bind(this)
+    this._onItalicClick = this._onItalicClick.bind(this)
+    this._onUnderlineClick = this._onUnderlineClick.bind(this)
+    this.focusMetaField = this.focusMetaField.bind(this)
+  }
+
+  _onBoldClick() {
+    if (this.state.selected_field) {
+      let arg = this.state.selected_field.arg
+      if (this.state.selected_field.type === 'META_FIELD') {
+        this.props.onChangeMetaField(arg, RichUtils.toggleInlineStyle(this.props.editor[arg], 'BOLD'))
+      } else {
+        this.props.onChangeStep(arg, RichUtils.toggleInlineStyle(this.props.editor.steps[arg], 'BOLD'))
+      }
+    }
+  }
+  _onItalicClick() {
+    if (this.state.selected_field) {
+      let arg = this.state.selected_field.arg
+      if (this.state.selected_field.type === 'META_FIELD') {
+        this.props.onChangeMetaField(arg, RichUtils.toggleInlineStyle(this.props.editor[arg], 'ITALIC'))
+      } else {
+        this.props.onChangeStep(arg, RichUtils.toggleInlineStyle(this.props.editor.steps[arg], 'ITALIC'))
+      }
+    }
+  }
+  _onUnderlineClick() {
+    if (this.state.selected_field) {
+      let arg = this.state.selected_field.arg
+      if (this.state.selected_field.type === 'META_FIELD') {
+        this.props.onChangeMetaField(arg, RichUtils.toggleInlineStyle(this.props.editor[arg], 'UNDERLINE'))
+      } else {
+        this.props.onChangeStep(arg, RichUtils.toggleInlineStyle(this.props.editor.steps[arg], 'UNDERLINE'))
+      }
     }
   }
 
+  _toggleBlockType(blockType) {
+    if (this.state.selected_field) {
+      let arg = this.state.selected_field.arg
+      if (this.state.selected_field.type === 'META_FIELD') {
+        this.props.onChangeMetaField(arg, RichUtils.toggleBlockType(this.props.editor[arg], blockType))
+      } else {
+        this.props.onChangeStep(arg, RichUtils.toggleBlockType(this.props.editor.steps[arg], blockType))
+      }
+    }
+  }
+
+  focusMetaField(field) {
+    this.setState({selected_field: {type: 'META_FIELD', arg: field}})
+  }
 
   handleChangeMetaField(field, editorState) {
     this.props.onChangeMetaField(field, editorState)
@@ -107,7 +158,15 @@ class RecipeForm extends Component {
     {/* control panel */}
     const control_panel = (
       <div className="control-panel">
-        <div className="style-button-group"></div>
+        <div className="style-button-group">
+          <div className="button" onClick={this._onBoldClick}> B </div>
+          <div className="button" onClick={this._onItalicClick}> I </div>
+          <div className="button" onClick={this._onUnderlineClick}> U </div>
+          <div className="button" onClick={() => {this._toggleBlockType('unordered-list-item')}}> UL </div>
+          <div className="button" onClick={() => {this._toggleBlockType('ordered-list-item')}}> OL </div>
+          <div className="button" onClick={() => {this._toggleBlockType('code-block')}}> {"</>"} </div>
+          <div className="button" onClick={() => {this._toggleBlockType('blockquote')}}> "" </div>
+        </div>
         <div className="meta-button-group">
           <div 
             className="button" 
@@ -136,7 +195,7 @@ class RecipeForm extends Component {
       <div className="photo-container">
         {photo}
         <ReactFileReader 
-          fileTypes={[".png",".jpg",".jpeg"]} 
+          fileTypes={[".png",".jpg",".jpeg",".gif"]} 
           base64={true} multipleFiles={false} 
           handleFiles={this.mountPhoto}>
           <button className='upload-photo-button'>
@@ -153,6 +212,7 @@ class RecipeForm extends Component {
         {/* name */}
         <div className="name editing">
           <Editor 
+            onFocus={() => {this.focusMetaField("name")}}
             spellCheck={true}
             editorState={this.props.editor.name} 
             onChange={(e) => {this.handleChangeMetaField("name", e)}} />
@@ -173,6 +233,7 @@ class RecipeForm extends Component {
         {/* description */}
         <div className="description editing">
           <Editor 
+            onFocus={() => {this.focusMetaField("description")}}
             spellCheck={true}
             editorState={this.props.editor.description} 
             onChange={(e) => {this.handleChangeMetaField("description", e)}} />
@@ -188,6 +249,7 @@ class RecipeForm extends Component {
         </div>
         <div className="ingredients-body editing">
           <Editor 
+            onFocus={() => {this.focusMetaField("ingredients_body")}}
             spellCheck={true}
             editorState={this.props.editor.ingredients_body} 
             onChange={(e) => {this.handleChangeMetaField("ingredients_body", e)}} />

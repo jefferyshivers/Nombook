@@ -21,6 +21,9 @@
   justify-content: center;
   align-items: center;
 }
+.NavBar > .inner > div {
+  background: white;
+}
 
 .NavBar > .inner > .user,
 .NavBar > .inner > .add {
@@ -43,15 +46,13 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  border: none;
   outline: none;
   background: white;
-  box-shadow: 0 0 6px rgba(0,0,0,.2);
   cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid var(--color-label-darkgray);
+  border: 2px solid var(--color-label-darkgray);
 }
 .NavBar > .inner > .user > .icon > .material-icons {
   font-size: 32pt;
@@ -71,17 +72,74 @@
 }
 .NavBar > .inner > .home {
   width: 25%;
-  max-width: 100px;
+  max-width: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.NavBar > .inner > .home > .link {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.NavBar > .inner > .home > .link > .icon {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 45px;
+  height: 100%;
+}
+.NavBar > .inner > .home > .link > .icon > .inner {
+  position: relative;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background-image: url('logo.png');
+  background-size: cover;
+}
+.NavBar > .inner > .home > .link > .title {
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100%;
+  width: calc(100% - 50px);
+  padding-left: 5px;
+  font-family: var(--font-sans-label);
+  font-size: 14pt;
 }
 .NavBar > .inner > .search {
   position: relative;
   flex: 1;
-  max-width: calc(100% - 300px);
-  min-width: 100px;
+  max-width: calc(100% - 350px);
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: visible;
+}
+
+.NavBar > .inner > .search > .icon-container {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.NavBar > .inner > .search > .icon-container > .icon {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid var(--color-label-darkgray);
+  background: white;
 }
 
 .NavBar > .inner > .search > .inner {
@@ -103,7 +161,6 @@
 .NavBar > .inner > .search > .inner:focus,
 .NavBar > .inner > .search > .inner:hover {
   outline: none;
-  /* background: var(--color-main-offwhite); */
   border: 2px solid var(--color-label-darkgray);
   color: black;
 }
@@ -116,9 +173,9 @@
   flex-wrap: wrap;
   width: calc(100% - 20px);
   max-width: 420px;
+  min-width: 200px;
   max-height: 200px;
   z-index: 5;
-  background: red;
 }
 .NavBar > .inner > .search > .inner:focus ~ .search-results,
 .NavBar > .inner > .search > .search-results:focus,
@@ -175,4 +232,67 @@
   width: calc(100% - 50px);
   height: 100%;
   overflow: hidden;
+}
+
+
+
+
+
+
+@media (max-width: 600px) {
+  .NavBar > .inner > .home > .link > .title {
+    display: none;
+  }
+  .NavBar > .inner > .home > .link > .icon {
+    width: 100%;
+    max-width: 100%;
+  }
+  .NavBar > .inner > .home > .link > .icon > .inner {
+    width: 45px;
+    height: 45px;
+  }
+  .NavBar > .inner > .home,
+  .NavBar > .inner > .search {
+    width: 25%;
+    min-width: 0;
+    max-width: 100%;
+  }
+}
+
+
+
+@media (max-width: 400px) {
+  .NavBar > .inner > .search > .icon-container,
+  .NavBar > .inner > .search > .icon-container > .icon {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .NavBar > .inner > .search > .icon-container > .icon {
+    cursor: pointer;    
+  }
+  .NavBar > .inner > .search > .inner {
+    position: absolute;
+    display: flex;
+    z-index: -10;
+    top: 12px;
+    max-width: 100%;
+  }
+
+  .NavBar > .inner > .search.full-small-screen-width {
+    z-index: 40;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    /* background: pink; */
+  }
+
+  .NavBar > .inner > .search > .inner:focus {
+    z-index: 40;
+  }
+    
+  .NavBar > .inner > .search > .icon-container > .icon.hide-on-input-focused {
+    display: none;
+  }
 }

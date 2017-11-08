@@ -185,6 +185,12 @@ class Profile extends Component {
   }
 
   render() {
+    // this is a quick hack to rerender the component, since react-router blocks it from normally reloading
+    // for more details on this issue, see: https://github.com/ReactTraining/react-router/issues/5037
+    if (this.state.user.username && this.props.match.params.username !== this.state.user.username) {
+      this.loadUser()
+    }
+
     {/* control panel */}
     const follow_or_unfollow_button = (this.state.user.current_user_following) ? (
       <div 

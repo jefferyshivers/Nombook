@@ -10,6 +10,7 @@ gem 'devise'
 gem 'carrierwave', '~> 1.2.0'
 gem 'carrierwave-base64'
 gem 'fog-aws'
+gem "mini_magick"
 
 group :development do
   gem 'listen', '~> 3.0.5'
