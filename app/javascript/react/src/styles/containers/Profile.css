@@ -51,10 +51,64 @@
 .Profile > .control-panel > .relationship-container {
   position: relative;
   width: calc(100% - 100px);
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 10px;
+}
+.Profile > .control-panel > .relationship-container > .inner {
+  position: relative;
+  width: 100%;
+  max-width: 300px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.Profile > .control-panel > .relationship-container > .inner > .math-box {
+  position: relative;
+  max-width: 300px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.Profile > .control-panel > .relationship-container > .inner > .math-box > #them,
+.Profile > .control-panel > .relationship-container > .inner > .math-box > #you {
+  position: relative;
+  max-width: 300px;
+  width: 50px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.Profile > .control-panel > .relationship-container > .inner > .math-box > #them > .icon,
+.Profile > .control-panel > .relationship-container > .inner > .math-box > #you > .icon {
+  position: relative;
+  max-width: 300px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: gray;
+}
+.Profile > .control-panel > .relationship-container > .inner > .math-box > .symbol {
+  position: relative;
+  max-width: 300px;
+  width: 35px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--color-main-dark);
+}
+.Profile > .control-panel > .relationship-container > .inner > .math-box > #equals.symbol {
+  font-size: 24pt;
+  transform: translateY(-4px);
 }
 
 .Profile > .control-panel > .meta-button-group {
@@ -69,15 +123,16 @@
 .Profile > .control-panel > .meta-button-group > .button {
   position: relative;
   width: 80px;
-  border-radius: 2px;
-  box-shadow: 0 0 3px rgba(0,0,0,.4);
-  margin: 5px;
-  padding: 5px;
+  cursor: pointer;
+  font-family: var(--font-sans-label);
+
+  border: 2px solid gray;
+  border-radius: 4px;
   display: flex;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
-  font-family: var(--font-sans-label);
+  margin: 10px;
+  padding: 4px;
 }
 .Profile > .control-panel > .meta-button-group > .button:hover {
   box-shadow: 0 0 6px rgba(0,0,0,.2);
@@ -168,6 +223,7 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  font-family: var(--font-sans-label);
 }
 .Profile > .meta > .picture-and-name > .edit-profile-or-save-button,
 .Profile > .meta > .picture-and-name > .cancel-profile-edits {

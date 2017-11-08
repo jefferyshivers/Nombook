@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
 @import url('https://fonts.googleapis.com/css?family=Montserrat+Alternates');
+@import url('https://fonts.googleapis.com/css?family=Crimson+Text');
 
 :root {
   --color-main-white: rgb(255,255,255);
@@ -10,5 +11,5 @@
   --color-hover-field: #EAFCF4;
 
   --font-sans-label: 'Source Sans', sans-serif;
-  --font-sans-content: 'Montserrat Alternates', sans-serif;
+  --font-sans-content: 'Crimson Text', serif;
 }

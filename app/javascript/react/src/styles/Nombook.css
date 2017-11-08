@@ -17,7 +17,7 @@ html, body, #app {
   width: 100%;
   height: 100%;
   overflow: auto;
-  /* font-family: var(--font-sans-content); */
+  font-family: var(--font-sans-content);
 }
 
 a {

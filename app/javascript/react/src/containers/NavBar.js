@@ -49,7 +49,7 @@ class NavBar extends Component {
     {/* home */}
     const home = (
       <div className="home">
-        <Link to="/" className="link">
+        <Link to="/" className="link" title="Nombook">
           <div className="icon">
             <div className="inner"></div>
           </div>
@@ -93,7 +93,7 @@ class NavBar extends Component {
     const search = (
       <div className={(this.state.search_focused) ? "search full-small-screen-width" : "search"}>
         <div className="icon-container">
-          <div className={(this.state.search_focused) ? "icon hide-on-input-focused" : "icon"} onClick={this.handleClickSearchIcon}>
+          <div title="Search" className={(this.state.search_focused) ? "icon hide-on-input-focused" : "icon"} onClick={this.handleClickSearchIcon}>
             <i className="material-icons">search</i>
           </div>
         </div>

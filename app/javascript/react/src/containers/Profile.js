@@ -208,8 +208,23 @@ class Profile extends Component {
     const control_panel = (this.props.current_user.username !== this.props.match.params.username) ? (
       <div className="control-panel">
         <div className="relationship-container">
-          Control panel (edit account, follow user, "You have 5 forks in common."). 
-          This will stick to the top of the page.
+          <div className="inner">
+            <div className="math-box">
+              <div id="them">
+                <div className="icon"></div>
+              </div>
+                <div className="symbol">
+                  <i className="material-icons">add</i>
+                </div>
+              <div id="you">
+                <div className="icon"></div>
+              </div>
+                <div className="symbol" id="equals">
+                  =
+                </div>
+            </div>
+            <div className="math-box"></div>
+          </div>
         </div>
         <div className="meta-button-group">
           {follow_or_unfollow_button}

@@ -164,8 +164,8 @@ class RecipeForm extends Component {
           <div className="button" onClick={this._onUnderlineClick}> U </div>
           <div className="button" onClick={() => {this._toggleBlockType('unordered-list-item')}}> UL </div>
           <div className="button" onClick={() => {this._toggleBlockType('ordered-list-item')}}> OL </div>
-          <div className="button" onClick={() => {this._toggleBlockType('code-block')}}> {"</>"} </div>
-          <div className="button" onClick={() => {this._toggleBlockType('blockquote')}}> "" </div>
+          <div className="button" onClick={() => {this._toggleBlockType('code-block')}}> <i className="material-icons">code</i> </div>
+          <div className="button" onClick={() => {this._toggleBlockType('blockquote')}}> <i className="material-icons">format_quote</i> </div>
         </div>
         <div className="meta-button-group">
           <div 
