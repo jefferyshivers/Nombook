@@ -43,10 +43,6 @@ class NavBar extends Component {
   }
 
   render() {
-    const user_style = (this.state.user_icon_focused) ? {
-      background: "gray"
-    } : null
-
     {/* home */}
     const home = (
       <div className="home">
@@ -115,9 +111,7 @@ class NavBar extends Component {
     const icon = (this.props.current_user.profile_photo) ? {
       backgroundImage: `url(${this.props.current_user.profile_photo.medium.url})`,
       backgroundSize: 'cover'
-    } : {
-      background: 'red'
-    }
+    } : null
     const user = (
       <div className="user">
         <Link to={`/users/${this.props.current_user.username}`} className="icon" style={icon}>

@@ -18,6 +18,9 @@
  @import url('https://fonts.googleapis.com/css?family=Montserrat+Alternates');
  @import url('https://fonts.googleapis.com/css?family=Crimson+Text');
 
+ h1, h2, h3, h4, h5 {
+   font-size: 12pt;
+ }
 
 .unauthenticated {
   position: fixed;
@@ -27,7 +30,8 @@
   height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
+  overflow: scroll;
   background: rgb(245,245,245);
   font-size: 12pt;
   font-family: 'Crimson Text', serif;
@@ -48,13 +52,14 @@
   position: relative;
   width: 100%;
   max-width: 300px;
-  max-height: 100%;
+  margin: auto;
+  /* max-height: 100%; */
   display: flex;
   justify-content: center;
   align-items: flex-start;
   flex-wrap: wrap;
   background: white;
-  overflow: scroll;
+  /* overflow: scroll; */
 }
 
 .logo {
@@ -66,7 +71,7 @@
 }
 
 .unauthenticated .title, 
-.unauthenticated .field, 
+.unauthenticated .field,
 .unauthenticated .actions, 
 .unauthenticated .links {
   position: relative;
@@ -78,7 +83,13 @@
   margin: 10px auto;
 }
 
-.field label {
+.unauthenticated .error {
+  font-size: 12pt;
+  padding: 0 20px;
+  color: rgb(80, 24, 24);
+}
+
+.field .label {
   width: 100%;
   display: flex;
   justify-content: center;
@@ -86,7 +97,7 @@
 .field.text input {
   position: relative;
   width: 100%;
-  max-width: 180px;  
+  max-width: 180px;
   padding: 5px;
   border-radius: 6px;
   outline: none;
