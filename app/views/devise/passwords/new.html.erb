@@ -3,10 +3,10 @@
 <div class="form">
 
   <div class="nombook">
-    nombook
+    <a href="/">nombook</a>
   </div>
 
-  <div class="logo"></div>
+  <a class="logo" href="/"></a>
 
     <div class="title">
       Forgot your password?
@@ -16,7 +16,7 @@
       <%= devise_error_messages! %>
     
       <div class="field text">
-        <%= f.label :email %><br />
+        <div class="label">Email</div>
         <%= f.email_field :email, autofocus: true %>
       </div>
     

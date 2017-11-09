@@ -28,7 +28,8 @@ class Profile extends Component {
       },
       recipes: [],
       viewing: 'recipes',
-      account_settings_popup: false
+      account_settings_popup: false,
+      settings_popup: false
     }
     this.loadUser = this.loadUser.bind(this)
     this.saveUpdatedProfile = this.saveUpdatedProfile.bind(this)
@@ -37,13 +38,13 @@ class Profile extends Component {
     this.mountPhoto = this.mountPhoto.bind(this)
     this.handleFollow = this.handleFollow.bind(this)
     this.handleUnfollow = this.handleUnfollow.bind(this)
+    this.focusSettingsPopup = this.focusSettingsPopup.bind(this)
+    this.blurSettingsPopup = this.blurSettingsPopup.bind(this)
   }
 
   componentWillMount() {
     this.loadUser()
   }
-
-  
 
   loadUser() {
     const nb = new NB();
@@ -187,6 +188,13 @@ class Profile extends Component {
     })
   }
 
+  focusSettingsPopup() {
+    this.setState({account_settings_popup: true})
+  }
+  blurSettingsPopup() {
+    this.setState({account_settings_popup: false})
+  }
+
   render() {
     // this is a quick hack to rerender the component, since react-router blocks it from normally reloading
     // for more details on this issue, see: https://github.com/ReactTraining/react-router/issues/5037
@@ -277,15 +285,13 @@ class Profile extends Component {
 
     const edit_or_save_if_me = (this.props.current_user.username === this.props.match.params.username) ? edit_profile_or_save_button : null
     const account_settings_button = (this.props.current_user.username === this.props.match.params.username) ? (
-      <a 
-        href="/users/edit"
+      <div 
         title="Edit your account"
         className="account-settings-button"
-        onClick={this.saveUpdatedProfile}>
+        onClick={this.focusSettingsPopup}>
         <i className="material-icons">settings</i>
-      </a>
+      </div>
     ) : null
-
 
     {/* meta card 
         Profile stuff: picture, name, following, followers, 
@@ -407,11 +413,43 @@ class Profile extends Component {
       }
     }
 
+    
+    const account_settings_popup_inner =  (
+      <div 
+        className="account-settings-popup-inner"
+        onClick={this.focusSettingsPopup}>
+        <Link to={`/users/${this.props.current_user.username}`} className="username">
+          {this.props.current_user.username}
+          <div className="cancel" onClick={this.blurSettingsPopup}>
+            Cancel
+          </div>
+        </Link>
+        <a href="/users/edit" className="button">
+          Edit Account
+        </a>       
+        <a href="/logout" className="button">
+          Logout
+        </a>
+        <Link to="/about" id="learn-more" className="button">
+          About nombook
+        </Link>
+      </div>
+    )
+
+    const account_settings_popup = (this.state.account_settings_popup) ? (
+      <div 
+        className="account-settings-popup"
+        onClick={this.blurSettingsPopup}>
+        {account_settings_popup_inner}
+      </div>
+    ) : null
+
     return(
       <div className='Profile'>
         {control_panel}
         {meta}
         {list()}
+        {account_settings_popup}
       </div>
     )
   }

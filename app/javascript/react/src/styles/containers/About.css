@@ -1,0 +1,15 @@
+.About {
+  position: relative;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 700px;
+}
+
+.About > .logo {
+  position: relative;
+  display: flex;
+  width: 140px;
+  height: 140px;
+  background-image: url('logo_with_white_bg.png');
+  background-size: 100%;
+}

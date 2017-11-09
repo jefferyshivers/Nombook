@@ -14,6 +14,7 @@ import RecipeForm from './containers/RecipeForm';
 import Recipe from './containers/Recipe';
 import BadPath from './containers/BadPath';
 import PublicHomePage from './containers/PublicHomePage';
+import About from './containers/About';
 
 import { Nombook as NB } from './api';
 import { updateUser } from './actions/current_user';
@@ -46,15 +47,14 @@ class Nombook extends Component {
               render={(props) => (
                 <Profile {...props}/>
               )} />
-            <Route 
-              exact path='/recipes/new' 
-              component={RecipeForm}/>
+            <Route exact path='/recipes/new' component={RecipeForm}/>
             <Route 
               exact path='/recipes/:id' 
               render={(props) => (
                 <Recipe location={location} {...props}/>
               )} />
-            
+            <Route exact path='/about' component={About}/>
+
             {/* catch all */}
             <Route path="*" component={BadPath}/>
           </Switch>
@@ -63,6 +63,7 @@ class Nombook extends Component {
     ) : (
       <Switch>
         <Route exact path="/" component={PublicHomePage}/>
+        <Route exact path='/about' component={About}/>
         <Redirect from='/*' to='/'/>
       </Switch>
     )

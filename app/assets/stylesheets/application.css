@@ -35,6 +35,8 @@
   background: rgb(245,245,245);
   font-size: 12pt;
   font-family: 'Crimson Text', serif;
+
+  --color-main-dark: #1F305E;
 }
 
 .unauthenticated > .form > .nombook {
@@ -52,14 +54,13 @@
   position: relative;
   width: 100%;
   max-width: 300px;
-  margin: auto;
-  /* max-height: 100%; */
+  margin: 20px auto;
+  padding: 10px 0;
   display: flex;
   justify-content: center;
   align-items: flex-start;
   flex-wrap: wrap;
   background: white;
-  /* overflow: scroll; */
 }
 
 .logo {
@@ -128,20 +129,16 @@
   border-radius: 4px;
   padding: 5px;
   margin: 5px;
-  /* box-shadow: 0 0 6px rgba(0,0,0,.2); */
   color: rgba(0,100,155);
 }
 
 .unauthenticated .form .actions input {
   position: relative;
-  /* width: 100%; */
-  /* max-width: 200px; */
-  padding: 10px;
+  padding: 5px;
   background: white;
   border-radius: 6px;
-  box-shadow: 0 0 6px rgba(0,0,0,.2);  
+  border: 2px solid var(--color-main-dark);
   outline: none;
-  border: none;
   cursor: pointer;
   font-size: 12pt;
   font-family: 'Crimson Text', serif;

@@ -293,7 +293,6 @@
     position: absolute;
     left: 0;
     width: 100%;
-    /* background: pink; */
   }
 
   .NavBar > .inner > .search > .inner:focus {
