@@ -104,6 +104,7 @@
   outline: none;
   border: 1px solid gray;
   box-shadow: none;
+  font-size: 12pt;
 }
 .field.text input:focus {
   outline: none;
@@ -132,11 +133,11 @@
   color: rgb(0,100,155);
 }
 
-.unauthenticated .form .actions input {
+.unauthenticated .form .actions > input {
   position: relative;
   padding: 5px;
   background: white;
-  border-radius: 6px;
+  border-radius: 2px;
   border: 2px solid var(--color-main-dark);
   outline: none;
   cursor: pointer;
