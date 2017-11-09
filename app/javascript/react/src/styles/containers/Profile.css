@@ -379,7 +379,6 @@
   position: relative;
   margin: 20px auto;
   width: 300px;
-  /* padding: 5px 0; */
   box-shadow: 0 0 8px rgba(0,0,0,.3);
   background: var(--color-main-offwhite);
   z-index: 21;
