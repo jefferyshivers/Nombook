@@ -83,12 +83,6 @@
   color: rgb(0,100,155);
 }
 
-.About div {
-  /* position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center; */
-}
 .About div .heading.icon {
   width: 75px;
   height: 75px;
@@ -99,7 +93,7 @@
   align-items: center;
   color: black;
   box-shadow: 0 0 10px rgba(0,0,0,0.3);
-  margin: auto;
+  margin: 30px auto;
 }
 .About div .heading.icon i {
   font-size: 32pt;
