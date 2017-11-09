@@ -38,34 +38,38 @@ class Api::V1::FeedController < ApplicationController
       end
     end
 
-    feed = feed.sort_by {|a| a.created_at}
-    feed = feed.reverse
-
-    start = offset.to_i * 10
-    feed = feed.slice(start,10)
-
     forks_likes = []
-    feed.each do |recipe, index|
-      likes = recipe.likes.length
-      forks = recipe.forkers.length
-
-      forks_likes << {
-        id: recipe.id,
-        likes: likes,
-        forks: forks
-      }
-    end
-
     profiles = []
-    feed.each do |recipe, index|
-      url = recipe.user.profile_photo.thumb.url
-      username = recipe.user.username
+    
+    if feed.length > 0
+      feed = feed.sort_by {|a| a.created_at}
+      feed = feed.reverse
 
-      profiles << {
-        recipe_id: recipe.id,
-        thumb_url: url,
-        username: username
-      }
+      start = offset.to_i * 10
+      feed = feed.slice(start,10)
+    
+
+      feed.each do |recipe, index|
+        likes = recipe.likes.length
+        forks = recipe.forkers.length
+
+        forks_likes << {
+          id: recipe.id,
+          likes: likes,
+          forks: forks
+        }
+      end
+
+      feed.each do |recipe, index|
+        url = recipe.user.profile_photo.thumb.url
+        username = recipe.user.username
+
+        profiles << {
+          recipe_id: recipe.id,
+          thumb_url: url,
+          username: username
+        }
+      end
     end
     
     render json: { 

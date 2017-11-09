@@ -73,7 +73,6 @@ class Feed extends Component {
           loadingFeed: false,
           reachedEnd: reachedEnd
         })
-        console.log(res.feed)
       } else {
         this.props.history.push("/");
         console.log('Something went wrong while trying to load this feed.');
@@ -90,7 +89,9 @@ class Feed extends Component {
 
     const end_of_feed = (
       <div className="loading-card">
-        You have reached the end of your feed.
+        <div>You have reached the end of your feed.</div>
+        <div className="party">🎉</div>
+        <div>Still want more? Click to fork a random recipe.</div>
       </div>
     )
 
