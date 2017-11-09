@@ -62,8 +62,7 @@ class Nombook extends Component {
       </div>
     ) : (
       <Switch>
-        <Route exact path="/" component={PublicHomePage}/>
-        <Route exact path='/about' component={About}/>
+        <Route exact path="/" component={About}/>
         <Redirect from='/*' to='/'/>
       </Switch>
     )

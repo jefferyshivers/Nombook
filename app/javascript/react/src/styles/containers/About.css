@@ -1,15 +1,74 @@
+@import '../variables.css';
+
 .About {
   position: relative;
   margin: 0 auto;
   width: 100%;
   max-width: 700px;
+  max-height: 100%;
+  font-family: var(--font-sans-content);
+  font-size: 14pt;
+  overflow: scroll;
+  background: var(--color-main-offwhite);
 }
 
-.About > .logo {
+.About > .card,
+.About > .colored-card {
+  position: relative;
+  width: calc(100% - 100px);
+  padding: 10px 50px;
+  background: white;
+  margin: 10px auto;
+}
+.About > .colored-card.auth {
+  background: var(--color-main-dark);
+}
+.About > .colored-card.auth a {
+  color: white;
+}
+
+.About > .card > .logo {
   position: relative;
   display: flex;
-  width: 140px;
-  height: 140px;
+  margin: auto;
   background-image: url('logo_with_white_bg.png');
   background-size: 100%;
+}
+
+.About > .card > .title {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 10px auto;
+}
+
+.About div .heading {
+  position: relative;
+  text-align: center;
+}
+
+.About div {
+  /* position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center; */
+}
+.About div .heading.icon {
+  width: 75px;
+  height: 75px;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  margin: auto;
+}
+.About div .heading.icon i {
+  font-size: 32pt;
+  color: var(--color-main-dark);
 }

@@ -421,7 +421,7 @@ class Profile extends Component {
         <Link to={`/users/${this.props.current_user.username}`} className="username">
           {this.props.current_user.username}
           <div className="cancel" onClick={this.blurSettingsPopup}>
-            Cancel
+          <i className="material-icons">close</i>
           </div>
         </Link>
         <a href="/users/edit" className="button">

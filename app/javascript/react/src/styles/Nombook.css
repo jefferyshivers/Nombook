@@ -5,7 +5,7 @@ html, body, #app {
   height: 100vh;
   margin: 0;
   padding: 0;
-  background: var(--color-main-white);
+  background: var(--color-main-offwhite);
   -webkit-tap-hightlight-color: rgba(0,0,0,0);
   -webkit-overflow-scrolling: touch;
   overflow: hidden;

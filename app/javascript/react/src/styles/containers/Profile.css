@@ -270,7 +270,6 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  /* font-family: var(--font-sans-label); */
 }
 .Profile > .meta > .picture-and-name > .edit-profile-or-save-button,
 .Profile > .meta > .picture-and-name > .cancel-profile-edits {
@@ -416,7 +415,7 @@
   position: absolute;
   top: 0;
   right: 0;
-  margin: 5px;
+  margin: 10px;
   cursor: pointer;
   font-size: 11pt;
   color: black;
