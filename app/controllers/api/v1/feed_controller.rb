@@ -1,29 +1,27 @@
 class Api::V1::FeedController < ApplicationController
   # skip_before_action :verify_authenticity_token, only: [:show]
 
-  def index
-    user = User.find_by(username: params[:id])
-
-    if user = current_user
-      render_feed(user, 0)
-    else
-      render json: { error: "You do not have permission to access this data." }, status: :unprocessable_entity        
-    end
-  end
-
-  # def show
+  # def index
   #   user = User.find_by(username: params[:id])
 
   #   if user = current_user
-  #     offset = params[:id]
-
-  #     render json {
-
-  #     }
+  #     render_feed(user, 0)
   #   else
-
+  #     render json: { error: "You do not have permission to access this data." }, status: :unprocessable_entity        
   #   end
   # end
+
+  def show
+    user = User.find_by(username: params[:user_id])
+
+    if user = current_user
+      offset = params[:id]
+
+      render_feed(user, offset)
+    else
+
+    end
+  end
 
   private
 
@@ -40,7 +38,11 @@ class Api::V1::FeedController < ApplicationController
       end
     end
 
-    feed.sort_by {|a| a.created_at}
+    feed = feed.sort_by {|a| a.created_at}
+    feed = feed.reverse
+
+    start = offset.to_i * 10
+    feed = feed.slice(start,10)
 
     forks_likes = []
     feed.each do |recipe, index|
@@ -71,8 +73,8 @@ class Api::V1::FeedController < ApplicationController
         recipes: feed,
         forks_likes: forks_likes,
         profiles: profiles,
-        count: 0,
-        offset: 0
+        count: feed.length,
+        offset: offset
       }
     }
   end

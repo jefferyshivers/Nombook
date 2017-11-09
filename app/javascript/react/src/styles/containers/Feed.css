@@ -4,3 +4,15 @@
   width: 100%;
   max-width: 700px;
 }
+
+.loading-card {
+  position: relative;
+  background: white;
+  width: 100%;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16pt;
+  margin-bottom: 10px;
+}

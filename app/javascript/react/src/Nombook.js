@@ -33,13 +33,13 @@ class Nombook extends Component {
 
   render() {
     const nombook = (this.props.current_user) ? (
-      <div className="Nombook">
+      <div className="Nombook" id="Nombook">
 
         {/* nav bar */}
         <Route path="/" component={NavBar}/>
 
         {/* main body */}
-        <div className='main'>
+        <div className='main' id="main">
           <Switch>
             <Route exact path='/' component={Feed}/>
             <Route 

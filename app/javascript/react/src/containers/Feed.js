@@ -16,18 +16,42 @@ class Feed extends Component {
     super(props)
     this.state = {
       feed: {
-        recipes: []
-      }
+        recipes: [],
+        offset: 0
+      },
+      loadingFeed: true,
+      reachedEnd: false
     }
+    this.handleScroll = this.handleScroll.bind(this);
   }
   componentDidMount() {
-    this.loadFeed()
+    this.loadFeed(0)
+    document.getElementById('Nombook').addEventListener('scroll', this.handleScroll);
+  }
+  componentWillUnmount() {
+    document.removeEventListener("scroll", this.handleScroll);
   }
 
-  loadFeed() {
+  handleScroll() {
+    let nombook = document.getElementById('Nombook')
+    let main = document.getElementById('main')
+    
+    let nombookHeight = nombook.offsetHeight;
+    let mainHeight = main.offsetHeight;
+    let mainTop = main.getBoundingClientRect().top;
+    let scrolled = (mainTop * -1) + nombookHeight;
+
+    let reachedBottom = (scrolled >= mainHeight);
+    if (!this.state.loadingFeed && !this.state.reachedEnd && reachedBottom) {
+      this.setState({loadingFeed: true})
+      this.loadFeed(this.state.feed.offset + 1)
+    }
+  }
+
+  loadFeed(offset) {
     const nb = new NB();
     
-    nb.request('GET', `/users/${this.props.match.params.username}/feed`, res => {
+    nb.request('GET', `/users/${this.props.match.params.username}/feed/${offset}`, res => {
       if (res.feed) {
         let recipes = res.feed.recipes.map((recipe, index) => {
           return Object.assign({}, recipe, {
@@ -40,11 +64,16 @@ class Feed extends Component {
           })
         })
 
+        let reachedEnd = (recipes.length < 10)
+
         this.setState({
           feed: Object.assign({}, res.feed, {
-            recipes: recipes
-          })
+            recipes: this.state.feed.recipes.concat(recipes)
+          }),
+          loadingFeed: false,
+          reachedEnd: reachedEnd
         })
+        console.log(res.feed)
       } else {
         this.props.history.push("/");
         console.log('Something went wrong while trying to load this feed.');
@@ -53,6 +82,18 @@ class Feed extends Component {
   }
 
   render() {
+    const loading_more = (
+      <div className="loading-card">
+        Loading more recipes...
+      </div>
+    )
+
+    const end_of_feed = (
+      <div className="loading-card">
+        You have reached the end of your feed.
+      </div>
+    )
+
     const feed = this.state.feed.recipes.map(recipe => {
       return(
         <RecipeTile 
@@ -70,6 +111,7 @@ class Feed extends Component {
     return(
       <div className='Feed'>
         {feed}
+        {(this.state.reachedEnd) ? end_of_feed : loading_more}
       </div>
     )
   }
