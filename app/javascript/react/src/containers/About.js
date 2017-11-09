@@ -54,16 +54,22 @@ class About extends Component {
         </p>
         <hr/>
         <p>
-          Forks allow you to take another recipe (made by you or anyone else) and
-          make the changes you want into a new recipe!
+          Forks allow you to take any recipe (made by you or someone else) and
+          make the changes you want to make it your own!
         </p>
         <div className="heading icon">
           <i className="material-icons">call_split</i>
         </div>
         <p>
-          We add a button to your recipe which leads back to the recipe 
+          We add a button to your new recipe which leads back to the 
           original recipe that inspired it.
         </p>
+        <div className="heading fork-example">
+          <div className="button">
+            <div className="forked-from">Forked from</div>
+            <div className="recipe-name">Blueberry Pie</div>
+          </div>
+        </div>
         <p>
           You don't have to worry if the original recipe is changed or deleted, 
           it won't affect your new one.
@@ -76,7 +82,7 @@ class About extends Component {
         <div className='card'>
           <Link to="/" className="logo"></Link>
           <div className="title">
-            Welcome to Nombook
+            Welcome to nombook
           </div>
         </div>
         {auth_links}

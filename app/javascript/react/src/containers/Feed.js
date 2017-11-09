@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import { connect } from 'react-redux';
 import { 
   Editor, 
   EditorState,
@@ -23,13 +22,27 @@ class Feed extends Component {
       reachedEnd: false
     }
     this.handleScroll = this.handleScroll.bind(this);
+    this.getRandomRecipe = this.getRandomRecipe.bind(this);
   }
   componentDidMount() {
     this.loadFeed(0)
     document.getElementById('Nombook').addEventListener('scroll', this.handleScroll);
   }
   componentWillUnmount() {
-    document.removeEventListener("scroll", this.handleScroll);
+    document.getElementById('Nombook').removeEventListener("scroll", this.handleScroll);
+  }
+
+  getRandomRecipe() {
+    const nb = new NB();
+    
+    nb.request('GET', `/recipes/random`, res => {
+      if (res.random_recipe_id) {
+        this.props.history.push(`/recipes/${res.random_recipe_id}`);
+      } else {
+        this.props.history.push("/");
+        console.log('Something went wrong while trying to load your random recipe.');
+      }
+    })
   }
 
   handleScroll() {
@@ -83,12 +96,12 @@ class Feed extends Component {
   render() {
     const loading_more = (
       <div className="loading-card">
-        Loading more recipes...
+        Loading recipes...
       </div>
     )
 
     const end_of_feed = (
-      <div className="loading-card">
+      <div className="loading-card" onClick={this.getRandomRecipe}>
         <div>You have reached the end of your feed.</div>
         <div className="party">🎉</div>
         <div>Still want more? Click to fork a random recipe.</div>
@@ -119,3 +132,4 @@ class Feed extends Component {
 }
 
 export default Feed;
+

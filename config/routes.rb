@@ -18,6 +18,8 @@ Rails.application.routes.draw do
 
       resources :recipes do
         resources :steps
+
+        get "random", on: :collection
       end
 
       resources :follows

@@ -2,7 +2,6 @@ class Api::V1::SearchController < ApplicationController
   # skip_before_action :verify_authenticity_token, only: [:show]
 
   def show
-    # query = params[:id].downcase
     query = "%#{params[:id]}%"
 
     users = User.where("lower(username) LIKE ?", query.downcase).

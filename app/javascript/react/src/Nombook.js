@@ -13,7 +13,6 @@ import Profile from './containers/Profile';
 import RecipeForm from './containers/RecipeForm';
 import Recipe from './containers/Recipe';
 import BadPath from './containers/BadPath';
-import PublicHomePage from './containers/PublicHomePage';
 import About from './containers/About';
 
 import { Nombook as NB } from './api';

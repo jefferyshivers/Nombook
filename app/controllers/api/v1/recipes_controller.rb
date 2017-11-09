@@ -93,6 +93,11 @@ class Api::V1::RecipesController < ApplicationController
     end
   end
 
+  def random
+    recipe = Recipe.all.sample
+    render json: { random_recipe_id: recipe.id }
+  end
+
   private
 
   def recipe_params

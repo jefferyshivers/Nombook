@@ -12,6 +12,10 @@
   background: var(--color-main-offwhite);
 }
 
+.nombook-inline-name {
+  font-family: var(--font-sans-label);
+}
+
 .About > .card,
 .About > .colored-card {
   position: relative;
@@ -21,10 +25,16 @@
   margin: 10px auto;
 }
 .About > .colored-card.auth {
-  background: var(--color-main-dark);
+  display: flex;
+  justify-content: center;
 }
 .About > .colored-card.auth a {
-  color: white;
+  color: var(--color-main-dark);
+  margin: 10px 5px;
+  background: white;
+  border: 1px solid var(--color-main-dark);
+  border-radius: 4px;
+  padding: 5px;
 }
 
 .About > .card > .logo {
@@ -48,6 +58,29 @@
 .About div .heading {
   position: relative;
   text-align: center;
+}
+
+.About div .heading.fork-example {
+  position: relative;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.About div .heading.fork-example > .button {
+  padding: 5px;
+  border: 2px solid rgb(40,40,60);
+  border-radius: 4px;
+}
+
+.About div .heading.fork-example > .button > .forked-from {
+  font-size: 11pt;
+  color: rgb(80,80,80);
+}
+.About div .heading.fork-example > .button > .recipe-name {
+  font-size: 12pt;
+  color: rgb(0,100,155);
 }
 
 .About div {
