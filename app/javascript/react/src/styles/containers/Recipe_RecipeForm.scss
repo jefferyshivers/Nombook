@@ -5,340 +5,351 @@
   margin: 0 auto;
   width: 100%;
   max-width: 700px;
-}
 
+  .meta, 
+  .ingredients, 
+  .method, 
+  .control-panel, 
+  .edit-or-fork-button-container, 
+  .delete-recipe-button-container {
+    position: relative;
+    width: 100%;
+    background: white;
+    margin: 10px auto;
+    border-radius: 2px;
+    box-shadow: 0 0 6px rgba(0,0,0,.1);
+  }
 
+  .control-panel,
+  .edit-or-fork-button-container {
+    z-index: 20;
+    position: sticky;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 60px;
+    box-shadow: 0 0 3px rgba(0,0,0,.3);
+    background: rgba(255,255,255,.95);
+  }
 
-.Recipe > .meta,
-.Recipe > .ingredients,
-.Recipe > .method,
-.Recipe > .control-panel,
-.Recipe > .edit-or-fork-button-container,
-.Recipe > .delete-recipe-button-container {
-  position: relative;
-  width: 100%;
-  background: white;
-  margin: 10px auto;
-  border-radius: 2px;
-  box-shadow: 0 0 6px rgba(0,0,0,.1);
-}
-.Recipe > .control-panel,
-.Recipe > .edit-or-fork-button-container {
-  z-index: 20;
-  position: sticky;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  top: 60px;
-  box-shadow: 0 0 3px rgba(0,0,0,.3);
-  background: rgba(255,255,255,.95);
-}
-.Recipe > .edit-or-fork-button-container > .button {
-  position: relative;
-  border: 2px solid gray;
-  border-radius: 4px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 10px;
-  padding: 4px;
-  cursor: pointer;
-}
-.Recipe > .edit-or-fork-button-container > #edit.button {
-  position: absolute;
-  right: 0;
-  width: 70px;
-  margin: auto 10px;
-  cursor: pointer;  
-  padding: 4px;  
-}
-.Recipe > .edit-or-fork-button-container > #edit.button:hover {
-  box-shadow: 0 0 6px rgba(0,0,0,.2);  
-}
+  .edit-or-fork-button-container {
+    .button {
+      position: relative;
+      border: 2px solid gray;
+      border-radius: 4px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 10px;
+      padding: 4px;
+      cursor: pointer;
 
-.Recipe > .edit-or-fork-button-container > .button > i {
-  margin-right: 8px;
-}
+      i {
+        margin-right: 8px;
+      }
+    }
+    #edit.button {
+      position: absolute;
+      right: 0;
+      width: auto;
+      margin: auto 10px;
+      cursor: pointer;  
+      padding: 4px;  
+    }
+    #edit.button:hover {
+      box-shadow: 0 0 6px rgba(0,0,0,.2);  
+    }
+  }
 
-.Recipe > .control-panel > .style-button-group {
-  position: relative;
-  width: calc(100% - 100px);
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  padding: 10px;
-}
-.Recipe > .control-panel > .style-button-group > .button {
-  position: relative;
-  width: 20px;
-  height: 20px;
-  border-radius: 2px;
-  box-shadow: 0 0 3px rgba(0,0,0,.2);
-  border: 1px solid var(--color-label-darkgray);
-  background: white;
-  margin: 3px;
-  padding: 5px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  font-family: var(--font-sans-label);
-}
-.Recipe > .control-panel > .meta-button-group {
-  position: relative;
-  width: 100px;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  padding: 5px;
-}
-.Recipe > .control-panel > .meta-button-group > .button {
-  position: relative;
-  width: 70px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  border: 2px solid gray;
-  border-radius: 4px;
-  margin: 4px;
-  padding: 4px;
-}
-.Recipe > .control-panel > .meta-button-group > .button:hover {
-  box-shadow: 0 0 6px rgba(0,0,0,.2);
-} 
-.Recipe > .control-panel > .meta-button-group > #save {
-  color: #3E8B3E;
-}
-.Recipe > .control-panel > .meta-button-group > #clear {
-  color: #9E5656;
-}
+  .control-panel {
+    .style-button-group {
+      position: relative;
+      width: calc(100% - 100px);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      padding: 10px;
 
+      .button {
+        position: relative;
+        width: 20px;
+        height: 20px;
+        border-radius: 2px;
+        box-shadow: 0 0 3px rgba(0,0,0,.2);
+        border: 1px solid var(--color-label-darkgray);
+        background: white;
+        margin: 3px;
+        padding: 5px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        font-family: var(--font-sans-label);
+      }
+    }
 
-.Recipe > .meta > div {
-  position: relative;
-  padding: 10px 20px;
-}
-.Recipe > .meta > .name {
-  font-size: 24pt;
-  text-align: center;
-}
-.Recipe > .meta > .author {
-  font-size: 14pt;
-  text-align: center;
-}
-.Recipe > .meta > .forked-from {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.Recipe > .meta > .forked-from > .forked-from-button {
-  padding: 3px 5px;
-  font-size: 12pt;
-  text-align: left;
-  border: 2px solid gray;
-  border-radius: 6px;
-  cursor: pointer;
-}
-.Recipe > .meta > .forked-from > .forked-from-button > div {
-  text-align: center;
-  color: rgb(0,100,155);
-  font-size: 13pt;
-}
-.Recipe > .meta > .forked-from > .forked-from-button > .label {
-  position: relative;
-  font-family: var(--font-sans-label);
-  color: black;
-  font-size: 11pt;
-}
+    .meta-button-group {
+      position: relative;
+      width: 100px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      padding: 5px;
 
-.Recipe > .meta > .photo-container {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  /* override padding */
-  padding: 10px 0;
-}
-.Recipe > .meta > .photo-container > .photo {
-  position: relative;
-  width: calc(100% - 14px);
-  height: 280px;
-  border: 2px solid var(--color-label-darkgray);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-size: cover;
-}
-.Recipe > .meta > .photo-container .upload-photo-button {
-  position: relative;
-  background: white;
-  border: 2px solid var(--color-main-dark);
-  border-radius: 4px;
-  padding: 4px;
-  margin: 5px;
-  cursor: pointer;
-}
+      .button {
+        position: relative;
+        width: 70px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        border: 2px solid gray;
+        border-radius: 4px;
+        margin: 4px;
+        padding: 4px;
+      }
 
-.Recipe > .meta > .description {
-  font-size: 14pt;
-  text-align: left;
-}
+      // .button:hover {
+      //   // box-shadow: 0 0 6px rgba(0,0,0,.2);
+      // } 
+    }
+  }
 
-.Recipe > .meta > .name > div,
-.Recipe > .meta > .description > div {
-  border-radius: 4px;
-  padding: 5px;
-}
-/* .Recipe > .meta > .name:hover > div,
-.Recipe > .meta > .description:hover > div,
-.Recipe > .ingredients > .ingredients-body:hover > div,
-.Recipe > .method > .step-container > .step:hover > div {
-  background: var(--color-hover-field);
-} */
+  .meta > div {
+    position: relative;
+    padding: 10px 20px;
+    text-align: center;
+  }
 
-.Recipe > div > .label {
-  position: relative;
-  margin: 0 auto;
-  width: calc(100% - 20px);
-  padding: 10px;
-  font-family: var(--font-sans-label);
-  color: var(--color-main-dark);
-}
+  .meta {
+    .name {
+      font-size: 24pt;
+    }
 
+    .author {
+      font-size: 14pt;
+    }
 
-.Recipe > .ingredients > .ingredients-body {
-  position: relative;
-  padding: 10px 20px;
-  font-size: 14pt;
-}
-.Recipe > .ingredients > .ingredients-body > div {
-  border-radius: 4px;
-  padding: 5px;
-}
+    .forked-from {
+      display: flex;
+      justify-content: center;
+      align-items: center;
 
-.Recipe > .method {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-}
-.Recipe > .method > .step-container {
-  position: relative;
-  float: middle;
-  display: flex;
-  width: 100%;
-  padding: 4px 20px;
-  padding-right: 0;
-  font-size: 14pt;
-}
+      .forked-from-button {
+        padding: 3px 5px;
+        font-size: 12pt;
+        text-align: left;
+        border: 2px solid gray;
+        border-radius: 6px;
+        cursor: pointer;
 
-.Recipe > .method > .step-container > .step-index-container {
-  position: relative;
-  float: left;
-  width: 28px;
-  height: auto;
-  font-size: 14pt;
-  font-family: var(--font-sans-label);
-  border-right: 2px solid var(--color-label-darkgray);
-  display: flex;
-  justify-content: center;
-  align-content: flex-start;
-  padding-top: 0;
-}
+        div {
+          text-align: center;
+          color: rgb(0,100,155);
+          font-size: 13pt;
+        }
 
-.Recipe > .method > .step-container > .step-index-container > .step-index-number,
-.Recipe > .method > .step-container > .step-index-container > .step-index-delete {
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: calc(100% - 10px);
-  padding-top: 10px;
-  display: flex;
-  align-items: flex-start;
-  background: white;
-}
-.Recipe > .method > .step-container > .step-index-container > .step-index-number {
-  font-size: 12pt;
-  z-index: 1;
-  justify-content: flex-end;
-  padding-right: 6px;
-  width: calc(100% - 6px);
-}
+        .label {
+          position: relative;
+          font-family: var(--font-sans-label);
+          color: black;
+          font-size: 11pt;
+        }
+      }
+    }
 
-.Recipe > .method > .step-container > .step-index-container > .step-index-delete {
-  z-index: -10;
-  width: 100%;  
-  font-size: 14pt;  
-  justify-content: center;  
-  color: var(--color-main-dark);
-}
-.Recipe > .method > .step-container > .step-index-container > .step-index-delete > i:hover {
-  cursor: pointer;
-  text-shadow: 0 0 6px rgba(0,0,0,.2);
-}
-.Recipe > .method > .step-container > .step-index-container:hover > .step-index-delete {
-  z-index: 20;
-}
-.Recipe > .method > .step-container > .step {
-  position: relative;
-  float: left;
-  width: calc(100% - 60px);
-  padding: 4px 20px;
-  font-size: 14pt;
-}
-.Recipe > .method > .step-container > .step > div {
-  border-radius: 4px;
-  padding: 5px;
-}
-.Recipe > .method > .add-a-step-button-container {
-  position: relative;
-  width: 100%;
-  float: left;
-  padding: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.Recipe > .method > .add-a-step-button-container > .add-a-step-button {
-  position: relative;
-  width: 100px;
-  height: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-shadow: 0 0 4px rgba(0,0,0,.4);
-  border-radius: 8px;
-  cursor: pointer;
-}
+    .photo-container {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      /* override padding */
+      padding: 10px 0;
 
+      .photo {
+        position: relative;
+        width: calc(100% - 14px);
+        height: 280px;
+        border: 2px solid var(--color-label-darkgray);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-size: cover;
+      }
 
+      .upload-photo-button {
+        position: relative;
+        background: white;
+        border: 2px solid var(--color-main-dark);
+        border-radius: 4px;
+        padding: 4px;
+        margin: 5px;
+        cursor: pointer;
+      }
+    }
 
+    .description {
+      font-size: 14pt;
+      text-align: left;
+    }
 
-.Recipe > .delete-recipe-button-container {
-  background: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-shadow: none;
-}
+    .name > div,
+    .description > div {
+      border-radius: 4px;
+      padding: 5px;
+    }
+  }
 
-.Recipe > .delete-recipe-button-container > .delete-recipe-button {
-  background: white;
-  position: relative;
-  width: 100px;
-  height: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  box-shadow: 0 0 4px rgba(0,0,0,.4);
-  border-radius: 8px;
-  border: 2px solid var(--color-main-red);
-  cursor: pointer;
-}
-.Recipe > .delete-recipe-button-container > .delete-recipe-button:hover,
-.Recipe > .method > .add-a-step-button-container > .add-a-step-button:hover {
-  box-shadow: 0 0 10px rgba(0,0,0,.2);
+  div > .label {
+    position: relative;
+    margin: 0 auto;
+    width: calc(100% - 20px);
+    padding: 10px;
+    font-family: var(--font-sans-label);
+    color: var(--color-main-dark);
+  }
+
+  .ingredients {
+    .ingredients-body {
+      position: relative;
+      padding: 10px 20px;
+      font-size: 14pt;
+
+      > div {
+        border-radius: 4px;
+        padding: 5px;
+      }
+    }
+  }
+
+  .method {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    .step-container {
+      position: relative;
+      float: middle;
+      display: flex;
+      width: 100%;
+      padding: 4px 20px;
+      padding-right: 0;
+      font-size: 14pt;
+
+      .step-index-container {
+        position: relative;
+        float: left;
+        width: 28px;
+        height: auto;
+        font-size: 14pt;
+        font-family: var(--font-sans-label);
+        border-right: 2px solid var(--color-label-darkgray);
+        display: flex;
+        justify-content: center;
+        align-content: flex-start;
+        padding-top: 0;
+
+        .step-index-number, .step-index-delete {
+          position: absolute;
+          left: 0;
+          top: 0;
+          height: calc(100% - 10px);
+          padding-top: 10px;
+          display: flex;
+          align-items: flex-start;
+          background: white;
+        }
+
+        .step-index-number {
+          font-size: 12pt;
+          z-index: 1;
+          justify-content: flex-end;
+          padding-right: 6px;
+          width: calc(100% - 6px);
+        }
+
+        .step-index-delete {
+          z-index: -10;
+          width: 100%;  
+          font-size: 14pt;  
+          justify-content: center;  
+          color: var(--color-main-dark);
+
+          i:hover {
+            cursor: pointer;
+            text-shadow: 0 0 6px rgba(0,0,0,.2);
+          }
+        }
+      }
+
+      .step-index-container:hover > .step-index-delete {
+        z-index: 20;
+      }
+
+      .step {
+        position: relative;
+        float: left;
+        width: calc(100% - 60px);
+        padding: 4px 20px;
+        font-size: 14pt;
+
+        > div {
+          border-radius: 4px;
+          padding: 5px;
+        }
+      }
+    }
+
+    .add-a-step-button-container {
+      position: relative;
+      width: 100%;
+      float: left;
+      padding: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .add-a-step-button {
+        position: relative;
+        width: 100px;
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 0 4px rgba(0,0,0,.4);
+        border-radius: 8px;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .delete-recipe-button-container {
+    background: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: none;
+
+    .delete-recipe-button {
+      background: white;
+      position: relative;
+      width: 100px;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      box-shadow: 0 0 4px rgba(0,0,0,.4);
+      border-radius: 8px;
+      border: 2px solid var(--color-main-red);
+      cursor: pointer;
+    }
+  }
+
+  .delete-recipe-button-container > .delete-recipe-button:hover,
+  .method > .add-a-step-button-container > .add-a-step-button:hover {
+    box-shadow: 0 0 10px rgba(0,0,0,.2);
+  }
 }
