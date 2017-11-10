@@ -104,7 +104,7 @@ class Feed extends Component {
       <div className="loading-card" onClick={this.getRandomRecipe}>
         <div>You have reached the end of your feed.</div>
         <div className="party">🎉</div>
-        <div>Still want more? Click to fork a random recipe.</div>
+        <div>Still want more? Click to view a random recipe.</div>
       </div>
     )
 
