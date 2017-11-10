@@ -11,7 +11,7 @@ import ReactFileReader from 'react-file-reader';
 import RecipeTile from '../components/RecipeTile'
 import ProfileTile from '../components/ProfileTile'
 import { Nombook as NB } from '../api';
-import '../styles/containers/Profile.css'
+import '../styles/containers/Profile.scss'
 
 class Profile extends Component {
   constructor(props) {

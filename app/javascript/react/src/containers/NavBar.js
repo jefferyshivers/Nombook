@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { changeQuery, updateResults, clearSearch } from '../actions/search'
 
 import { Nombook as NB } from '../api';
-import '../styles/containers/NavBar.css'
+import '../styles/containers/NavBar.scss'
 
 class NavBar extends Component {
   constructor(props) {

@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 import ReactFileReader from 'react-file-reader';
 import { changeMetaField, changeStep, addAStep, deleteStep, clearForm } from '../actions/editor';
 import { Nombook as NB } from '../api';
-import '../styles/containers/Recipe_RecipeForm.css';
+import '../styles/containers/Recipe_RecipeForm.scss';
 
 class RecipeForm extends Component {
   constructor(props) {

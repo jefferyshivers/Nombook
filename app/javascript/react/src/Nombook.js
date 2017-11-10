@@ -17,8 +17,8 @@ import About from './containers/About';
 
 import { Nombook as NB } from './api';
 import { updateUser } from './actions/current_user';
-import './styles/Nombook.css';
-import './styles/main.css';
+import './styles/Nombook.scss';
+import './styles/main.scss';
 
 class Nombook extends Component {
   componentWillMount() {

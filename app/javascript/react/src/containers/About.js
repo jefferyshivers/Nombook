@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import '../styles/containers/About.css'
+import '../styles/containers/About.scss'
 
 class About extends Component {
 

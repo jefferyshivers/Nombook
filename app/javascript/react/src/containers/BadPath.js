@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import '../styles/containers/BadPath.css'
+import '../styles/containers/BadPath.scss'
 
 class BadPath extends Component {
   render() {

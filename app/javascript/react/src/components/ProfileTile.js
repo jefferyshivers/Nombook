@@ -7,7 +7,7 @@ import {
 import { Link } from 'react-router-dom';
 
 import { Nombook as NB } from '../api';
-import '../styles/components/ProfileTile.css'
+import '../styles/components/ProfileTile.scss'
 
 
 const author_and_title = (profile_photo_url, username, name, id) => {

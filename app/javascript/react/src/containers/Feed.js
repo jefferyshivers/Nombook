@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 
 import RecipeTile from '../components/RecipeTile'
 import { Nombook as NB } from '../api';
-import '../styles/containers/Feed.css'
+import '../styles/containers/Feed.scss'
 
 class Feed extends Component {
   constructor(props) {

@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 
 import { changeMetaField, changeStep, addAStep, clearForm, fork } from '../actions/editor';
 import { Nombook as NB } from '../api';
-import '../styles/containers/Recipe_RecipeForm.css';
+import '../styles/containers/Recipe_RecipeForm.scss';
 
 class Recipe extends Component {
   constructor(props) {
