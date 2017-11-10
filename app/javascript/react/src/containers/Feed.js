@@ -63,7 +63,6 @@ class Feed extends Component {
 
   loadFeed(offset) {
     const nb = new NB();
-    console.log(offset)
     
     nb.request('GET', `/users/${this.props.match.params.username}/feed/${offset}`, res => {
       if (res.feed) {
