@@ -57,12 +57,13 @@ class Feed extends Component {
     let reachedBottom = (scrolled >= mainHeight);
     if (!this.state.loadingFeed && !this.state.reachedEnd && reachedBottom) {
       this.setState({loadingFeed: true})
-      this.loadFeed(this.state.feed.offset + 1)
+      this.loadFeed(parseInt(this.state.feed.offset) + 1)
     }
   }
 
   loadFeed(offset) {
     const nb = new NB();
+    console.log(offset)
     
     nb.request('GET', `/users/${this.props.match.params.username}/feed/${offset}`, res => {
       if (res.feed) {
