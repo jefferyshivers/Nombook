@@ -10,92 +10,99 @@
   font-size: 14pt;
   overflow: scroll;
   background: var(--color-main-offwhite);
-}
 
-.nombook-inline-name {
-  font-family: var(--font-sans-label);
-}
+  .nombook-inline-name {
+    font-family: var(--font-sans-label);
+  }
 
-.About > .card,
-.About > .colored-card {
-  position: relative;
-  width: calc(100% - 100px);
-  padding: 10px 50px;
-  background: white;
-  margin: 10px auto;
-}
-.About > .colored-card.auth {
-  display: flex;
-  justify-content: center;
-}
-.About > .colored-card.auth a {
-  color: var(--color-main-dark);
-  margin: 10px 5px;
-  background: white;
-  border: 1px solid var(--color-main-dark);
-  border-radius: 4px;
-  padding: 5px;
-}
+  .card, .colored-card {
+    position: relative;
+    width: calc(100% - 100px);
+    padding: 10px 50px;
+    background: white;
+    margin: 10px auto;
+  }
 
-.About > .card > .logo {
-  position: relative;
-  display: flex;
-  margin: auto;
-  background-image: url('logo_with_white_bg.png');
-  background-size: 100%;
-}
+  .colored-card.auth {
+    display: flex;
+    justify-content: center;
 
-.About > .card > .title {
-  position: relative;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  margin: 10px auto;
-}
+    a {
+      color: var(--color-main-dark);
+      margin: 10px 5px;
+      background: white;
+      border: 1px solid var(--color-main-dark);
+      border-radius: 4px;
+      padding: 5px;
+    }
+  }
 
-.About div .heading {
-  position: relative;
-  text-align: center;
-}
+  .card {
+    .logo {
+      position: relative;
+      display: flex;
+      margin: auto;
+      background-image: url('/logo_with_white_bg.png');
+      background-size: 100%;
+    }
 
-.About div .heading.fork-example {
-  position: relative;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+    .title {
+      position: relative;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      margin: 10px auto;
+    }
+  }
 
-.About div .heading.fork-example > .button {
-  padding: 5px;
-  border: 2px solid rgb(40,40,60);
-  border-radius: 4px;
-}
+  div {
+    .heading {
+      position: relative;
+      text-align: center;
+    }
 
-.About div .heading.fork-example > .button > .forked-from {
-  font-size: 11pt;
-  color: rgb(80,80,80);
-}
-.About div .heading.fork-example > .button > .recipe-name {
-  font-size: 12pt;
-  color: rgb(0,100,155);
-}
+    .heading.fork-example {
+      position: relative;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
 
-.About div .heading.icon {
-  width: 75px;
-  height: 75px;
-  background: white;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: black;
-  box-shadow: 0 0 6px rgba(0,0,0,0.2);
-  margin: 30px auto;
-}
-.About div .heading.icon i {
-  font-size: 32pt;
-  color: var(--color-main-dark);
+      .button {
+        padding: 5px;
+        border: 2px solid rgb(40,40,60);
+        border-radius: 4px;
+
+        .forked-from {
+          font-size: 11pt;
+          color: rgb(80,80,80);
+        }
+
+        .recipe-name {
+          font-size: 12pt;
+          color: rgb(0,100,155);
+        }
+      }
+    }
+
+    .heading.icon {
+      width: 75px;
+      height: 75px;
+      background: white;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: black;
+      box-shadow: 0 0 6px rgba(0,0,0,0.2);
+      margin: 30px auto;
+
+      i {
+        font-size: 32pt;
+        color: var(--color-main-dark);
+      }
+    }
+  }
 }

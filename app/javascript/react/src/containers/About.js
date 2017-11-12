@@ -77,10 +77,15 @@ class About extends Component {
       </div>
     )
 
+    const logo = {
+      backgroundImage: `url(${require('../../../../../app/assets/images/logo_with_white_bg.png')})`,
+      backgroundSize: 'cover'
+    }
+
     return(
       <div className='About'>
         <div className='card'>
-          <Link to="/" className="logo"></Link>
+          <Link to="/" className="logo" style={logo}></Link>
           <div className="title">
             Welcome to nombook
           </div>

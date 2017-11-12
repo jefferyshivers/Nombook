@@ -5,363 +5,440 @@
   margin: 0 auto;
   width: 100%;
   max-width: 700px;
-}
 
-.Profile > .meta,
-.Profile > .control-panel {
-  position: relative;
-  width: 100%;
-  background: white;
-  margin: 10px auto;
-  border-radius: 2px;
-  box-shadow: 0 0 6px rgba(0,0,0,.1);
-}
-.Profile > .control-panel,
-.Profile > .edit-or-fork-button-container {
-  z-index: 20;
-  position: sticky;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  top: 60px;
-  box-shadow: 0 0 3px rgba(0,0,0,.3);
-  background: rgba(255,255,255,.95);
-}
-.Profile > .edit-or-fork-button-container > .button {
-  position: relative;
-  border: 2px solid gray;
-  border-radius: 4px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 10px;
-  padding: 4px;
-  cursor: pointer;
-}
-.Profile > .edit-or-fork-button-container > #edit.button {
-  position: absolute;
-  right: 0;
-  margin: auto 10px;
-}
-.Profile > .edit-or-fork-button-container > .button > i {
-  margin-right: 8px;
-}
+  .meta,
+  .control-panel {
+    position: relative;
+    width: 100%;
+    background: white;
+    margin: 10px auto;
+    border-radius: 2px;
+    box-shadow: 0 0 6px rgba(0,0,0,.1);
+  }
 
-.Profile > .control-panel > .relationship-container {
-  position: relative;
-  width: calc(100% - 100px);
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 10px;
-}
-.Profile > .control-panel > .relationship-container > .inner {
-  position: relative;
-  width: 100%;
-  max-width: 300px;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.Profile > .control-panel > .relationship-container > .inner > .math-box {
-  position: relative;
-  max-width: 320px;
-  /* min-width: 240px; */
+  .control-panel,
+  .edit-or-fork-button-container {
+    z-index: 20;
+    position: sticky;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 60px;
+    box-shadow: 0 0 3px rgba(0,0,0,.3);
+    background: rgba(255,255,255,.95);
+  }
 
-  height: 50px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-}
-.Profile > .control-panel > .relationship-container > .inner > .math-box > #them,
-.Profile > .control-panel > .relationship-container > .inner > .math-box > #you {
-  position: relative;
-  max-width: 300px;
-  width: 50px;
-  height: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.Profile > .control-panel > .relationship-container > .inner > .math-box > #them > .icon,
-.Profile > .control-panel > .relationship-container > .inner > .math-box > #you > .icon {
-  position: relative;
-  max-width: 300px;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: gray;
-}
-.Profile > .control-panel > .relationship-container > .inner > .math-box > .symbol {
-  position: relative;
-  max-width: 300px;
-  width: 30px;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: var(--color-main-dark);
-}
-.Profile > .control-panel > .relationship-container > .inner > .math-box i {
-  font-size: 14pt;
-}
-.Profile > .control-panel > .relationship-container > .inner > .math-box > #equals.symbol {
-  font-size: 18pt;
-  transform: translateY(-4px);
-}
-.Profile > .control-panel > .relationship-container > .inner > #in-common.math-box {
-  min-width: 100px;
-}
-.Profile > .control-panel > .relationship-container > .inner > .math-box > .in-common-stats {
-  position: relative;
-  width: 100%;
-  height: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.Profile > .control-panel > .relationship-container > .inner > .math-box > .in-common-label {
-  position: relative;
-  width: 100%;
-  height: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-style: italic;
-}
-.Profile > .control-panel > .relationship-container > .inner > .math-box > .in-common-stats > .button {
-  position: relative;
-  border: none;
-  border-radius: 4px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 10px;
-  padding: 4px;
-  font-size: 12pt;
-}
-.Profile > .control-panel > .relationship-container > .inner > .math-box > .in-common-stats > .button > i {
-  margin-right: 8px;
-}
+  .edit-or-fork-button-container {
+    .button {
+      position: relative;
+      border: 2px solid gray;
+      border-radius: 4px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 10px;
+      padding: 4px;
+      cursor: pointer;
 
+      i {
+        margin-right: 8px;
+      }
+    }
 
+    #edit.button {
+      position: absolute;
+      right: 0;
+      margin: auto 10px;
+    }
+  }
 
+  .control-panel {
+    .relationship-container {
+      position: relative;
+      width: calc(100% - 100px);
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px;
 
+      .inner {
+        position: relative;
+        width: 100%;
+        max-width: 300px;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
+        .math-box {
+          position: relative;
+          max-width: 320px;
+          height: 50px;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          align-items: center;
 
-.Profile > .control-panel > .meta-button-group {
-  position: relative;
-  width: 100px;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  padding: 5px;
-}
-.Profile > .control-panel > .meta-button-group > .button {
-  position: relative;
-  width: 80px;
-  cursor: pointer;
-  /* font-family: var(--font-sans-label); */
-  border: 2px solid var(--color-label-darkgray);
-  border-radius: 4px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 10px;
-  padding: 4px;
-}
-.Profile > .control-panel > .meta-button-group > .button.selected {
-  border: 2px solid var(--color-main-dark);
-}
-.Profile > .control-panel > .meta-button-group > .button:hover {
-  box-shadow: 0 0 6px rgba(0,0,0,.2);
-} 
-.Profile > .control-panel > .meta-button-group > #save {
-  color: #3E8B3E;
-}
-.Profile > .control-panel > .meta-button-group > #clear {
-  color: #9E5656;
-}
+          #them, #you {
+            position: relative;
+            max-width: 300px;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            .icon {
+              position: relative;
+              max-width: 300px;
+              width: 40px;
+              height: 40px;
+              border-radius: 50%;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              background: gray;
+            }
+          }
+
+          .symbol {
+            position: relative;
+            max-width: 300px;
+            width: 30px;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--color-main-dark);
+          }
+
+          i {
+            font-size: 14pt;
+          }
+
+          #equals.symbol {
+            font-size: 18pt;
+            transform: translateY(-4px);
+          }
+
+          .in-common-stats {
+            position: relative;
+            width: 100%;
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            .button {
+              position: relative;
+              border: none;
+              border-radius: 4px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              margin: 10px;
+              padding: 4px;
+              font-size: 12pt;
+
+              i {
+                margin-right: 8px;
+              }
+            }
+          }
+
+          .in-common-label {
+            position: relative;
+            width: 100%;
+            height: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-style: italic;
+          }
 
 
+        }
 
-.Profile > .meta {
-  display: flex;
-  justify-content: center;
-  align-content: flex-start;
-  flex-wrap: wrap;
-}
-.Profile > .meta > div {
-  position: relative;
-  float: left;
-  width: 100%;
-  min-height: 20px;
-}
-.Profile > .meta > .picture-and-name {
-  font-size: 24pt;
-  text-align: center;
-  flex: 1;
-  min-width: 220px;
-  height: 160px;
-}
-.Profile > .meta > .picture-and-name > .picture-container {
-  position: relative;
-  float: left;
-  height: calc(100% - 30px);
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.Profile > .meta > .picture-and-name > .picture-container > .picture {
-  position: relative;
-  float: left;
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  background: gray;
-  box-shadow: 0 0 6px rgba(0,0,0,.2);
-  background-size: cover;
-  /* temporary for the words "profile picture" */
-  font-size: 10pt;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.Profile > .meta > .picture-and-name > .picture-container > .picture > .upload-new-photo {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.Profile > .meta > .picture-and-name > .picture-container > .picture > .upload-new-photo div,
-.Profile > .meta > .picture-and-name > .picture-container > .picture > .upload-new-photo button {
-  background: none;
-  position: relative;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  border: none;
-  outline: none;
-  opacity: 0.7;
+        #in-common.math-box {
+          min-width: 100px;
+        }
+      }
+    }
+
+    .meta-button-group {
+      position: relative;
+      width: 100px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      padding: 5px;
+
+      .button {
+        position: relative;
+        width: 80px;
+        cursor: pointer;
+        border: 2px solid var(--color-label-darkgray);
+        border-radius: 4px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 10px;
+        padding: 4px;
+      }
+
+      .button.selected {
+        border: 2px solid var(--color-main-dark);
+      }
+  
+      .button:hover {
+        box-shadow: 0 0 6px rgba(0,0,0,.2);
+      }
+
+      #save {
+        color: #3E8B3E;
+      }
+      #clear {
+        color: #9E5656;
+      }
+    }
+  }
+
+  .meta {
+    display: flex;
+    justify-content: center;
+    align-content: flex-start;
+    flex-wrap: wrap;
+
+    > div {
+      position: relative;
+      float: left;
+      width: 100%;
+      min-height: 20px;
+    }
+
+    .picture-and-name {
+      font-size: 24pt;
+      text-align: center;
+      flex: 1;
+      min-width: 220px;
+      height: 160px;
+
+      .picture-container {
+        position: relative;
+        float: left;
+        height: calc(100% - 30px);
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .picture {
+          position: relative;
+          float: left;
+          width: 100px;
+          height: 100px;
+          border-radius: 50%;
+          background: gray;
+          box-shadow: 0 0 6px rgba(0,0,0,.2);
+          background-size: cover;
+          /* temporary for the words "profile picture" */
+          font-size: 10pt;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          .upload-new-photo {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            > div,
+            > button {
+              background: none;
+              position: relative;
+              width: 100%;
+              height: 100%;
+              border-radius: 50%;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              cursor: pointer;
+              border: none;
+              outline: none;
+              opacity: 0.7;
+            }
+          }
+        }
+      }
+
+      .name-container {
+        position: relative;
+        float: left;
+        height: 30px;
+        width: 100%;
+        font-size: 14pt;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+      }
+
+      .edit-profile-or-save-button,
+      .cancel-profile-edits {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        font-size: 12pt;
+        border: 2px solid gray;
+        border-radius: 4px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 10px;
+        padding: 4px;
+        cursor: pointer;
+      }
+
+      .cancel-profile-edits {
+        top: 30px;
+        left: 0;
+        border: none;
+        color: red;
+        padding: 4px 0;
+      }
+    }
+
+    .account-settings-button {
+      position: absolute;
+      top: 0px;
+      right: 0;
+      width: 15px;
+      height: 15px;
+      font-size: 12pt;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 10px;
+      padding: 4px;
+      z-index: 10;
+      cursor: pointer;
+      color: var(--color-label-darkgray);
+    }
+
+    .description-and-statistics {
+      font-size: 24pt;
+      text-align: center;
+      flex: 2;
+      min-width: 300px;
+      font-size: 14pt;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+
+      .description {
+        position: relative;
+        width: 100%;
+        min-height: calc(100% - 90px);
+        font-size: 24pt;
+        font-size: 14pt;
+        padding: 15px 40px;
+
+        > div {
+          position: relative;
+          border-radius: 4px;
+          padding: 5px;
+          text-align: left;
+        }
+      }
+
+      .statistics {
+        position: relative;
+        width: 100%;  
+        font-size: 24pt;
+        text-align: center;
+        font-size: 14pt;
+        height: 60px;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+
+        .button {
+          position: relative;
+          border: 2px solid var(--color-label-darkgray);
+          border-radius: 4px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin: 15px 10px;
+          padding: 0 4px;
+          font-size: 11pt;
+          cursor: pointer;
+        }
+
+        .button.selected {
+          border: 2px solid var(--color-main-dark);
+        }
+      }
+    }
+  }
 }
 
-.Profile > .meta > .picture-and-name > .name-container {
-  position: relative;
-  float: left;
-  height: 30px;
-  width: 100%;
-  font-size: 14pt;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-}
-.Profile > .meta > .picture-and-name > .edit-profile-or-save-button,
-.Profile > .meta > .picture-and-name > .cancel-profile-edits {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  font-size: 12pt;
+// .Profile > .meta > .description-and-statistics {
+//   font-size: 24pt;
+//   text-align: center;
+//   flex: 2;
+//   min-width: 300px;
+//   font-size: 14pt;
+//   display: flex;
+//   flex-wrap: wrap;
+//   justify-content: center;
+// }
+// .Profile > .meta > .description-and-statistics > .description {
+//   position: relative;
+//   width: 100%;
+//   min-height: calc(100% - 90px);
+//   font-size: 24pt;
+//   font-size: 14pt;
+//   padding: 15px 40px;
+// }
+// .Profile > .meta > .description-and-statistics > .description > div {
+//   position: relative;
+//   border-radius: 4px;
+//   padding: 5px;
+//   text-align: left;
+// }
 
-  border: 2px solid gray;
-  border-radius: 4px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 10px;
-  padding: 4px;
-  cursor: pointer;
-}
-.Profile > .meta > .picture-and-name > .cancel-profile-edits {
-  top: 30px;
-  left: 0;
-  border: none;
-  color: red;
-  padding: 4px 0;
-}
-.Profile > .meta > .account-settings-button {
-  position: absolute;
-  top: 0px;
-  right: 0;
-  width: 15px;
-  height: 15px;
-  font-size: 12pt;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 10px;
-  padding: 4px;
-  z-index: 10;
-  cursor: pointer;
-  color: var(--color-label-darkgray);
-}
-
-
-.Profile > .meta > .description-and-statistics {
-  font-size: 24pt;
-  text-align: center;
-  flex: 2;
-  min-width: 300px;
-  font-size: 14pt;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-.Profile > .meta > .description-and-statistics > .description {
-  position: relative;
-  width: 100%;
-  min-height: calc(100% - 90px);
-  font-size: 24pt;
-  font-size: 14pt;
-  padding: 15px 40px;
-}
-.Profile > .meta > .description-and-statistics > .description > div {
-  position: relative;
-  border-radius: 4px;
-  padding: 5px;
-  text-align: left;
-}
-
-.Profile > .meta > .description-and-statistics > .statistics {
-  position: relative;
-  width: 100%;  
-  font-size: 24pt;
-  text-align: center;
-  font-size: 14pt;
-  height: 60px;
-  display: flex;
-  justify-content: center;
-  align-content: center;
-}
-.Profile > .meta > .description-and-statistics > .statistics > .button {
-  position: relative;
-  border: 2px solid var(--color-label-darkgray);
-  border-radius: 4px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 15px 10px;
-  padding: 0 4px;
-  font-size: 11pt;
-  cursor: pointer;
-}
-.Profile > .meta > .description-and-statistics > .statistics > .button.selected {
-  border: 2px solid var(--color-main-dark);
-}
+// .Profile > .meta > .description-and-statistics > .statistics {
+//   position: relative;
+//   width: 100%;  
+//   font-size: 24pt;
+//   text-align: center;
+//   font-size: 14pt;
+//   height: 60px;
+//   display: flex;
+//   justify-content: center;
+//   align-content: center;
+// }
+// .Profile > .meta > .description-and-statistics > .statistics > .button {
+//   position: relative;
+//   border: 2px solid var(--color-label-darkgray);
+//   border-radius: 4px;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   margin: 15px 10px;
+//   padding: 0 4px;
+//   font-size: 11pt;
+//   cursor: pointer;
+// }
+// .Profile > .meta > .description-and-statistics > .statistics > .button.selected {
+//   border: 2px solid var(--color-main-dark);
+// }
 
 .account-settings-popup {
   position: fixed;
@@ -372,55 +449,60 @@
   background: rgba(230,230,230,0.5);
   overflow: scroll;
   z-index: 20;
-}
 
-.account-settings-popup-inner {
-  position: relative;
-  margin: 20px auto;
-  width: 300px;
-  box-shadow: 0 0 8px rgba(0,0,0,.3);
-  background: var(--color-main-offwhite);
-  z-index: 21;
-  border-radius: 2px;
-}
-.account-settings-popup-inner > .button {
-  position: relative;
-  width: 100%;
-  height: 40px;
-  background: white;
-  cursor: pointer;
-  margin-bottom: 5px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 14pt;
-  color: black;
-}
-.account-settings-popup-inner > .username {
-  position: relative;
-  width: 100%;
-  height: 60px;
-  background: white;
-  cursor: default;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 16pt;
-  color: black;
-  border-bottom: 1px solid var(--color-label-darkgray);
-}
-.account-settings-popup-inner > .username > .cancel {
-  position: absolute;
-  top: 0;
-  right: 0;
-  margin: 10px;
-  cursor: pointer;
-  font-size: 11pt;
-  color: black;
-}
-.account-settings-popup-inner > .username > .cancel:hover {
-  color: var(--color-main-dark);
-}
-.account-settings-popup-inner > .button:hover {
-  color: var(--color-main-dark);
+  .account-settings-popup-inner {
+    position: relative;
+    margin: 20px auto;
+    width: 300px;
+    box-shadow: 0 0 8px rgba(0,0,0,.3);
+    background: var(--color-main-offwhite);
+    z-index: 21;
+    border-radius: 2px;
+
+    .button {
+      position: relative;
+      width: 100%;
+      height: 40px;
+      background: white;
+      cursor: pointer;
+      margin-bottom: 5px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 14pt;
+      color: black;
+    }
+
+    .button:hover {
+      color: var(--color-main-dark);
+    }
+
+    .username {
+      position: relative;
+      width: 100%;
+      height: 60px;
+      background: white;
+      cursor: default;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 16pt;
+      color: black;
+      border-bottom: 1px solid var(--color-label-darkgray);
+
+      .cancel {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 10px;
+        cursor: pointer;
+        font-size: 11pt;
+        color: black;
+      }
+
+      .cancel:hover {
+        color: var(--color-main-dark);
+      }
+    }
+  }
 }

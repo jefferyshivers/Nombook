@@ -67,6 +67,10 @@ module.exports = function(config) {
     // how many browser should be started simultaneous
     concurrency: Infinity,
 
+    proxies: {
+      '/img/generic.png': 'test/assets/img/generic.png'
+    },
+
     // webpack loaders
     webpack: {
       module: {
@@ -75,6 +79,14 @@ module.exports = function(config) {
             test: /\.jsx?/,
             exclude: /node_modules/,
             loader: 'babel-loader'
+          },
+          {
+            test: /\.scss$/,
+            loaders: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader']
+          },
+          {
+            test: /\.css$/,
+            loader: ['style-loader', 'css-loader', 'postcss-loader']
           }
         ]
       },

@@ -44,11 +44,15 @@ class NavBar extends Component {
 
   render() {
     {/* home */}
+    const background = {
+      backgroundImage: `url(${require('../../../../../app/assets/images/logo_with_white_bg.png')})`,
+      backgroundSize: 'cover'
+    }
     const home = (
       <div className="home">
         <Link to="/" className="link" title="Nombook">
           <div className="icon">
-            <div className="inner"></div>
+            <div className="inner" style={background}></div>
           </div>
           <div className="title">
             nombook          
