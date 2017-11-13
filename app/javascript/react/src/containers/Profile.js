@@ -6,6 +6,7 @@ import {
   convertFromRaw,
   convertToRaw } from 'draft-js';
 import { Link } from 'react-router-dom';
+import { sendView, sendActivity } from '../actions/activities';
 
 import ReactFileReader from 'react-file-reader';
 import RecipeTile from '../components/RecipeTile'
@@ -43,6 +44,7 @@ class Profile extends Component {
   }
 
   componentWillMount() {
+    this.props.onView('profile')
     this.loadUser()
   }
 
@@ -148,6 +150,10 @@ class Profile extends Component {
             followers: res.followers
           })
         })
+        this.props.onActivity({
+          category: 'Social',
+          action: 'Followed a user'
+        })
       } else {
         console.log('Something went wrong here.')
       }
@@ -173,6 +179,10 @@ class Profile extends Component {
             current_user_following: res.current_user_following,
             followers: res.followers
           })
+        })
+        this.props.onActivity({
+          category: 'Social',
+          action: 'Unfollowed a user'
         })
       } else {
         console.log('Something went wrong here.')
@@ -342,7 +352,6 @@ class Profile extends Component {
               readOnly={!this.state.editing}
               editorState={this.state.user.description} 
               onChange={(e) => {this.handleChangeDescription(e)}} />
-              
           </div>
 
           {/* statistics */}
@@ -461,7 +470,18 @@ const mapStateToProps = state => {
   }
 };
 
+const mapDispatchToProps = dispatch => {
+  return {
+    onView: (view) => {
+      dispatch(sendView(view))
+    },
+    onActivity: (activity) => {
+      dispatch(sendActivity(activity))
+    }
+  }
+};
+
 export default connect(
   mapStateToProps,
-  null
+  mapDispatchToProps
 )(Profile);

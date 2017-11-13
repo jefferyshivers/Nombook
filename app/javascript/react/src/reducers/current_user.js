@@ -1,5 +1,3 @@
-// import { EditorState } from 'draft-js';
-
 const init = {
   current_user: false
 }

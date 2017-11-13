@@ -7,6 +7,8 @@ import {
   EditorState,
   convertToRaw } from 'draft-js';
 import { Link } from 'react-router-dom';
+import { sendModalView, sendActivity } from '../actions/activities';
+
 
 import ReactFileReader from 'react-file-reader';
 import { changeMetaField, changeStep, addAStep, deleteStep, clearForm } from '../actions/editor';
@@ -30,6 +32,10 @@ class RecipeForm extends Component {
     this._onUnderlineClick = this._onUnderlineClick.bind(this)
     this.focusMetaField = this.focusMetaField.bind(this)
     this.focusStep = this.focusStep.bind(this)
+  }
+
+  componentDidMount() {
+    this.props.onModalView('recipes/new')
   }
 
   _onBoldClick() {
@@ -125,6 +131,10 @@ class RecipeForm extends Component {
       if (res.saved) {
         this.props.history.push(res.location);
         this.props.onClearForm();
+        this.props.onActivity({
+          category: 'Recipe',
+          action: 'Submitted a new recipe'
+        })
       }
     })
   }
@@ -137,7 +147,6 @@ class RecipeForm extends Component {
     this.setState({
       photo_64: file.base64
     })
-    // console.log(file.base64)
   }
 
   render() {
@@ -341,6 +350,12 @@ const mapDispatchToProps = dispatch => {
     },
     onClearForm: () => {
       dispatch(clearForm())
+    },
+    onModalView: (view) => {
+      dispatch(sendModalView(view))
+    },
+    onActivity: (activity) => {
+      dispatch(sendActivity(activity))
     }
   }
 };

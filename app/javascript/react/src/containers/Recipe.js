@@ -8,6 +8,7 @@ import {
   convertFromRaw,
   convertToRaw } from 'draft-js';
 import { Link } from 'react-router-dom';
+import { sendView, sendActivity } from '../actions/activities';
 
 import { changeMetaField, changeStep, addAStep, clearForm, fork } from '../actions/editor';
 import { Nombook as NB } from '../api';
@@ -102,6 +103,7 @@ class Recipe extends Component {
   }
 
   componentWillMount() {
+    this.props.onView('recipes')    
     this.loadRecipe()
   }
 
@@ -267,6 +269,10 @@ class Recipe extends Component {
     }
 
     this.props.onFork(params);
+    this.props.onActivity({
+      category: 'Recipe',
+      action: 'Forked a recipe into new form'
+    })
   }
 
   handleLike() {
@@ -286,6 +292,10 @@ class Recipe extends Component {
         this.setState({
           current_user_liked: res.current_user_liked,
           likes: res.likes
+        })
+        this.props.onActivity({
+          category: 'Social',
+          action: 'Liked a recipe'
         })
       } else {
         console.log('Something went wrong here.')
@@ -310,6 +320,10 @@ class Recipe extends Component {
         this.setState({
           current_user_liked: res.current_user_liked,
           likes: res.likes
+        })
+        this.props.onActivity({
+          category: 'Social',
+          action: 'Unliked a recipe'
         })
       } else {
         console.log('Something went wrong here.')
@@ -555,6 +569,12 @@ const mapDispatchToProps = dispatch => {
     },
     onFork: (params) => {
       dispatch(fork(params))
+    },
+    onView: (view) => {
+      dispatch(sendView(view))
+    },
+    onActivity: (activity) => {
+      dispatch(sendActivity(activity))
     }
   }
 };

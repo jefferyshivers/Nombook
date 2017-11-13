@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { sendView } from '../actions/activities';
 
 import '../styles/containers/About.scss'
 
 class About extends Component {
+  componentDidMount() {
+    this.props.onView('about')
+  }
 
   render() {
     const description = (
@@ -104,7 +108,15 @@ const mapStateToProps = state => {
   }
 };
 
+const mapDispatchToProps = dispatch => {
+  return {
+    onView: (view) => {
+      dispatch(sendView(view))
+    }
+  }
+};
+
 export default connect(
   mapStateToProps,
-  null
+  mapDispatchToProps
 )(About);

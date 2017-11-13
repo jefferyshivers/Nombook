@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { 
   Editor, 
   EditorState,
   convertFromRaw,
   convertToRaw } from 'draft-js';
 import { Link } from 'react-router-dom';
+import { sendView } from '../actions/activities';
 
 import RecipeTile from '../components/RecipeTile'
 import { Nombook as NB } from '../api';
@@ -25,6 +27,7 @@ class Feed extends Component {
     this.getRandomRecipe = this.getRandomRecipe.bind(this);
   }
   componentDidMount() {
+    this.props.onView('/')
     this.loadFeed(0)
     document.getElementById('Nombook').addEventListener('scroll', this.handleScroll);
   }
@@ -131,5 +134,15 @@ class Feed extends Component {
   }
 }
 
-export default Feed;
+const mapDispatchToProps = dispatch => {
+  return {
+    onView: (view) => {
+      dispatch(sendView(view))
+    }
+  }
+};
 
+export default connect(
+  null,
+  mapDispatchToProps
+)(Feed);
