@@ -133,29 +133,41 @@
     }
 
     .forked-from {
+      position: relative;
       display: flex;
       justify-content: center;
       align-items: center;
 
       .forked-from-button {
-        padding: 3px 5px;
+        position: relative;
         font-size: 12pt;
-        text-align: left;
         border: 2px solid gray;
         border-radius: 6px;
         cursor: pointer;
+        width: auto;
 
-        div {
+        > div {
+          position: relative;
+          display: flex;
+          justify-content: center;
+          align-items: center;
           text-align: center;
           color: rgb(0,100,155);
           font-size: 13pt;
+          margin: 3px 5px;
+          padding: 0;
+          width: calc(100% - 10px);
         }
 
         .label {
           position: relative;
+          display: flex;
+          justify-content: center;
+          text-align: center;
           font-family: var(--font-sans-label);
           color: black;
           font-size: 11pt;
+
         }
       }
     }
