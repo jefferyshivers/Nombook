@@ -13,5 +13,7 @@ class User < ApplicationRecord
   has_many :followed_follows, class_name: "Follow", foreign_key: "follower_id"
   has_many :followeds, through: :followed_follows, source: :followed
 
-  mount_base64_uploader :profile_photo, ProfilePhotoUploader  
+  mount_base64_uploader :profile_photo, ProfilePhotoUploader
+
+  validates :username, presence: true
 end

@@ -11,6 +11,7 @@ class Recipe < ApplicationRecord
   has_one :forked_from, through: :forked_from_fork, source: :forked_from
 
   validates :name, presence: true
+  validates :description, presence: true
   validates :ingredients_body, presence: true
 
   mount_base64_uploader :photo, RecipePhotoUploader
