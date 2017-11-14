@@ -26,6 +26,7 @@
     "css-loader": "^0.28.7",
     "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^1.1.5",
+    "image-webpack-loader": "^3.4.2",
     "jasmine-core": "^2.8.0",
     "karma": "^1.7.1",
     "karma-cli": "^1.0.1",

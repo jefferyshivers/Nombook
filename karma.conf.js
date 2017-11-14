@@ -76,6 +76,18 @@ module.exports = function(config) {
       module: {
         loaders: [
           {
+            test: /\.(gif|png|jpe?g|svg)$/i,
+            use: [
+              'file-loader',
+              {
+                loader: 'image-webpack-loader',
+                options: {
+                  bypassOnDebug: true,
+                },
+              },
+            ]
+          },
+          {
             test: /\.jsx?/,
             exclude: /node_modules/,
             loader: 'babel-loader'

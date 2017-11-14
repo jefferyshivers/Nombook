@@ -1,5 +1,7 @@
 # Nombook: the open source, social recipe manager
 
+[ ![Codeship Status for jefferyshivers/Nombook](https://app.codeship.com/projects/307d8b60-a2fe-0135-6a40-0e3370c2291d/status?branch=master)](https://app.codeship.com/projects/254833)
+
 ## About
 
 [Nombook](http://nombook.com) is my answer to a craving for a better experience creating, sharing and discovering recipes.
