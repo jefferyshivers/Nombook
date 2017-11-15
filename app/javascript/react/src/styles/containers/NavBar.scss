@@ -273,6 +273,7 @@
           .icon {
             width: 100%;
             max-width: 100%;
+            
             .inner {
               width: 45px;
               height: 45px;
@@ -290,7 +291,7 @@
   }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 500px) {
   .NavBar .inner {
     .search {
       .icon-container,
@@ -327,6 +328,13 @@
       position: absolute;
       left: 0;
       width: 100%;
+    }
+
+    .home, .search {
+      width: 25%;
+    }
+    .user, .add {
+      max-width: 25%;
     }
   }
 }
