@@ -104,5 +104,26 @@
         color: var(--color-main-dark);
       }
     }
+
+    .mockups {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+
+      .img-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 50%;
+        overflow: hidden;
+
+        img {
+          position: relative;
+          width: 170%;
+          height: auto;
+          margin: auto;
+        }
+      }
+    }
   }
 }

@@ -17,6 +17,15 @@ class About extends Component {
           Nombook is the social recipe manager that makes your experience
           creating, sharing and discovering recipes simple and fun.
         </p>
+        <div className="mockups">
+          <div className="img-container">
+            <img src={`${require('../../../../../app/assets/images/mockup-editor/flat.png')}`}/>
+          </div>
+          <div className="img-container">
+            <img src={`${require('../../../../../app/assets/images/mockup-feed/tilted-right.png')}`}/>
+          </div>
+          <div className="img-container"></div>
+        </div>
         <hr/>
         <div className="heading icon">
           <i className="material-icons">create</i>
