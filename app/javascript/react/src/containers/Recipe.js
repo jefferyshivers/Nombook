@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 import { sendView, sendActivity } from '../actions/activities';
 
 import { changeMetaField, changeStep, addAStep, clearForm, fork } from '../actions/editor';
-import { Nombook as NB } from '../api';
+import { Nombook as NB } from '../api/index';
 import '../styles/containers/Recipe_RecipeForm.scss';
 
 class Recipe extends Component {

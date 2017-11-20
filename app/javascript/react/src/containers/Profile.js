@@ -11,7 +11,7 @@ import { sendView, sendActivity } from '../actions/activities';
 import ReactFileReader from 'react-file-reader';
 import RecipeTile from '../components/RecipeTile'
 import ProfileTile from '../components/ProfileTile'
-import { Nombook as NB } from '../api';
+import { Nombook as NB } from '../api/index';
 import '../styles/containers/Profile.scss'
 
 class Profile extends Component {

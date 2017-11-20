@@ -1,12 +1,19 @@
 
+const fetchHelpers = require('./fetchHelpers');
+
 const basepath = "/api/v1";
 
 class Nombook {
   constructor(props) {
     this.request = this.request.bind(this)
+    this.getCurrentUser = this.getCurrentUser.bind(this)
   }
 
-  // generic request handler
+  getCurrentUser(callback) {
+    fetchHelpers.GET('/users/whoami', callback)
+  }
+
+  // TODO factor this out completely:
   request (method, path, callback = () => {}) {
     params = {
       headers: {'Content-Type': 'application/json'},
@@ -18,7 +25,7 @@ class Nombook {
     } else {
       params.method = method
     }
-
+  
     fetch(`${basepath}${path}`, params)
       .then(response => {
         if (response.ok) {

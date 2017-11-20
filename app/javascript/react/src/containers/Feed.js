@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 import { sendView } from '../actions/activities';
 
 import RecipeTile from '../components/RecipeTile'
-import { Nombook as NB } from '../api';
+import { Nombook as NB } from '../api/index';
 import '../styles/containers/Feed.scss'
 
 class Feed extends Component {

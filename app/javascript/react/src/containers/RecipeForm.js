@@ -12,7 +12,7 @@ import { sendModalView, sendActivity } from '../actions/activities';
 
 import ReactFileReader from 'react-file-reader';
 import { changeMetaField, changeStep, addAStep, deleteStep, clearForm } from '../actions/editor';
-import { Nombook as NB } from '../api';
+import { Nombook as NB } from '../api/index';
 import '../styles/containers/Recipe_RecipeForm.scss';
 
 class RecipeForm extends Component {

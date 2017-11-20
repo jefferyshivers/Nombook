@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { changeQuery, updateResults, clearSearch } from '../actions/search'
 
-import { Nombook as NB } from '../api';
+import { Nombook as NB } from '../api/index';
 import '../styles/containers/NavBar.scss'
 
 class NavBar extends Component {

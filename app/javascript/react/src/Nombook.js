@@ -21,12 +21,12 @@ import './styles/Nombook.scss';
 import './styles/main.scss';
 
 class Nombook extends Component {
-  componentWillMount() {
+  componentDidMount() {
     let that = this;
     const nb = new NB();
-    
-    nb.request('GET', '/users/whoami', body => {
-      that.props.onUpdateUser(body.current_user)
+
+    nb.getCurrentUser(res => {
+      that.props.onUpdateUser(res.current_user)
     })
   }
 
