@@ -24,7 +24,11 @@ class Nombook {
     fetchHelpers.DELETE_WITH_BODY(`/follows/${current_user_id}`, body, callback)
   }
 
-  
+  // TODO
+  // - create, update, delete recipe
+  // - like, unlike recipe
+  // ...
+
 
   // TODO factor this out completely:
   request = (method, path, callback = () => {}) => {
