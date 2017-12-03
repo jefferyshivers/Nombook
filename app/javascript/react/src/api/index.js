@@ -4,16 +4,11 @@ const fetchHelpers = require('./fetchHelpers');
 const basepath = "/api/v1";
 
 class Nombook {
-  constructor(props) {
-    this.request = this.request.bind(this)
-    this.getCurrentUser = this.getCurrentUser.bind(this)
-  }
-
-  getCurrentUser(callback) {
+  getCurrentUser = (callback) => {
     fetchHelpers.GET('/users/whoami', callback)
   }
 
-  followUser(current_user_id, followed_id, callback) {
+  followUser = (current_user_id, followed_id, callback) => {
     let body = JSON.stringify({
       followed_id: followed_id,
     })
@@ -21,7 +16,7 @@ class Nombook {
     fetchHelpers.PATCH(`/follows/${current_user_id}`, body, callback)
   }
 
-  unfollowUser(current_user_id, followed_id, callback) {
+  unfollowUser = (current_user_id, followed_id, callback) => {
     let body = JSON.stringify({
       followed_id: followed_id,
     })
@@ -29,16 +24,10 @@ class Nombook {
     fetchHelpers.DELETE_WITH_BODY(`/follows/${current_user_id}`, body, callback)
   }
 
-
-
-
-
-
-
-
+  
 
   // TODO factor this out completely:
-  request (method, path, callback = () => {}) {
+  request = (method, path, callback = () => {}) => {
     params = {
       headers: {'Content-Type': 'application/json'},
       credentials: 'same-origin'

@@ -21,7 +21,7 @@ import './styles/Nombook.scss';
 import './styles/main.scss';
 
 class Nombook extends Component {
-  componentDidMount() {
+  componentDidMount = () => {
     let that = this;
     const nb = new NB();
 

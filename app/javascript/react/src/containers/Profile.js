@@ -32,23 +32,14 @@ class Profile extends Component {
       account_settings_popup: false,
       settings_popup: false
     }
-    this.loadUser = this.loadUser.bind(this)
-    this.saveUpdatedProfile = this.saveUpdatedProfile.bind(this)
-    this.cancelUpdateProfile = this.cancelUpdateProfile.bind(this)
-    this.handleChangeDescription = this.handleChangeDescription.bind(this)
-    this.mountPhoto = this.mountPhoto.bind(this)
-    this.handleFollow = this.handleFollow.bind(this)
-    this.handleUnfollow = this.handleUnfollow.bind(this)
-    this.focusSettingsPopup = this.focusSettingsPopup.bind(this)
-    this.blurSettingsPopup = this.blurSettingsPopup.bind(this)
   }
 
-  componentWillMount() {
+  componentWillMount = () => {
     this.props.onView('profile')
     this.loadUser()
   }
 
-  loadUser() {
+  loadUser = () => {
     const nb = new NB();
     
     nb.request('GET', `/users/${this.props.match.params.username}`, res => {
@@ -86,7 +77,7 @@ class Profile extends Component {
     })
   }
 
-  saveUpdatedProfile() {
+  saveUpdatedProfile = () => {
     const nb = new NB();
 
     let body = {
@@ -113,7 +104,7 @@ class Profile extends Component {
     })
   }
 
-  cancelUpdateProfile() {
+  cancelUpdateProfile = () => {
     this.setState({
       editing: false, 
       user: Object.assign({}, this.state.user, {
@@ -122,7 +113,7 @@ class Profile extends Component {
     })
   }
 
-  handleChangeDescription(editorState) {
+  handleChangeDescription = (editorState) => {
     this.setState({
       user: Object.assign({}, this.state.user, {
         description: editorState
@@ -130,7 +121,7 @@ class Profile extends Component {
     })
   }
 
-  handleFollow() {
+  handleFollow = () => {
     const nb = new NB();
 
     nb.followUser(this.props.current_user.id, this.state.user.id, res => {
@@ -151,7 +142,7 @@ class Profile extends Component {
     })
   }
 
-  handleUnfollow() {
+  handleUnfollow = () => {
     const nb = new NB();
 
     nb.unfollowUser(this.props.current_user.id, this.state.user.id, res => {
@@ -172,7 +163,7 @@ class Profile extends Component {
     })
   }
 
-  mountPhoto(file) {
+  mountPhoto = (file) => {
     this.setState({
       user: Object.assign({}, this.state.user, {
         profile_photo: file.base64        
@@ -180,10 +171,10 @@ class Profile extends Component {
     })
   }
 
-  focusSettingsPopup() {
+  focusSettingsPopup = () => {
     this.setState({account_settings_popup: true})
   }
-  blurSettingsPopup() {
+  blurSettingsPopup = () => {
     this.setState({account_settings_popup: false})
   }
 

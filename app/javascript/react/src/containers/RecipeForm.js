@@ -18,27 +18,17 @@ import '../styles/containers/Recipe_RecipeForm.scss';
 class RecipeForm extends Component {
   constructor(props) {
     super(props)
-    this.handleChangeMetaField = this.handleChangeMetaField.bind(this)
-    this.handleChangeStep = this.handleChangeStep.bind(this)
-    this.handleSaveRecipe = this.handleSaveRecipe.bind(this)
-    this.handleClearForm = this.handleClearForm.bind(this)
-    this.mountPhoto = this.mountPhoto.bind(this)
     this.state = {
       photo_64: null,
       selected_field: null
     }
-    this._onBoldClick = this._onBoldClick.bind(this)
-    this._onItalicClick = this._onItalicClick.bind(this)
-    this._onUnderlineClick = this._onUnderlineClick.bind(this)
-    this.focusMetaField = this.focusMetaField.bind(this)
-    this.focusStep = this.focusStep.bind(this)
   }
 
-  componentDidMount() {
+  componentDidMount = () => {
     this.props.onModalView('recipes/new')
   }
 
-  _onBoldClick() {
+  _onBoldClick = () => {
     if (this.state.selected_field) {
       let arg = this.state.selected_field.arg
       if (this.state.selected_field.type === 'META_FIELD') {
@@ -48,7 +38,7 @@ class RecipeForm extends Component {
       }
     }
   }
-  _onItalicClick() {
+  _onItalicClick = () => {
     if (this.state.selected_field) {
       let arg = this.state.selected_field.arg
       if (this.state.selected_field.type === 'META_FIELD') {
@@ -58,7 +48,7 @@ class RecipeForm extends Component {
       }
     }
   }
-  _onUnderlineClick() {
+  _onUnderlineClick = () => {
     if (this.state.selected_field) {
       let arg = this.state.selected_field.arg
       if (this.state.selected_field.type === 'META_FIELD') {
@@ -69,7 +59,7 @@ class RecipeForm extends Component {
     }
   }
 
-  _toggleBlockType(blockType) {
+  _toggleBlockType = (blockType) => {
     if (this.state.selected_field) {
       let arg = this.state.selected_field.arg
       if (this.state.selected_field.type === 'META_FIELD') {
@@ -80,23 +70,23 @@ class RecipeForm extends Component {
     }
   }
 
-  focusMetaField(field) {
+  focusMetaField = (field) => {
     this.setState({selected_field: {type: 'META_FIELD', arg: field}})
   }
 
-  focusStep(index) {
+  focusStep = (index) => {
     this.setState({selected_field: {type: 'STEP', arg: index}})
   }
 
-  handleChangeMetaField(field, editorState) {
+  handleChangeMetaField = (field, editorState) => {
     this.props.onChangeMetaField(field, editorState)
   }
 
-  handleChangeStep(index_in_recipe, editorState) {
+  handleChangeStep = (index_in_recipe, editorState) => {
     this.props.onChangeStep(index_in_recipe, editorState)
   }
 
-  handleSaveRecipe() {
+  handleSaveRecipe = () => {
     const nb = new NB();
 
     let steps = this.props.editor.steps.map(step => {
@@ -139,11 +129,11 @@ class RecipeForm extends Component {
     })
   }
 
-  handleClearForm() {
+  handleClearForm = () => {
     this.props.onClearForm();
   }
 
-  mountPhoto(file) {
+  mountPhoto = (file) => {
     this.setState({
       photo_64: file.base64
     })

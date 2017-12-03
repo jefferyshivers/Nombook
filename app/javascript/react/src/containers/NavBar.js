@@ -13,11 +13,9 @@ class NavBar extends Component {
       user_icon_focused: false,
       search_focused: false
     }
-    this.handleChangeQuery = this.handleChangeQuery.bind(this)
-    this.handleClickSearchIcon = this.handleClickSearchIcon.bind(this)
   }
 
-  handleChangeQuery(e) {
+  handleChangeQuery = (e) => {
     let query = e.target.value
     this.props.onChangeQuery(query)
     // set true again as a fallback, in case it isn't focused for some reason (this is a QA thing)
@@ -38,7 +36,7 @@ class NavBar extends Component {
     }
   }
 
-  handleClickSearchIcon(){
+  handleClickSearchIcon = () => {
     this.searchInput.focus();
   }
 

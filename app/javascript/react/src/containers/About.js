@@ -6,7 +6,7 @@ import { sendView } from '../actions/activities';
 import '../styles/containers/About.scss'
 
 class About extends Component {
-  componentDidMount() {
+  componentDidMount = () => {
     this.props.onView('about')
   }
 

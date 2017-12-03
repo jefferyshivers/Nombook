@@ -16,23 +16,7 @@ import '../styles/containers/Recipe_RecipeForm.scss';
 
 class Recipe extends Component {
   constructor(props) {
-    super(props)
-    this.loadRecipe = this.loadRecipe.bind(this)
-    this.handleChangeMetaField = this.handleChangeMetaField.bind(this)
-    this.handleChangeStep = this.handleChangeStep.bind(this)
-    this.handleAddStep = this.handleAddStep.bind(this)
-    this.handleSaveUpdatedRecipe = this.handleSaveUpdatedRecipe.bind(this)
-    this.handleCancelEdits = this.handleCancelEdits.bind(this)
-    this.handleDeleteStep = this.handleDeleteStep.bind(this)
-    this.handleDeleteRecipe = this.handleDeleteRecipe.bind(this)
-    this.handleFork = this.handleFork.bind(this)
-    this.handleLike = this.handleLike.bind(this)
-    this.handleUnlike = this.handleUnlike.bind(this)
-    this._onBoldClick = this._onBoldClick.bind(this)
-    this._onItalicClick = this._onItalicClick.bind(this)
-    this._onUnderlineClick = this._onUnderlineClick.bind(this)
-    this.focusMetaField = this.focusMetaField.bind(this)
-    this.focusStep = this.focusStep.bind(this)    
+    super(props)   
     this.state = {
       editing: false,
       recipe: {
@@ -51,7 +35,7 @@ class Recipe extends Component {
     }
   }
 
-  _onBoldClick() {
+  _onBoldClick = () => {
     if (this.state.selected_field) {
       let arg = this.state.selected_field.arg
       if (this.state.selected_field.type === 'META_FIELD') {
@@ -62,7 +46,7 @@ class Recipe extends Component {
       }
     }
   }
-  _onItalicClick() {
+  _onItalicClick = () => {
     if (this.state.selected_field) {
       let arg = this.state.selected_field.arg
       if (this.state.selected_field.type === 'META_FIELD') {
@@ -72,7 +56,7 @@ class Recipe extends Component {
       }
     }
   }
-  _onUnderlineClick() {
+  _onUnderlineClick = () => {
     if (this.state.selected_field) {
       let arg = this.state.selected_field.arg
       if (this.state.selected_field.type === 'META_FIELD') {
@@ -83,7 +67,7 @@ class Recipe extends Component {
     }
   }
 
-  _toggleBlockType(blockType) {
+  _toggleBlockType = (blockType) => {
     if (this.state.selected_field) {
       let arg = this.state.selected_field.arg
       if (this.state.selected_field.type === 'META_FIELD') {
@@ -94,20 +78,20 @@ class Recipe extends Component {
     }
   }
 
-  focusMetaField(field) {
+  focusMetaField = (field) => {
     this.setState({selected_field: {type: 'META_FIELD', arg: field}})
   }
 
-  focusStep(index) {
+  focusStep = (index) => {
     this.setState({selected_field: {type: 'STEP', arg: index}})
   }
 
-  componentWillMount() {
+  componentWillMount = () => {
     this.props.onView('recipes')    
     this.loadRecipe()
   }
 
-  loadRecipe() {
+  loadRecipe = () => {
     const nb = new NB();
 
     nb.request('GET', `/recipes/${this.props.match.params.id}`, res => {
@@ -147,7 +131,7 @@ class Recipe extends Component {
     })
   }
 
-  handleChangeMetaField(field, editorState) {
+  handleChangeMetaField = (field, editorState) => {
     this.setState({
       recipe: Object.assign({}, this.state.recipe, {
         [field]: editorState
@@ -155,7 +139,7 @@ class Recipe extends Component {
     })
   }
 
-  handleChangeStep(index_in_recipe, editorState) {
+  handleChangeStep = (index_in_recipe, editorState) => {
     let steps = this.state.steps
     steps[index_in_recipe].body = editorState
     this.setState({
@@ -163,7 +147,7 @@ class Recipe extends Component {
     })
   }
 
-  handleAddStep() {
+  handleAddStep = () => {
     let new_step_blueprint = {
       index_in_recipe: this.state.steps.length,
       body: EditorState.createEmpty()
@@ -173,7 +157,7 @@ class Recipe extends Component {
     })
   }
 
-  handleDeleteStep(index) {
+  handleDeleteStep = (index) => {
     if (index === this.state.steps[index].index_in_recipe) {
       let steps = this.state.steps;
       steps.splice(index, 1);
@@ -192,7 +176,7 @@ class Recipe extends Component {
     }
   }
 
-  handleSaveUpdatedRecipe() {
+  handleSaveUpdatedRecipe = () => {
     const nb = new NB();
 
     let steps = this.state.steps.map(step => {
@@ -237,7 +221,7 @@ class Recipe extends Component {
     })
   }
 
-  handleDeleteRecipe() {
+  handleDeleteRecipe = () => {
     let recipe = this.state.recipe
     let id = recipe.id
     // TODO add a confirmation alert here
@@ -252,14 +236,14 @@ class Recipe extends Component {
     })
   }
 
-  handleCancelEdits() {
+  handleCancelEdits = () => {
     this.setState({
       editing: false
     })
     this.loadRecipe()
   }
 
-  handleFork() {
+  handleFork = () => {
     this.props.history.push("/recipes/new");
     let params = {
       id: this.state.recipe.id,
@@ -275,7 +259,7 @@ class Recipe extends Component {
     })
   }
 
-  handleLike() {
+  handleLike = () => {
     const nb = new NB();
     
     let body = {
@@ -303,7 +287,7 @@ class Recipe extends Component {
     })
   }
 
-  handleUnlike() {
+  handleUnlike = () => {
     const nb = new NB();
     
     let body = {

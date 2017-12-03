@@ -23,19 +23,17 @@ class Feed extends Component {
       loadingFeed: true,
       reachedEnd: false
     }
-    this.handleScroll = this.handleScroll.bind(this);
-    this.getRandomRecipe = this.getRandomRecipe.bind(this);
   }
-  componentDidMount() {
+  componentDidMount = () => {
     this.props.onView('/')
     this.loadFeed(0)
     document.getElementById('Nombook').addEventListener('scroll', this.handleScroll);
   }
-  componentWillUnmount() {
+  componentWillUnmount = () => {
     document.getElementById('Nombook').removeEventListener("scroll", this.handleScroll);
   }
 
-  getRandomRecipe() {
+  getRandomRecipe = () => {
     const nb = new NB();
     
     nb.request('GET', `/recipes/random`, res => {
@@ -48,7 +46,7 @@ class Feed extends Component {
     })
   }
 
-  handleScroll() {
+  handleScroll = () => {
     let nombook = document.getElementById('Nombook')
     let main = document.getElementById('main')
     
@@ -64,7 +62,7 @@ class Feed extends Component {
     }
   }
 
-  loadFeed(offset) {
+  loadFeed = (offset) => {
     const nb = new NB();
     
     nb.request('GET', `/users/${this.props.match.params.username}/feed/${offset}`, res => {
