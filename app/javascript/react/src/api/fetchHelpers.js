@@ -39,7 +39,15 @@ const GET = (path, callback) => {
 const DELETE = (path, callback) => {
   req('DELETE', path, callback)
 }
+const DELETE_WITH_BODY = (path, body, callback) => {
+  req({method: 'DELETE', body: body}, path, callback)
+}
+
+// PATCH
+const PATCH = (path, body, callback) => {
+  req ({method: 'PATCH', body: body}, path, callback)
+}
 
 module.exports = {
-  GET, DELETE
+  GET, DELETE, DELETE_WITH_BODY, PATCH
 };

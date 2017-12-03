@@ -13,6 +13,30 @@ class Nombook {
     fetchHelpers.GET('/users/whoami', callback)
   }
 
+  followUser(current_user_id, followed_id, callback) {
+    let body = JSON.stringify({
+      followed_id: followed_id,
+    })
+
+    fetchHelpers.PATCH(`/follows/${current_user_id}`, body, callback)
+  }
+
+  unfollowUser(current_user_id, followed_id, callback) {
+    let body = JSON.stringify({
+      followed_id: followed_id,
+    })
+
+    fetchHelpers.DELETE_WITH_BODY(`/follows/${current_user_id}`, body, callback)
+  }
+
+
+
+
+
+
+
+
+
   // TODO factor this out completely:
   request (method, path, callback = () => {}) {
     params = {

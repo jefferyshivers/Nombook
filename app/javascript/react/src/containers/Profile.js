@@ -133,16 +133,7 @@ class Profile extends Component {
   handleFollow() {
     const nb = new NB();
 
-    let body = {
-      followed_id: this.state.user.id,
-    }
-
-    let params = {
-      method: 'PATCH',
-      body: JSON.stringify(body)
-    }
-
-    nb.request(params, `/follows/${this.props.current_user.id}`, res => {
+    nb.followUser(this.props.current_user.id, this.state.user.id, res => {
       if (res.saved) {
         this.setState({
           user: Object.assign({}, this.state.user, {
@@ -163,16 +154,7 @@ class Profile extends Component {
   handleUnfollow() {
     const nb = new NB();
 
-    let body = {
-      followed_id: this.state.user.id,
-    }
-
-    let params = {
-      method: 'DELETE',
-      body: JSON.stringify(body)
-    }
-
-    nb.request(params, `/follows/${this.props.current_user.id}`, res => {
+    nb.unfollowUser(this.props.current_user.id, this.state.user.id, res => {
       if (res.saved) {
         this.setState({
           user: Object.assign({}, this.state.user, {
